@@ -35,6 +35,9 @@ public class Images {
     public static BufferedImage[] pacmanUp;
     public static BufferedImage[] pacmanDown;
     public static BufferedImage[] bound;
+    public static BufferedImage intro;
+    public static BufferedImage start;
+
 
 
     public static BufferedImage galagaImageSheet;
@@ -161,6 +164,9 @@ public class Images {
 
             pacmanDown[0] = pacmanSpriteSheet.crop(473,48,13,12);
             pacmanDown[1] = pacmanSpriteSheet.crop(489,1,13,13);
+
+            intro = ImageIO.read(getClass().getResourceAsStream("/UI/SpriteSheets/PacMan/intro.png"));
+            start = ImageIO.read(getClass().getResourceAsStream("/UI/Backgrounds/startScreen.png"));
 
 
 

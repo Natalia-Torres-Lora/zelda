@@ -3,6 +3,7 @@ package Main;
 import Display.DisplayScreen;
 import Game.GameStates.*;
 import Game.PacMan.World.Map;
+import Game.PacMan.entities.Dynamics.PacMan;
 import Input.KeyManager;
 import Input.MouseManager;
 import Resources.MusicHandler;
@@ -28,6 +29,7 @@ public class Handler {
     private State lastState;
     public static boolean DEBUG = true;
     private Map map;
+    private PacMan pacman;
 
     public Handler(GameSetUp game){
         this.game = game;
@@ -152,5 +154,13 @@ public class Handler {
     }
     public void setMap(Map map){
         this.map=map;
+    }
+
+    public PacMan getPacman() {
+        return pacman;
+    }
+
+    public void setPacman(PacMan pacman) {
+        this.pacman = pacman;
     }
 }
