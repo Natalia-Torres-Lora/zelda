@@ -49,5 +49,14 @@ public class GameState extends State {
                 State.setState(handler.getGalagaState());
             }
         }));
+
+        uiManager.addObjects(new UIImageButton(((handler.getWidth() / 2)) + 24, (handler.getHeight() /2)-(handler.getHeight() /32), handler.getWidth()/7, handler.getHeight()/6, Images.galagaLogo, new ClickListlener() {
+            @Override
+            public void onClick() {
+                handler.getMouseManager().setUimanager(null);
+                handler.getMusicHandler().triggerGalaga();
+                State.setState(handler.getPacManState());
+            }
+        }));
     }
 }
