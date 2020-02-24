@@ -54,7 +54,9 @@ public class GameState extends State {
             @Override
             public void onClick() {
                 handler.getMouseManager().setUimanager(null);
-                handler.getMusicHandler().triggerGalaga();
+
+                handler.getMusicHandler().changeMusic("pacman_chomp.wav");
+                handler.getMusicHandler().playEffect("pacman_beginning.wav");
                 State.setState(handler.getPacManState());
             }
         }));
