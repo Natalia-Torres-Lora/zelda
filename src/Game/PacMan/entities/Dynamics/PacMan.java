@@ -55,11 +55,11 @@ public class PacMan extends BaseDynamic{
             turnCooldown--;
         }
 
-        if ((handler.getKeyManager().keyJustPressed(KeyEvent.VK_RIGHT)  || handler.getKeyManager().keyJustPressed(KeyEvent.VK_D)) && !turnFlag && checkMarioPreHorizontalCollision("Right")){
+        if ((handler.getKeyManager().keyJustPressed(KeyEvent.VK_RIGHT)  || handler.getKeyManager().keyJustPressed(KeyEvent.VK_D)) && !turnFlag && checkPreHorizontalCollision("Right")){
             facing = "Right";
             turnFlag = true;
             turnCooldown = 20;
-        }else if ((handler.getKeyManager().keyJustPressed(KeyEvent.VK_LEFT) || handler.getKeyManager().keyJustPressed(KeyEvent.VK_A)) && !turnFlag&& checkMarioPreHorizontalCollision("left")){
+        }else if ((handler.getKeyManager().keyJustPressed(KeyEvent.VK_LEFT) || handler.getKeyManager().keyJustPressed(KeyEvent.VK_A)) && !turnFlag&& checkPreHorizontalCollision("left")){
             facing = "Left";
             turnFlag = true;
             turnCooldown = 20;
@@ -74,7 +74,7 @@ public class PacMan extends BaseDynamic{
         }
 
         if (facing.equals("Right") || facing.equals("Left")){
-            checkMarioHorizontalCollision();
+            checkHorizontalCollision();
         }else{
             checkVerticalCollisions();
         }
@@ -82,57 +82,57 @@ public class PacMan extends BaseDynamic{
     }
 
     public void checkVerticalCollisions() {
-        PacMan mario = this;
+        PacMan pacman = this;
         ArrayList<BaseStatic> bricks = handler.getMap().getBlocksOnMap();
         ArrayList<BaseDynamic> enemies = handler.getMap().getEnemiesOnMap();
 
-        boolean marioDies = false;
+        boolean pacmanDies = false;
         boolean toUp = moving && facing.equals("Up");
 
-        Rectangle marioBounds = toUp ? mario.getTopBounds() : mario.getBottomBounds();
+        Rectangle pacmanBounds = toUp ? pacman.getTopBounds() : pacman.getBottomBounds();
 
         velY = speed;
         for (BaseStatic brick : bricks) {
             if (brick instanceof BoundBlock) {
                 Rectangle brickBounds = !toUp ? brick.getTopBounds() : brick.getBottomBounds();
-                if (marioBounds.intersects(brickBounds)) {
+                if (pacmanBounds.intersects(brickBounds)) {
                     velY = 0;
                     if (toUp)
-                        mario.setY(brick.getY() + mario.getDimension().height);
+                        pacman.setY(brick.getY() + pacman.getDimension().height);
                     else
-                        mario.setY(brick.getY() - brick.getDimension().height);
+                        pacman.setY(brick.getY() - brick.getDimension().height);
                 }
             }
         }
 
         for(BaseDynamic enemy : enemies){
             Rectangle enemyBounds = !toUp ? enemy.getTopBounds() : enemy.getBottomBounds();
-            if (marioBounds.intersects(enemyBounds)) {
-                marioDies = true;
+            if (pacmanBounds.intersects(enemyBounds)) {
+                pacmanDies = true;
                 break;
             }
         }
 
-        if(marioDies) {
+        if(pacmanDies) {
             handler.getMap().reset();
         }
     }
 
 
     public boolean checkPreVerticalCollisions(String facing) {
-        PacMan mario = this;
+        PacMan pacman = this;
         ArrayList<BaseStatic> bricks = handler.getMap().getBlocksOnMap();
 
-        boolean marioDies = false;
+        boolean pacmanDies = false;
         boolean toUp = moving && facing.equals("Up");
 
-        Rectangle marioBounds = toUp ? mario.getTopBounds() : mario.getBottomBounds();
+        Rectangle pacmanBounds = toUp ? pacman.getTopBounds() : pacman.getBottomBounds();
 
         velY = speed;
         for (BaseStatic brick : bricks) {
             if (brick instanceof BoundBlock) {
                 Rectangle brickBounds = !toUp ? brick.getTopBounds() : brick.getBottomBounds();
-                if (marioBounds.intersects(brickBounds)) {
+                if (pacmanBounds.intersects(brickBounds)) {
                     return false;
                 }
             }
@@ -143,37 +143,37 @@ public class PacMan extends BaseDynamic{
 
 
 
-    public void checkMarioHorizontalCollision(){
-        PacMan mario = this;
+    public void checkHorizontalCollision(){
+        PacMan pacman = this;
         ArrayList<BaseStatic> bricks = handler.getMap().getBlocksOnMap();
         ArrayList<BaseDynamic> enemies = handler.getMap().getEnemiesOnMap();
         velX = speed;
-        boolean marioDies = false;
+        boolean pacmanDies = false;
         boolean toRight = moving && facing.equals("Right");
 
-        Rectangle marioBounds = toRight ? mario.getRightBounds() : mario.getLeftBounds();
+        Rectangle pacmanBounds = toRight ? pacman.getRightBounds() : pacman.getLeftBounds();
 
         for(BaseDynamic enemy : enemies){
             Rectangle enemyBounds = !toRight ? enemy.getRightBounds() : enemy.getLeftBounds();
-            if (marioBounds.intersects(enemyBounds)) {
-                marioDies = true;
+            if (pacmanBounds.intersects(enemyBounds)) {
+                pacmanDies = true;
                 break;
             }
         }
 
-        if(marioDies) {
+        if(pacmanDies) {
             handler.getMap().reset();
         }else {
 
             for (BaseStatic brick : bricks) {
                 if (brick instanceof BoundBlock) {
                     Rectangle brickBounds = !toRight ? brick.getRightBounds() : brick.getLeftBounds();
-                    if (marioBounds.intersects(brickBounds)) {
+                    if (pacmanBounds.intersects(brickBounds)) {
                         velX = 0;
                         if (toRight)
-                            mario.setX(brick.getX() - mario.getDimension().width);
+                            pacman.setX(brick.getX() - pacman.getDimension().width);
                         else
-                            mario.setX(brick.getX() + brick.getDimension().width);
+                            pacman.setX(brick.getX() + brick.getDimension().width);
                     }
                 }
             }
@@ -181,18 +181,18 @@ public class PacMan extends BaseDynamic{
     }
 
 
-    public boolean checkMarioPreHorizontalCollision(String facing){
-        PacMan mario = this;
+    public boolean checkPreHorizontalCollision(String facing){
+        PacMan pacman = this;
         ArrayList<BaseStatic> bricks = handler.getMap().getBlocksOnMap();
         velX = speed;
         boolean toRight = moving && facing.equals("Right");
 
-        Rectangle marioBounds = toRight ? mario.getRightBounds() : mario.getLeftBounds();
+        Rectangle pacmanBounds = toRight ? pacman.getRightBounds() : pacman.getLeftBounds();
 
             for (BaseStatic brick : bricks) {
                 if (brick instanceof BoundBlock) {
                     Rectangle brickBounds = !toRight ? brick.getRightBounds() : brick.getLeftBounds();
-                    if (marioBounds.intersects(brickBounds)) {
+                    if (pacmanBounds.intersects(brickBounds)) {
                         return false;
                     }
                 }

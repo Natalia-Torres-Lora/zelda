@@ -1,112 +1,202 @@
 package Game.PacMan.entities.Dynamics;
 
 import Game.PacMan.entities.Statics.BaseStatic;
+import Game.PacMan.entities.Statics.BoundBlock;
 import Main.Handler;
+import Resources.Animation;
 import Resources.Images;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 public class Ghost extends BaseDynamic{
 
-    protected double velX,velY;
+    protected double velX,velY,speed = 1;
     public String facing = "Left";
-    public boolean moving = false;
-    public boolean changeDirrection=false;
-    int changeDirectionCounter=0;
+    public boolean moving = true,turnFlag = false;
+    public Animation leftAnim,rightAnim,upAnim,downAnim;
+    int turnCooldown = 30;
 
 
     public Ghost(int x, int y, int width, int height, Handler handler) {
         super(x, y, width, height, handler, Images.ghost);
+        leftAnim = new Animation(128,Images.pacmanLeft);
+        rightAnim = new Animation(128,Images.pacmanRight);
+        upAnim = new Animation(128,Images.pacmanUp);
+        downAnim = new Animation(128,Images.pacmanDown);
     }
 
     @Override
     public void tick(){
 
-        if (changeDirrection) {
-            changeDirectionCounter++;
+        switch (facing){
+            case "Right":
+                x+=velX;
+                rightAnim.tick();
+                break;
+            case "Left":
+                x-=velX;
+                leftAnim.tick();
+                break;
+            case "Up":
+                y-=velY;
+                upAnim.tick();
+                break;
+            case "Down":
+                y+=velY;
+                downAnim.tick();
+                break;
         }
-        if(changeDirectionCounter>=3){
-            changeDirrection=false;
-            changeDirectionCounter=0;
+        if (turnCooldown<=0){
+            turnFlag= false;
+            turnCooldown = 30;
+        }
+        if (turnFlag){
+            turnCooldown--;
+        }
+
+        if ((handler.getKeyManager().keyJustPressed(KeyEvent.VK_RIGHT)  || handler.getKeyManager().keyJustPressed(KeyEvent.VK_D)) && !turnFlag && checkPreHorizontalCollision("Right")){
+            facing = "Right";
+            turnFlag = true;
+
+        }else if ((handler.getKeyManager().keyJustPressed(KeyEvent.VK_LEFT) || handler.getKeyManager().keyJustPressed(KeyEvent.VK_A)) && !turnFlag&& checkPreHorizontalCollision("left")){
+            facing = "Left";
+            turnFlag = true;
+        }else if ((handler.getKeyManager().keyJustPressed(KeyEvent.VK_UP)  ||handler.getKeyManager().keyJustPressed(KeyEvent.VK_W)) && !turnFlag&& checkPreVerticalCollisions("Up")){
+            facing = "Up";
+            turnFlag = true;
+        }else if ((handler.getKeyManager().keyJustPressed(KeyEvent.VK_DOWN)  || handler.getKeyManager().keyJustPressed(KeyEvent.VK_S)) && !turnFlag&& checkPreVerticalCollisions("Down")){
+            facing = "Down";
+            turnFlag = true;
         }
 
         if (facing.equals("Right") || facing.equals("Left")){
-            checkMarioHorizontalCollision();
+            checkHorizontalCollision();
         }else{
             checkVerticalCollisions();
         }
 
     }
 
+
     public void checkVerticalCollisions() {
-        Ghost mario = this;
+        Ghost ghost = this;
         ArrayList<BaseStatic> bricks = handler.getMap().getBlocksOnMap();
         ArrayList<BaseDynamic> enemies = handler.getMap().getEnemiesOnMap();
 
-        boolean marioDies = false;
+        boolean ghostDies = false;
         boolean toUp = moving && facing.equals("Up");
 
-        Rectangle marioBounds = toUp ? mario.getTopBounds() : mario.getBottomBounds();
+        Rectangle ghostBounds = toUp ? ghost.getTopBounds() : ghost.getBottomBounds();
 
+        velY = speed;
         for (BaseStatic brick : bricks) {
-            Rectangle brickBounds = !toUp ? brick.getTopBounds() : brick.getBottomBounds();
-            if (marioBounds.intersects(brickBounds)) {
-                velY=0;
-                if(toUp)
-                    mario.setY(brick.getY() + mario.getDimension().height);
-                else
-                    mario.setY(brick.getY() - brick.getDimension().height);
+            if (brick instanceof BoundBlock) {
+                Rectangle brickBounds = !toUp ? brick.getTopBounds() : brick.getBottomBounds();
+                if (ghostBounds.intersects(brickBounds)) {
+                    velY = 0;
+                    if (toUp)
+                        ghost.setY(brick.getY() + ghost.getDimension().height);
+                    else
+                        ghost.setY(brick.getY() - brick.getDimension().height);
+                }
             }
         }
 
         for(BaseDynamic enemy : enemies){
             Rectangle enemyBounds = !toUp ? enemy.getTopBounds() : enemy.getBottomBounds();
-            if (marioBounds.intersects(enemyBounds)) {
-                marioDies = true;
+            if (ghostBounds.intersects(enemyBounds)) {
+                ghostDies = true;
                 break;
             }
         }
 
-        if(marioDies) {
+        if(ghostDies) {
             handler.getMap().reset();
         }
     }
 
 
-
-    public void checkMarioHorizontalCollision(){
-        Ghost mario = this;
+    public boolean checkPreVerticalCollisions(String facing) {
+        Ghost ghost = this;
         ArrayList<BaseStatic> bricks = handler.getMap().getBlocksOnMap();
-        ArrayList<BaseDynamic> enemies = handler.getMap().getEnemiesOnMap();
 
-        boolean marioDies = false;
-        boolean toRight = moving && facing.equals("Right");
+        boolean ghostDies = false;
+        boolean toUp = moving && facing.equals("Up");
 
-        Rectangle marioBounds = toRight ? mario.getRightBounds() : mario.getLeftBounds();
+        Rectangle ghostBounds = toUp ? ghost.getTopBounds() : ghost.getBottomBounds();
 
+        velY = speed;
         for (BaseStatic brick : bricks) {
-            Rectangle brickBounds = !toRight ? brick.getRightBounds() : brick.getLeftBounds();
-            if (marioBounds.intersects(brickBounds)) {
-                velX=0;
-                if(toRight)
-                    mario.setX(brick.getX() - mario.getDimension().width);
-                else
-                    mario.setX(brick.getX() + brick.getDimension().width);
+            if (brick instanceof BoundBlock) {
+                Rectangle brickBounds = !toUp ? brick.getTopBounds() : brick.getBottomBounds();
+                if (ghostBounds.intersects(brickBounds)) {
+                    return false;
+                }
             }
         }
+        return true;
+
+    }
+
+
+
+    public void checkHorizontalCollision(){
+        Ghost ghost = this;
+        ArrayList<BaseStatic> bricks = handler.getMap().getBlocksOnMap();
+        ArrayList<BaseDynamic> enemies = handler.getMap().getEnemiesOnMap();
+        velX = speed;
+        boolean ghostDies = false;
+        boolean toRight = moving && facing.equals("Right");
+
+        Rectangle ghostBounds = toRight ? ghost.getRightBounds() : ghost.getLeftBounds();
 
         for(BaseDynamic enemy : enemies){
             Rectangle enemyBounds = !toRight ? enemy.getRightBounds() : enemy.getLeftBounds();
-            if (marioBounds.intersects(enemyBounds)) {
-                marioDies = true;
+            if (ghostBounds.intersects(enemyBounds)) {
+                ghostDies = true;
                 break;
             }
         }
 
-        if(marioDies) {
+        if(ghostDies) {
             handler.getMap().reset();
+        }else {
+
+            for (BaseStatic brick : bricks) {
+                if (brick instanceof BoundBlock) {
+                    Rectangle brickBounds = !toRight ? brick.getRightBounds() : brick.getLeftBounds();
+                    if (ghostBounds.intersects(brickBounds)) {
+                        velX = 0;
+                        if (toRight)
+                            ghost.setX(brick.getX() - ghost.getDimension().width);
+                        else
+                            ghost.setX(brick.getX() + brick.getDimension().width);
+                    }
+                }
+            }
         }
+    }
+
+
+    public boolean checkPreHorizontalCollision(String facing){
+        Ghost ghost = this;
+        ArrayList<BaseStatic> bricks = handler.getMap().getBlocksOnMap();
+        velX = speed;
+        boolean toRight = moving && facing.equals("Right");
+
+        Rectangle ghostBounds = toRight ? ghost.getRightBounds() : ghost.getLeftBounds();
+
+        for (BaseStatic brick : bricks) {
+            if (brick instanceof BoundBlock) {
+                Rectangle brickBounds = !toRight ? brick.getRightBounds() : brick.getLeftBounds();
+                if (ghostBounds.intersects(brickBounds)) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
 
@@ -116,6 +206,5 @@ public class Ghost extends BaseDynamic{
     public double getVelY() {
         return velY;
     }
-
 
 }

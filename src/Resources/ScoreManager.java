@@ -14,6 +14,10 @@ public class ScoreManager {
     private int galagaHighScore=0;
     private int galagaCurrentScore=0;
 
+    //Pacman
+    private int pacmanHighScore=0;
+    private int pacmanCurrentScore=0;
+
     public ScoreManager(Handler handler) {
         this.handler = handler;
     }
@@ -41,4 +45,29 @@ public class ScoreManager {
     public void removeGalagaCurrentScore(int galagaCurrentScore) {
         this.galagaCurrentScore -= galagaCurrentScore;
     }
+
+    public int getPacmanHighScore() {
+        return pacmanHighScore;
+    }
+
+    public void setPacmanHighScore(int pacmanHighScore) {
+        this.pacmanHighScore = pacmanHighScore;
+    }
+
+    public int getPacmanCurrentScore() {
+        return pacmanCurrentScore;
+    }
+
+    public void setPacmanCurrentScore(int pacmanCurrentScore) {
+        this.pacmanCurrentScore = pacmanCurrentScore;
+    }
+
+    public void addPacmanCurrentScore(int pacmanCurrentScore) {
+        this.pacmanCurrentScore += pacmanCurrentScore;
+    }
+
+    public void removePacmanCurrentScore(int pacmanCurrentScore) {
+        this.pacmanCurrentScore -= pacmanCurrentScore;
+    }
+
 }
