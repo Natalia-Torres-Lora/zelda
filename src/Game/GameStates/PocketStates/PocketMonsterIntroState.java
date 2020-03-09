@@ -6,6 +6,7 @@ import Resources.Animation;
 import Resources.Images;
 
 import java.awt.*;
+import java.awt.geom.Point2D;
 
 /**
  * Created by AlexVR on 3/9/2020
@@ -17,9 +18,16 @@ public class PocketMonsterIntroState extends State {
     Animation GFlogoAnim;
     int starStage = 0,starX,starY;
     int startX,startY,stageWidth,stageHeight;
-    int scale = 4;
+    int scale = 6;
     private int starSpeed = 16;
     int miniStar1X,miniStar2X,miniStar3X,miniStar1Y,miniStar2Y,miniStar3Y,miniStar4Y,miniStar4X,miniWidth,miniHeight;
+    int gengarFinish,gengarX,gengarY;
+    int fighterFinish,fighterX,fighterY;
+    private int fightersSpeed = 4;
+    Animation fighterAnim;
+    boolean attack1=false,attack2=false;
+    int attack1Counter = 37;
+    int attack2Counter = 65;
 
     public PocketMonsterIntroState(Handler handler) {
         super(handler);
@@ -42,6 +50,16 @@ public class PocketMonsterIntroState extends State {
 
         miniWidth = 80 * scale;
         miniHeight = 21 * scale;
+
+        //fight
+        gengarFinish = startX + (24*scale);
+        gengarY=startY + (56*scale);
+        fighterFinish = startX+(79*scale);
+        fighterY = startY +(69*scale);
+        fighterX=startX-(Images.PokeGigly[0].getWidth()/2);
+        gengarX=startX+stageWidth+(Images.PokeGengar[0].getWidth()/2);
+
+
     }
 
     @Override
@@ -84,6 +102,47 @@ public class PocketMonsterIntroState extends State {
                     }
                 }
                 break;
+            case 3:
+                if (Point2D.distance(gengarX,gengarY,gengarFinish,gengarY) > fightersSpeed&& attack1Counter==37){
+                    gengarX-=fightersSpeed;
+                }
+                if (Point2D.distance(fighterX,fighterY,fighterFinish,fighterY) > fightersSpeed && attack1Counter==37){
+                    fighterX+=fightersSpeed;
+                }
+                if (Point2D.distance(gengarX,gengarY,gengarFinish,gengarY) <= fightersSpeed &&  Point2D.distance(fighterX,fighterY,fighterFinish,fighterY) <= fightersSpeed ) {
+
+                    if (!attack1 && !attack2) {
+                        attack1 = true;
+                        attack1Counter--;
+                    }
+                }
+                if (attack1 && !attack2){
+                    if (attack1Counter>0) {
+                        if (attack1Counter <= 36 && attack1Counter > 27) {
+                            fighterX++;
+                            fighterY--;
+                        } else if (attack1Counter <= 27 && attack1Counter > 18) {
+                            fighterX++;
+                            fighterY++;
+                        } else if (attack1Counter <= 18 && attack1Counter > 9) {
+                            fighterX--;
+                            fighterY--;
+                        } else if (attack1Counter <= 9) {
+                            fighterX--;
+                            fighterY++;
+                        }
+                        attack1Counter--;
+
+                    }else{
+                        attack1=false;
+                        attack2=true;
+                        attack1Counter=35;
+                    }
+                }
+                else if (!attack1 && attack2){
+
+                }
+                break;
             default:
 
                 break;
@@ -100,17 +159,21 @@ public class PocketMonsterIntroState extends State {
             case 2:
                 if (starStage == 0) {
                     g.drawImage(Images.Pokelogo[0], startX, startY, stageWidth, stageHeight, null);
-                }else{
+                }
+                else{
                     g.drawImage(GFlogoAnim.getCurrentFrame(), startX, startY, stageWidth, stageHeight, null);
                 }
                 if (starStage == 0){
                     g.drawImage(Images.Pokestar[0], starX, starY, Images.Pokestar[0].getWidth()*scale, Images.Pokestar[0].getHeight()*scale, null);
-                }else if (starStage == 1){
+                }
+                else if (starStage == 1){
                     g.drawImage(Images.Pokestar[1], starX, starY, Images.Pokestar[0].getWidth()*scale, Images.Pokestar[0].getHeight()*scale, null);
-                }else if (starStage == 2){
+                }
+                else if (starStage == 2){
                     g.drawImage(Images.Pokestar[2], starX, starY, Images.Pokestar[0].getWidth()*scale, Images.Pokestar[0].getHeight()*scale, null);
 
-                }else{
+                }
+                else{
                     g.drawImage(Images.PokeStars[0], miniStar1X  , miniStar1Y, Images.PokeStars[0].getWidth()*scale, Images.PokeStars[0].getHeight()*scale, null);
                     g.drawImage(Images.PokeStars[1], miniStar1X+ 3*(miniWidth/9), miniStar1Y, Images.PokeStars[0].getWidth()*scale, Images.PokeStars[0].getHeight()*scale, null);
                     g.drawImage(Images.PokeStars[2], miniStar1X+ 5*(miniWidth/9), miniStar1Y, Images.PokeStars[0].getWidth()*scale, Images.PokeStars[0].getHeight()*scale, null);
@@ -139,7 +202,41 @@ public class PocketMonsterIntroState extends State {
                 break;
             case 3:
                 g.drawImage(Images.PokeBlank,startX,startY,stageWidth,stageHeight,null);
-                g.drawImage(Images.PokeGengar[0],startX + (24*scale),startY + (56*scale),Images.PokeGengar[0].getWidth() * scale,Images.PokeGengar[0].getHeight() * scale,null);
+                if ((!attack1 && !attack2) || (attack1 && !attack2)) {
+                    g.drawImage(Images.PokeGigly[0], fighterX, fighterY, Images.PokeGigly[0].getWidth() * scale, Images.PokeGigly[0].getHeight() * scale, null);
+                    g.drawImage(Images.PokeGengar[0], gengarX, gengarY, Images.PokeGengar[0].getWidth() * scale, Images.PokeGengar[0].getHeight() * scale, null);
+                }
+                else if (!attack1 && attack2){
+                    if (attack2Counter<=65 && attack2Counter>52){
+                        if (attack2Counter>63){
+                            gengarX--;
+                        }
+                        attack2Counter--;
+
+                        g.drawImage(Images.PokeGigly[0], fighterX, fighterY, Images.PokeGigly[0].getWidth() * scale, Images.PokeGigly[0].getHeight() * scale, null);
+                        g.drawImage(Images.PokeGengar[1], gengarX, gengarY, Images.PokeGengar[0].getWidth() * scale, Images.PokeGengar[0].getHeight() * scale, null);
+                    }else if (attack2Counter<=52 && attack2Counter>40){
+                        if (attack2Counter>49){
+                            gengarX+=3;
+                        }
+                        attack2Counter--;
+                        g.drawImage(Images.PokeGigly[0], fighterX, fighterY, Images.PokeGigly[0].getWidth() * scale, Images.PokeGigly[0].getHeight() * scale, null);
+                        g.drawImage(Images.PokeGengar[2], gengarX, gengarY, Images.PokeGengar[0].getWidth() * scale, Images.PokeGengar[0].getHeight() * scale, null);
+                    }else if (attack2Counter<=40 && attack2Counter>28){
+                        if (attack2Counter>35){
+                            fighterY-= ((6*scale)/5);
+                            fighterX+=3;
+                        }else if (attack2Counter>30 ){
+                            fighterY+= ((6*scale)/5);
+                            fighterX+=3;
+                        }
+                        attack2Counter--;
+                        g.drawImage(Images.PokeGigly[1], fighterX, fighterY, Images.PokeGigly[0].getWidth() * scale, Images.PokeGigly[0].getHeight() * scale, null);
+                        g.drawImage(Images.PokeGengar[2], gengarX, gengarY, Images.PokeGengar[0].getWidth() * scale, Images.PokeGengar[0].getHeight() * scale, null);
+
+                    }
+
+                }
                 break;
             default:
 
@@ -153,7 +250,7 @@ public class PocketMonsterIntroState extends State {
         g.fillRect(startX+stageWidth,0,handler.getWidth(),handler.getHeight());
         g.fillRect(0,0,handler.getWidth(),startY);
         g.fillRect(0,startY+stageHeight,handler.getWidth(),handler.getHeight());
-        if (starStage == 3 && stage == 2){//cover mini stars
+        if (starStage == 3 && stage == 2 || stage == 3){//cover mini stars
             g.setColor(Color.BLACK);
             g.fillRect(startX,startY,stageWidth, (32*scale));
             g.fillRect(startX,startY+stageHeight - (32*scale),stageWidth,(32*scale));

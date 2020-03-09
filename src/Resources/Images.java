@@ -208,8 +208,11 @@ public class Images {
             Pokestar[2] = createImage(Pokestar[0].getWidth(),Pokestar[0].getHeight(),Pokestar[2],"star[2]_248,232,248_lightPink",pinkColor);
 
             PokeGengar[0] = pocketMonsterIntroSpriteSheet.crop(930,470,56,56);
+            PokeGengar[0] = createImage(PokeGengar[0].getWidth(),PokeGengar[0].getHeight(),PokeGengar[0],"gengar[0]_248,232,248_lightPink",pinkColor);
             PokeGengar[1] = pocketMonsterIntroSpriteSheet.crop(988,470,56,56);
+            PokeGengar[1] = createImage(PokeGengar[0].getWidth(),PokeGengar[0].getHeight(),PokeGengar[1],"gengar[1]_248,232,248_lightPink",pinkColor);
             PokeGengar[2] = pocketMonsterIntroSpriteSheet.crop(1046,470,56,56);
+            PokeGengar[2] = createImage(PokeGengar[0].getWidth(),PokeGengar[0].getHeight(),PokeGengar[2],"gengar[2]_248,232,248_lightPink",pinkColor);
 
 //            PokeNido[0] = pocketMonsterIntroSpriteSheet.crop(930,528,48,48);
 //            PokeNido[1] = pocketMonsterIntroSpriteSheet.crop(988,528,48,48);
@@ -293,7 +296,7 @@ public class Images {
         {
             path = Objects.requireNonNull(getClass().getClassLoader().getResource(".")).getPath();
             path2 = path.substring(0,path.indexOf("/out/"))+"/res/Edited/"+name+".png";
-            f = new File(path2);
+            f = new File(path2.replaceAll("%20"," "));
             System.out.println("File saved in: "+path2);
             ImageIO.write(img, "png", f);
         }
