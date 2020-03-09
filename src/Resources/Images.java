@@ -257,7 +257,7 @@ public class Images {
 
         String path = Objects.requireNonNull(getClass().getClassLoader().getResource(".")).getPath();
         String path2 = path.substring(0,path.indexOf("/out/"))+"/res/Edited/"+name+".png";
-        File imagess = new File(path2);
+        File imagess = new File(path2.replaceAll("%20"," "));
         if (imagess.exists()){
             try {
                 return ImageIO.read(imagess.getAbsoluteFile());
