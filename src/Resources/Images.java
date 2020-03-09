@@ -44,10 +44,18 @@ public class Images {
 
 
     public static BufferedImage galagaImageSheet;
+    private final int pinkColor = new Color(248,232,248).getRGB();
     public SpriteSheet galagaSpriteSheet;
 
     public static BufferedImage pacmanImageSheet;
     public SpriteSheet pacmanSpriteSheet;
+
+    public static BufferedImage pocketMonsterIntroSheet;
+    public SpriteSheet pocketMonsterIntroSpriteSheet;
+
+    //intro
+    public static BufferedImage PokeCopyRight,PokeBlank,PokeTitle,PokeMonLogo,version;
+    public static BufferedImage[] Pokelogo,Pokestar,PokeGengar,PokeNido,PokeGigly,PokeRed,PokeStars;
 
     public Images() {
 
@@ -67,6 +75,15 @@ public class Images {
         pacmanUp = new BufferedImage[2];
         pacmanDown = new BufferedImage[2];
         bound = new BufferedImage[16];
+
+        //intro
+        Pokelogo = new BufferedImage[4];
+        Pokestar = new BufferedImage[3];
+        PokeGengar = new BufferedImage[3];
+        PokeNido = new BufferedImage[3];
+        PokeGigly = new BufferedImage[3];
+        PokeRed = new BufferedImage[2];
+        PokeStars = new BufferedImage[4];
 
 
         try {
@@ -171,6 +188,60 @@ public class Images {
             intro = ImageIO.read(getClass().getResourceAsStream("/UI/SpriteSheets/PacMan/intro.png"));
             start = ImageIO.read(getClass().getResourceAsStream("/UI/Backgrounds/startScreen.png"));
 
+            pocketMonsterIntroSheet = ImageIO.read(getClass().getResourceAsStream("/UI/SpriteSheets/pocketMonster/intro.png"));
+            pocketMonsterIntroSpriteSheet = new SpriteSheet(pocketMonsterIntroSheet);
+
+            //intro
+            PokeCopyRight = pocketMonsterIntroSpriteSheet.crop(768,8,160,144);
+            PokeBlank = pocketMonsterIntroSpriteSheet.crop(930,8,160,144);
+
+            Pokelogo[0] = pocketMonsterIntroSpriteSheet.crop(768,162,160,144);
+            Pokelogo[1] = pocketMonsterIntroSpriteSheet.crop(930,162,160,144);
+            Pokelogo[2] = pocketMonsterIntroSpriteSheet.crop(1092,162,160,144);
+            Pokelogo[3] = pocketMonsterIntroSpriteSheet.crop(1254,162,160,144);
+
+            Pokestar[0] = pocketMonsterIntroSpriteSheet.crop(1416,162,16,16);
+            Pokestar[0] = createImage(Pokestar[0].getWidth(),Pokestar[0].getHeight(),Pokestar[0],"star[0]_248,232,248_lightPink",pinkColor);
+            Pokestar[1] = pocketMonsterIntroSpriteSheet.crop(1416,179,16,16);
+            Pokestar[1] = createImage(Pokestar[0].getWidth(),Pokestar[0].getHeight(),Pokestar[1],"star[1]_248,232,248_lightPink",pinkColor);
+            Pokestar[2] = pocketMonsterIntroSpriteSheet.crop(1416,196,16,16);
+            Pokestar[2] = createImage(Pokestar[0].getWidth(),Pokestar[0].getHeight(),Pokestar[2],"star[2]_248,232,248_lightPink",pinkColor);
+
+            PokeGengar[0] = pocketMonsterIntroSpriteSheet.crop(930,470,56,56);
+            PokeGengar[1] = pocketMonsterIntroSpriteSheet.crop(988,470,56,56);
+            PokeGengar[2] = pocketMonsterIntroSpriteSheet.crop(1046,470,56,56);
+
+//            PokeNido[0] = pocketMonsterIntroSpriteSheet.crop(930,528,48,48);
+//            PokeNido[1] = pocketMonsterIntroSpriteSheet.crop(988,528,48,48);
+//            PokeNido[2] = pocketMonsterIntroSpriteSheet.crop(1046,528,48,48); //red
+
+            PokeGigly[0] = pocketMonsterIntroSpriteSheet.crop(930,578,48,48);
+            PokeGigly[1] = pocketMonsterIntroSpriteSheet.crop(988,578,48,48);
+            PokeGigly[2] = pocketMonsterIntroSpriteSheet.crop(1046,578,48,48);
+
+            PokeTitle = pocketMonsterIntroSpriteSheet.crop(930,640,160,144);
+//            PokeTitle = pocketMonsterIntroSpriteSheet.crop(768,640,160,144); //red
+
+            PokeMonLogo = pocketMonsterIntroSpriteSheet.crop(1092,640,128,56);
+            PokeMonLogo = createImage(PokeMonLogo.getWidth(),PokeMonLogo.getHeight(),PokeMonLogo,"Logo_248,232,248_lightPink",pinkColor);
+
+            version = pocketMonsterIntroSpriteSheet.crop(1092,708,72,8);
+//            version = pocketMonsterIntroSpriteSheet.crop(1092,698,72,8);//red
+
+
+            PokeRed[0] = pocketMonsterIntroSpriteSheet.crop(1092,720,40,56);
+            PokeRed[0] = createImage(PokeRed[0].getWidth(),PokeRed[0].getHeight(),PokeRed[0],"Red_0_248,232,248_lightPink",pinkColor);
+            PokeRed[1] = pocketMonsterIntroSpriteSheet.crop(1134,720,40,56);
+            PokeRed[1] = createImage(PokeRed[1].getWidth(),PokeRed[1].getHeight(),PokeRed[1],"Red_1_248,232,248_lightPink",pinkColor);
+
+            PokeStars[0] = pocketMonsterIntroSpriteSheet.crop(1092,316,8,8);
+            PokeStars[0] = createImage(PokeStars[0].getWidth(),PokeStars[0].getHeight(),PokeStars[0],"miniStar_0_248,232,248_lightPink",pinkColor);
+            PokeStars[1] = pocketMonsterIntroSpriteSheet.crop(1102,316,8,8);
+            PokeStars[1] = createImage(PokeStars[0].getWidth(),PokeStars[0].getHeight(),PokeStars[1],"miniStar_1_248,232,248_lightPink",pinkColor);
+            PokeStars[2] = pocketMonsterIntroSpriteSheet.crop(1112,316,8,8);
+            PokeStars[2] = createImage(PokeStars[0].getWidth(),PokeStars[0].getHeight(),PokeStars[2],"miniStar_2_248,232,248_lightPink",pinkColor);
+            PokeStars[3] = pocketMonsterIntroSpriteSheet.crop(1122,316,8,8);
+            PokeStars[3] = createImage(PokeStars[0].getWidth(),PokeStars[0].getHeight(),PokeStars[3],"miniStar_3_248,232,248_lightPink",pinkColor);
 
 
         }catch (IOException e) {
@@ -184,6 +255,17 @@ public class Images {
 
     public BufferedImage createImage(int width,int height,BufferedImage image,String name, int RGBToReplace){
 
+        String path = Objects.requireNonNull(getClass().getClassLoader().getResource(".")).getPath();
+        String path2 = path.substring(0,path.indexOf("/out/"))+"/res/Edited/"+name+".png";
+        File imagess = new File(path2);
+        if (imagess.exists()){
+            try {
+                return ImageIO.read(imagess.getAbsoluteFile());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
         // Create buffered image object
         BufferedImage img = null;
 
@@ -206,11 +288,11 @@ public class Images {
             }
         }
 
-        // write image
+        // write image, AKA save it to pc
         try
         {
-            String path = Objects.requireNonNull(getClass().getClassLoader().getResource(".")).getPath();
-            String path2 = path.substring(0,path.indexOf("/out/"))+"/res/"+name+".png";
+            path = Objects.requireNonNull(getClass().getClassLoader().getResource(".")).getPath();
+            path2 = path.substring(0,path.indexOf("/out/"))+"/res/Edited/"+name+".png";
             f = new File(path2);
             System.out.println("File saved in: "+path2);
             ImageIO.write(img, "png", f);
