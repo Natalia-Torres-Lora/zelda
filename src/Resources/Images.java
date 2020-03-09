@@ -1,8 +1,11 @@
 package Resources;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
+import java.util.Objects;
 
 /**
  * Created by AlexVR on 1/24/2020.
@@ -177,6 +180,49 @@ public class Images {
 
     }
 
+    public static Color transparant = new Color(255, 255, 255, 0);
+
+    public BufferedImage createImage(int width,int height,BufferedImage image,String name, int RGBToReplace){
+
+        // Create buffered image object
+        BufferedImage img = null;
+
+        img = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+        // file object
+        File f = null;
+
+        // create random values pixel by pixel
+        for (int y = 0; y < height; y++)
+        {
+            for (int x = 0; x < width; x++)
+            {
+                if (image.getRGB(x, y) == RGBToReplace) {
+                    img.setRGB(x, y, transparant.getRGB());
+                } else {
+                    img.setRGB(x, y, image.getRGB(x, y));
+                }
+
+
+            }
+        }
+
+        // write image
+        try
+        {
+            String path = Objects.requireNonNull(getClass().getClassLoader().getResource(".")).getPath();
+            String path2 = path.substring(0,path.indexOf("/out/"))+"/res/"+name+".png";
+            f = new File(path2);
+            System.out.println("File saved in: "+path2);
+            ImageIO.write(img, "png", f);
+        }
+        catch(IOException e)
+        {
+            System.out.println("Error: " + e);
+        }
+        return img;
+    }
+
+
     public static BufferedImage loadImage(String path) {
         try {
             return ImageIO.read(Images.class.getResourceAsStream(path));
@@ -185,6 +231,30 @@ public class Images {
             System.exit(1);
         }
         return null;
+    }
+
+    public static BufferedImage tint(BufferedImage src, float r, float g, float b) {
+
+        // Copy image
+        BufferedImage newImage = new BufferedImage(src.getWidth(), src.getHeight(), BufferedImage.TRANSLUCENT);
+        Graphics2D graphics = newImage.createGraphics();
+        graphics.drawImage(src, 0, 0, null);
+        graphics.dispose();
+
+        // Color image
+        for (int i = 0; i < newImage.getWidth(); i++) {
+            for (int j = 0; j < newImage.getHeight(); j++) {
+                int ax = newImage.getColorModel().getAlpha(newImage.getRaster().getDataElements(i, j, null));
+                int rx = newImage.getColorModel().getRed(newImage.getRaster().getDataElements(i, j, null));
+                int gx = newImage.getColorModel().getGreen(newImage.getRaster().getDataElements(i, j, null));
+                int bx = newImage.getColorModel().getBlue(newImage.getRaster().getDataElements(i, j, null));
+                rx *= r;
+                gx *= g;
+                bx *= b;
+                newImage.setRGB(i, j, (ax << 24) | (rx << 16) | (gx << 8) | (bx << 0));
+            }
+        }
+        return newImage;
     }
 
 }
