@@ -76,7 +76,6 @@ public class MusicHandler {
         try {
             handler.getBackgroundMusic().stop();
             handler.getBackgroundMusic().close();
-            handler.setMute(true);
         } catch (Exception e) {
            // System.err.println(e.getMessage());
         }
