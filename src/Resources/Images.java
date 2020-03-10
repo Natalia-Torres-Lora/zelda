@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Objects;
 
 /**
@@ -44,18 +45,25 @@ public class Images {
 
 
     public static BufferedImage galagaImageSheet;
-    private final int pinkColor = new Color(248,232,248).getRGB();
+    public static final int pinkColor = new Color(248,232,248).getRGB();
     public SpriteSheet galagaSpriteSheet;
 
     public static BufferedImage pacmanImageSheet;
     public SpriteSheet pacmanSpriteSheet;
 
-    public static BufferedImage pocketMonsterIntroSheet;
-    public SpriteSheet pocketMonsterIntroSpriteSheet;
+
 
     //intro
+    public static BufferedImage pocketMonsterIntroSheet;
+    public SpriteSheet pocketMonsterIntroSpriteSheet;
     public static BufferedImage PokeCopyRight,PokeBlank,PokeTitle,PokeMonLogo,version;
     public static BufferedImage[] Pokelogo,Pokestar,PokeGengar,PokeNido,PokeGigly,PokeRed,PokeStars;
+
+    public static BufferedImage pocketMonsterPokemonSheet;
+    public SpriteSheet pocketMonsterPokemonSpriteSheet;
+    public static ArrayList<BufferedImage> Pokemons;
+
+
 
     public Images() {
 
@@ -84,6 +92,8 @@ public class Images {
         PokeGigly = new BufferedImage[3];
         PokeRed = new BufferedImage[2];
         PokeStars = new BufferedImage[4];
+
+        Pokemons = new ArrayList<>(152);
 
 
         try {
@@ -245,6 +255,166 @@ public class Images {
             PokeStars[2] = createImage(PokeStars[0].getWidth(),PokeStars[0].getHeight(),PokeStars[2],"miniStar_2_248,232,248_lightPink",pinkColor);
             PokeStars[3] = pocketMonsterIntroSpriteSheet.crop(1122,316,8,8);
             PokeStars[3] = createImage(PokeStars[0].getWidth(),PokeStars[0].getHeight(),PokeStars[3],"miniStar_3_248,232,248_lightPink",pinkColor);
+
+            pocketMonsterPokemonSheet = ImageIO.read(getClass().getResourceAsStream("/UI/SpriteSheets/pocketMonster/pokedexColor.png"));
+            pocketMonsterPokemonSpriteSheet = new SpriteSheet(createImage(pocketMonsterIntroSheet.getWidth(),pocketMonsterIntroSheet.getHeight(),pocketMonsterIntroSheet,"pokemons_255,0,255_violet", new Color(255,0,255).getRGB()));
+
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(4,23,34,36));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(53,19,40,40));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(108,9,53,50));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(176,20,35,39));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(226,14,48,45));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(289,5,55,54));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(359,27,35,32));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(409,15,39,44));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(463,5,54,54));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(532,33,26,26));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(573,27,28,32));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(616,6,54,53));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(685,24,24,35));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(724,21,27,38));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(766,4,52,55));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(4,101,33,30));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(52,86,47,45));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(114,77,53,54));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(182,98,32,33));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(229,84,48,47));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(292,99,32,32));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(339,83,53,48));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(407,96,34,35));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(456,75,55,56));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(527,91,37,40));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(580,77,54,54));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(649,96,37,35));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(701,83,47,48));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(763,105,31,26));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(4,168,46,39));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(65,151,56,56));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(136,174,36,33));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(187,164,44,43));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(246,151,56,56));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(317,172,37,35));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(369,161,48,46));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(432,160,44,47));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(491,152,56,55));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(562,174,37,33));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(614,159,47,48));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(676,170,39,37));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(730,152,56,55));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(4,251,29,33));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(51,245,38,39));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(104,236,48,48));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(167,258,36,26));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(218,228,56,56));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(289,244,39,40));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(343,229,50,55));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(408,254,38,30));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(461,243,48,41));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(524,249,38,35));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(577,229,53,55));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(645,244,38,40));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(698,228,52,56));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(765,247,40,37));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(4,307,49,56));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(68,324,34,39));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(117,309,53,54));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(185,331,36,32));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(236,317,45,46));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(296,310,52,53));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(363,326,34,37));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(412,315,46,48));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(473,307,54,56));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(542,324,39,39));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(596,312,51,51));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(662,308,56,55));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(733,325,32,38));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(780,321,46,42));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(4,387,50,54));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(69,409,38,32));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(122,394,47,47));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(184,408,39,33));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(238,393,48,48));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(301,397,47,44));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(363,396,44,45));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(422,386,55,55));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(492,404,40,37));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(547,385,56,56));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(618,418,26,23));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(659,393,48,48));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(722,394,47,47));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(784,402,36,39));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(4,461,50,55));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(69,469,47,47));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(131,468,47,48));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(193,476,40,40));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(248,460,55,56));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(318,478,36,38));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(369,464,53,52));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(437,467,50,46));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(506,468,48,48));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(569,469,47,47));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(631,461,50,55));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(696,468,48,48));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(759,461,54,55));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(4,554,40,39));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(59,543,56,50));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(130,568,25,25));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(170,558,36,35));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(221,541,53,52));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(289,540,56,53));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(360,555,35,38));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(410,545,48,48));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(473,537,56,56));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(544,545,47,48));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(606,548,55,45));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(676,546,46,46));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(738,542,54,51));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(4,616,56,55));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(75,618,55,53));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(145,623,47,48));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(207,627,45,44));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(267,616,54,55));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(336,639,31,32));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(382,623,45,48));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(442,624,36,47));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(493,617,56,54));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(564,629,39,42));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(618,624,47,47));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(680,629,48,42));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(743,615,56,56));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(4,701,47,48));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(66,704,48,45));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(129,706,46,43));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(190,695,53,54));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(258,693,55,56));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(328,701,48,48));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(391,693,56,56));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(462,693,56,56));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(533,719,34,30));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(582,711,38,38));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(635,705,46,44));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(696,706,48,43));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(759,702,47,47));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(4,782,47,45));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(66,795,31,32));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(112,779,47,48));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(174,791,40,36));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(229,781,47,46));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(291,777,56,50));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(362,772,54,55));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(431,771,56,56));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(502,772,53,55));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(570,771,55,56));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(640,788,32,39));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(687,783,46,44));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(748,774,52,53));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(4,847,56,56));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(75,863,36,40));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(126,858,45,45));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(186,851,51,52));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(252,855,48,48));
+            Pokemons.add(pocketMonsterPokemonSpriteSheet.crop(315,847,24,56));
+
 
 
         }catch (IOException e) {

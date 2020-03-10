@@ -24,10 +24,14 @@ public class PocketMonsterIntroState extends State {
     int gengarFinish,gengarX,gengarY;
     int fighterFinish,fighterX,fighterY;
     private int fightersSpeed = 4;
-    Animation fighterAnim;
     boolean attack1=false,attack2=false;
     int attack1Counter = 37;
     int attack2Counter = 65;
+    int attack3Counter = 33;
+    private int fade = 0;
+    private int tileY,finishTitleY,bounce = 0 ;
+    private int versionX,finishVersionX ;
+    Animation redAnim;
 
     public PocketMonsterIntroState(Handler handler) {
         super(handler);
@@ -59,6 +63,13 @@ public class PocketMonsterIntroState extends State {
         fighterX=startX-(Images.PokeGigly[0].getWidth()/2);
         gengarX=startX+stageWidth+(Images.PokeGengar[0].getWidth()/2);
 
+        //idleMenu
+        tileY = startY - ((Images.PokeMonLogo.getHeight()*scale)/2);
+        finishTitleY = startY + (8*scale);
+        versionX = startX + stageWidth +((Images.version.getWidth()*scale)/2);
+        finishVersionX = startX + (48*scale);
+        redAnim = new Animation(1024,Images.PokeRed);
+
 
     }
 
@@ -69,6 +80,7 @@ public class PocketMonsterIntroState extends State {
             case 1:
                 if (stage1Counter <=0){
                     stage++;
+                    handler.getMusicHandler().playEffect("/pocketMonster/star.wav");
                 }
                 stage1Counter--;
                 break;
@@ -99,6 +111,8 @@ public class PocketMonsterIntroState extends State {
                     }
                     if (miniStar4Y>=miniHeight + (startY + (91*scale))){
                         stage++ ;
+                        handler.getMusicHandler().playEffect("/pocketMonster/01 Opening Movie.wav");
+
                     }
                 }
                 break;
@@ -140,11 +154,67 @@ public class PocketMonsterIntroState extends State {
                     }
                 }
                 else if (!attack1 && attack2){
+                    attack2Counter--;
+                }
+                else if (attack1 && attack2){
+                    if (attack3Counter <=98 && attack3Counter >= 38){
+                        if (attack3Counter > 90){
+                            fighterY++;
+                        }else{
+                            fighterX-=8;
+                            fighterY-=4;
+                        }
+                    } else if(attack3Counter==37){
+                        attack3Counter = -1;
+                    } else if (attack3Counter <= 36 && attack3Counter > 27) {
+                        fighterX++;
+                        fighterY--;
+                    } else if (attack3Counter <= 27 && attack3Counter > 18) {
+                        fighterX++;
+                        fighterY++;
+                    } else if (attack3Counter <= 18 && attack3Counter > 9) {
+                        fighterX--;
+                        fighterY--;
+                    } else if (attack3Counter <= 9 && attack3Counter > 0) {
+                        fighterX--;
+                        fighterY++;
+                    }else if (attack3Counter == 0){
+                        attack3Counter = 128;
+                    }
+                    attack3Counter--;
+                }
+                break;
 
+            case 4:
+                if (bounce==0 || bounce == 3){
+                    if (Point2D.distance(startX+ (16*scale),tileY,startX+ (16*scale),finishTitleY)> 8){
+                        tileY+=4;
+                    }else {
+                        if (bounce ==3){
+                            bounce = 4;
+                            handler.getMusicHandler().startMusic("/pocketMonster/02 Title Screen.wav");
+
+                            break;
+                        }else {
+                            bounce = 1;
+                        }
+                    }
+                }else if (bounce==1){
+                    if (Point2D.distance(startX+ (16*scale),tileY,startX+ (16*scale),finishTitleY-(finishTitleY/4.0))> 8){
+                        tileY-=4;
+                    }else {
+                        bounce = 3;
+                    }
+                }else if (bounce ==4){
+                    if (Point2D.distance(versionX,startY+(64*scale),finishVersionX,startY+(64*scale))> 2){
+                        versionX-=4;
+                    }else{
+                        stage++;
+                    }
                 }
                 break;
             default:
-
+                redAnim.tick();
                 break;
         }
     }
@@ -211,34 +281,81 @@ public class PocketMonsterIntroState extends State {
                         if (attack2Counter>63){
                             gengarX--;
                         }
-                        attack2Counter--;
-
                         g.drawImage(Images.PokeGigly[0], fighterX, fighterY, Images.PokeGigly[0].getWidth() * scale, Images.PokeGigly[0].getHeight() * scale, null);
                         g.drawImage(Images.PokeGengar[1], gengarX, gengarY, Images.PokeGengar[0].getWidth() * scale, Images.PokeGengar[0].getHeight() * scale, null);
                     }else if (attack2Counter<=52 && attack2Counter>40){
                         if (attack2Counter>49){
-                            gengarX+=3;
+                            gengarX+=24;
                         }
-                        attack2Counter--;
                         g.drawImage(Images.PokeGigly[0], fighterX, fighterY, Images.PokeGigly[0].getWidth() * scale, Images.PokeGigly[0].getHeight() * scale, null);
                         g.drawImage(Images.PokeGengar[2], gengarX, gengarY, Images.PokeGengar[0].getWidth() * scale, Images.PokeGengar[0].getHeight() * scale, null);
-                    }else if (attack2Counter<=40 && attack2Counter>28){
-                        if (attack2Counter>35){
-                            fighterY-= ((6*scale)/5);
-                            fighterX+=3;
-                        }else if (attack2Counter>30 ){
-                            fighterY+= ((6*scale)/5);
-                            fighterX+=3;
+                    }else if (attack2Counter<=40 && attack2Counter>19){
+                        if (attack2Counter>30){
+                            fighterY-= ((24*scale)/10);
+                            fighterX+=6;
+                        }else{
+                            fighterY+= ((24*scale)/10);
+                            fighterX+=6;
                         }
-                        attack2Counter--;
                         g.drawImage(Images.PokeGigly[1], fighterX, fighterY, Images.PokeGigly[0].getWidth() * scale, Images.PokeGigly[0].getHeight() * scale, null);
                         g.drawImage(Images.PokeGengar[2], gengarX, gengarY, Images.PokeGengar[0].getWidth() * scale, Images.PokeGengar[0].getHeight() * scale, null);
 
+                    }else if (attack2Counter<=19 && attack2Counter>13){
+                        gengarX-=12;
+
+                        g.drawImage(Images.PokeGigly[1], fighterX, fighterY, Images.PokeGigly[0].getWidth() * scale, Images.PokeGigly[0].getHeight() * scale, null);
+                        g.drawImage(Images.PokeGengar[2], gengarX, gengarY, Images.PokeGengar[0].getWidth() * scale, Images.PokeGengar[0].getHeight() * scale, null);
+                    }else{
+                        attack1 = true;
+                        attack2 = true;
                     }
+
+
+                }
+                else if (attack1 && attack2){
+                    if (attack3Counter <=98 && attack3Counter > 36){
+                        if (attack3Counter > 90){
+                            g.drawImage(Images.PokeGigly[1], fighterX, fighterY, Images.PokeGigly[0].getWidth() * scale, Images.PokeGigly[0].getHeight() * scale, null);
+                        }else{
+                            g.drawImage(Images.PokeGigly[2], fighterX, fighterY, Images.PokeGigly[0].getWidth() * scale, Images.PokeGigly[0].getHeight() * scale, null);
+                        }
+                        g.drawImage(Images.PokeGengar[0], gengarX, gengarY, Images.PokeGengar[0].getWidth() * scale, Images.PokeGengar[0].getHeight() * scale, null);
+                        if (attack3Counter<90){
+                            g.setColor(new Color(255,255,255,fade));
+                            fade += (254.0/54.0);
+                            g.fillRect(startX,startY ,stageWidth,stageHeight);
+                            if (fade > 253){
+                                stage++;
+                                break;
+                            }
+                        }
+                    }else{
+                        if (fade > 100){
+                            stage=4;
+                            break;
+                        }
+                        g.drawImage(Images.PokeGigly[0], fighterX, fighterY, Images.PokeGigly[0].getWidth() * scale, Images.PokeGigly[0].getHeight() * scale, null);
+                        g.drawImage(Images.PokeGengar[0], gengarX, gengarY, Images.PokeGengar[0].getWidth() * scale, Images.PokeGengar[0].getHeight() * scale, null);
+                    }
+
+
 
                 }
                 break;
+            case 4:
+                g.drawImage(Images.PokeTitle,startX,startY,stageWidth,stageHeight,null);
+                g.setColor(new Color(Images.pinkColor));
+                g.fillRect(startX,startY,stageWidth,72*scale);
+                g.drawImage(Images.PokeMonLogo,startX+ (16*scale),tileY,Images.PokeMonLogo.getWidth()*scale,Images.PokeMonLogo.getHeight()*scale,null);
+                g.drawImage(Images.version,versionX,startY+(64*scale),Images.version.getWidth()*scale,Images.version.getHeight()*scale,null);
+                g.drawImage(Images.PokeRed[0],startX+(82*scale),startY+(80*scale),Images.PokeRed[0].getWidth()*scale,Images.PokeRed[0].getHeight()*scale,null);
+                g.drawImage(Images.Pokemons.get(6),startX+(52*scale),startY+(104*scale),Images.Pokemons.get(6).getWidth()*scale,Images.Pokemons.get(6).getHeight()*scale,null);
+
+                break;
             default:
+                g.drawImage(Images.PokeTitle,startX,startY,stageWidth,stageHeight,null);
+                g.drawImage(redAnim.getCurrentFrame(),startX+(82*scale),startY+(80*scale),Images.PokeRed[0].getWidth()*scale,Images.PokeRed[0].getHeight()*scale,null);
+                g.drawImage(Images.Pokemons.get(6),startX+(52*scale),startY+(104*scale),Images.Pokemons.get(6).getWidth()*scale,Images.Pokemons.get(6).getHeight()*scale,null);
 
                 break;
         }
