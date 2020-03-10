@@ -6,6 +6,7 @@ import Resources.Animation;
 import Resources.Images;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.awt.geom.Point2D;
 
 /**
@@ -75,7 +76,11 @@ public class PocketMonsterIntroState extends State {
 
     @Override
     public void tick() {
-
+        if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_ENTER) && stage < 4  ){
+            stage = 4;
+        }else if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_ENTER) && stage == 4 ){
+            stage = 5;
+        }
         switch (stage){
             case 1:
                 if (stage1Counter <=0){
@@ -352,6 +357,12 @@ public class PocketMonsterIntroState extends State {
                 g.drawImage(Images.Pokemons.get(6),startX+(52*scale),startY+(104*scale),Images.Pokemons.get(6).getWidth()*scale,Images.Pokemons.get(6).getHeight()*scale,null);
 
                 break;
+            case 5:
+                g.setColor(Color.white);
+                g.fillRect(startX,startY,stageWidth,stageHeight);
+                g.drawImage(Images.PokeSelectingSquarePane,startX+ (2*scale),startY+ (2*scale),2*(stageWidth/3),stageHeight/3,null);
+
+                break;
             default:
                 g.drawImage(Images.PokeTitle,startX,startY,stageWidth,stageHeight,null);
                 g.drawImage(redAnim.getCurrentFrame(),startX+(82*scale),startY+(80*scale),Images.PokeRed[0].getWidth()*scale,Images.PokeRed[0].getHeight()*scale,null);
@@ -367,7 +378,7 @@ public class PocketMonsterIntroState extends State {
         g.fillRect(startX+stageWidth,0,handler.getWidth(),handler.getHeight());
         g.fillRect(0,0,handler.getWidth(),startY);
         g.fillRect(0,startY+stageHeight,handler.getWidth(),handler.getHeight());
-        if (starStage == 3 && stage == 2 || stage == 3){//cover mini stars
+        if (starStage == 3 && stage == 2 || stage == 3){//cover mini stars and other things
             g.setColor(Color.BLACK);
             g.fillRect(startX,startY,stageWidth, (32*scale));
             g.fillRect(startX,startY+stageHeight - (32*scale),stageWidth,(32*scale));
