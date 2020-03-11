@@ -102,20 +102,39 @@ public class PokePlayer extends BaseWalkingEntity {
             case RIGHT:
                 x += speed;
                 handler.getPMGameState().currentWorld.xOff -= speed;
+                for (BaseSolidEntity entity:handler.getPMGameState().pallet.walls){
+                    entity.x-=speed;
+                    bounds.x=entity.x;
+                }
                 break;
             case LEFT:
                 x -= speed;
                 handler.getPMGameState().currentWorld.xOff += speed;
+                for (BaseSolidEntity entity:handler.getPMGameState().pallet.walls){
+                    entity.x+=speed;
+                    bounds.x=entity.x;
+                }
                 break;
             case UP:
                 y -= speed;
                 handler.getPMGameState().currentWorld.yOff += speed;
+                for (BaseSolidEntity entity:handler.getPMGameState().pallet.walls){
+                    entity.y+=speed;
+                    bounds.y=entity.y;
+                }
                 break;
             case DOWN:
                 y += speed;
                 handler.getPMGameState().currentWorld.yOff -= speed;
+                for (BaseSolidEntity entity:handler.getPMGameState().pallet.walls){
+                    entity.y-=speed;
+                    bounds.y=entity.y;
+                }
                 break;
         }
+        bounds.x = x;
+        bounds.y = y;
+        changeIntersectingBounds();
 
     }
 }

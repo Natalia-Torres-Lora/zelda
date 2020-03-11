@@ -22,6 +22,33 @@ public class BaseInteractableEntity extends BaseEntity {
     public BaseInteractableEntity(BufferedImage sprite, int x, int y, String name,Handler handler) {
         super(sprite, x, y, name,handler);
         facing = Direction.DOWN;
+        changeIntersectingBounds();
+    }
+
+
+
+    public BaseInteractableEntity(BufferedImage[] sprite, int x, int y, String name, Handler handler) {
+        super(sprite[0], x, y, name,handler);
+        sprites = sprite;
+        facing = Direction.DOWN;
+        changeIntersectingBounds();
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+    }
+
+    @Override
+    public void render(Graphics g,int scale,int xOffset,int yOffset) {
+        super.render(g,scale,xOffset,yOffset);
+    }
+
+    public void interact(){
+
+    }
+
+    public void changeIntersectingBounds() {
         switch (facing){
             case DOWN:
                 interactBounds = (Rectangle) bounds.clone();
@@ -40,25 +67,5 @@ public class BaseInteractableEntity extends BaseEntity {
                 interactBounds.x+=width;
                 break;
         }
-    }
-
-    public BaseInteractableEntity(BufferedImage[] sprite, int x, int y, String name, Handler handler) {
-        super(sprite[0], x, y, name,handler);
-        sprites = sprite;
-        facing = Direction.DOWN;
-    }
-
-    @Override
-    public void tick() {
-        super.tick();
-    }
-
-    @Override
-    public void render(Graphics g,int scale,int xOffset,int yOffset) {
-        super.render(g,scale,xOffset,yOffset);
-    }
-
-    public void interact(){
-
     }
 }

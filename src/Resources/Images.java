@@ -62,17 +62,17 @@ public class Images {
     public static BufferedImage[] Pokelogo,Pokestar,PokeGengar,PokeNido,PokeGigly,PokeRed,PokeStars;
 
     public static BufferedImage pocketMonsterPokemonSheet;
-    public SpriteSheet pocketMonsterPokemonSpriteSheet;
+    public static SpriteSheet pocketMonsterPokemonSpriteSheet;
     public static ArrayList<BufferedImage> Pokemons;
     public static BufferedImage pocketMonsterPokemonsFightsSheet;
-    public SpriteSheet pocketMonsterPokemonsFightsSpriteSheet;
+    public static SpriteSheet pocketMonsterPokemonsFightsSpriteSheet;
     public static ArrayList<BufferedImage> PokemonsFights;
     public static BufferedImage PokeSelectingSquarePane,earrow,arrow;
 
     public static BufferedImage pocketMonsterPalletSheet;
-    public SpriteSheet pocketMonsterPalletSpriteSheet;
+    public static SpriteSheet pocketMonsterPalletSpriteSheet;
     public static BufferedImage pocketMonsterNPCSheet;
-    public SpriteSheet pocketMonsterNPCSpriteSheet;
+    public static SpriteSheet pocketMonsterNPCSpriteSheet;
     public static BufferedImage[] PokePallet,player;
 
     public Images() {

@@ -1,6 +1,7 @@
 package Game.GameStates.PocketStates;
 
 import Game.GameStates.State;
+import Game.PocketMonster.Entities.BaseSolidEntity;
 import Game.PocketMonster.Entities.EntityManager;
 import Game.PocketMonster.Entities.PokePlayer;
 import Game.PocketMonster.World.BaseWorld;
@@ -36,6 +37,10 @@ public class PocketMonsterGameState extends State {
         stageWidth = Images.Pokelogo[0].getWidth()*scale;
         stageHeight = Images.Pokelogo[0].getHeight()*scale;
         currentWorld = pallet;
+//        pallet.walls.add(new BaseSolidEntity(Images.pocketMonsterPalletSpriteSheet.crop(0,0,1,1),startX+ (16*scale)-(16*scale),startY + (-16*scale*2),(16*scale),(stageHeight),"WallLeft",handler));
+//        pallet.walls.add(new BaseSolidEntity(Images.pocketMonsterPalletSpriteSheet.crop(0,0,1,1),startX+ (16*scale)-(16*scale) + pallet.image.getWidth(),startY + (-16*scale*2),(16*scale),(stageHeight),"WallRight",handler));
+//        pallet.walls.add(new BaseSolidEntity(Images.pocketMonsterPalletSpriteSheet.crop(0,0,1,1),startX+ (16*scale) ,startY + (-16*scale*2),(stageWidth),(16*scale),"WallTop",handler));
+//        pallet.walls.add(new BaseSolidEntity(Images.pocketMonsterPalletSpriteSheet.crop(0,0,1,1),startX+ (16*scale),startY + (-16*scale*2)+pallet.image.getHeight(),stageWidth,(16*scale),"WallBot",handler));
 
 
     }
