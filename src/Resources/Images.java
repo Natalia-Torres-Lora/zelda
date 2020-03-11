@@ -2,6 +2,8 @@ package Resources;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -65,8 +67,13 @@ public class Images {
     public static BufferedImage pocketMonsterPokemonsFightsSheet;
     public SpriteSheet pocketMonsterPokemonsFightsSpriteSheet;
     public static ArrayList<BufferedImage> PokemonsFights;
-    public static BufferedImage PokeSelectingSquarePane;
+    public static BufferedImage PokeSelectingSquarePane,earrow,arrow;
 
+    public static BufferedImage pocketMonsterPalletSheet;
+    public SpriteSheet pocketMonsterPalletSpriteSheet;
+    public static BufferedImage pocketMonsterNPCSheet;
+    public SpriteSheet pocketMonsterNPCSpriteSheet;
+    public static BufferedImage[] PokePallet,player;
 
     public Images() {
 
@@ -98,6 +105,9 @@ public class Images {
 
         Pokemons = new ArrayList<>(152);
         PokemonsFights = new ArrayList<>(152);
+
+        PokePallet = new BufferedImage[5];
+        player = new BufferedImage[6];
 
 
         try {
@@ -260,7 +270,33 @@ public class Images {
             PokeStars[3] = pocketMonsterIntroSpriteSheet.crop(1122,316,8,8);
             PokeStars[3] = createImage(PokeStars[0].getWidth(),PokeStars[0].getHeight(),PokeStars[3],"miniStar_3_248,232,248_lightPink",pinkColor);
 
-            PokeSelectingSquarePane = new SpriteSheet(ImageIO.read(getClass().getResourceAsStream("/UI/SpriteSheets/pocketMonster/status.png"))).crop(257,172,158,78);
+            PokeSelectingSquarePane = new SpriteSheet(ImageIO.read(getClass().getResourceAsStream("/UI/SpriteSheets/pocketMonster/Font.png"))).crop(187,170,318,75);
+            arrow = new SpriteSheet(ImageIO.read(getClass().getResourceAsStream("/UI/SpriteSheets/pocketMonster/Font.png"))).crop(110,60,5,7);
+            earrow = new SpriteSheet(ImageIO.read(getClass().getResourceAsStream("/UI/SpriteSheets/pocketMonster/Font.png"))).crop(94,60,5,7);
+
+            pocketMonsterPalletSheet = ImageIO.read(getClass().getResourceAsStream("/UI/SpriteSheets/pocketMonster/palletTown.png"));
+            pocketMonsterPalletSpriteSheet = new SpriteSheet(pocketMonsterPalletSheet);
+
+            PokePallet[0] = pocketMonsterPalletSpriteSheet.crop(336,24,128,128);//room
+            PokePallet[1] = pocketMonsterPalletSpriteSheet.crop(472,24,128,128);//sala
+            PokePallet[2] = pocketMonsterPalletSpriteSheet.crop(336,160,128,128);//neighboor
+            PokePallet[3] = pocketMonsterPalletSpriteSheet.crop(472,160,160,192);//lab
+            PokePallet[4] = pocketMonsterPalletSpriteSheet.crop(7,24,321,288);//city
+
+            pocketMonsterNPCSheet = ImageIO.read(getClass().getResourceAsStream("/UI/SpriteSheets/pocketMonster/npc.png"));
+            pocketMonsterNPCSpriteSheet = new SpriteSheet(createImage(pocketMonsterNPCSheet.getWidth(),pocketMonsterNPCSheet.getHeight(),pocketMonsterNPCSheet,"npc_0,255,0_green",new Color(0,255,0).getRGB()));
+
+            player[0] = pocketMonsterNPCSpriteSheet.crop(113,269,14,16);//front
+            player[1] = pocketMonsterNPCSpriteSheet.crop(132,269,14,16);//back
+            player[2] = pocketMonsterNPCSpriteSheet.crop(7,288,13,16);//side
+            player[3] = pocketMonsterNPCSpriteSheet.crop(23,289,14,15);//runningF
+            player[4] = pocketMonsterNPCSpriteSheet.crop(39,289,14,15);//runningB
+            player[5] = pocketMonsterNPCSpriteSheet.crop(55,289,13,15);//runningS
+
+
+
+
+            //pokemons
             pocketMonsterPokemonSheet = ImageIO.read(getClass().getResourceAsStream("/UI/SpriteSheets/pocketMonster/pokedexColor.png"));
             pocketMonsterPokemonSpriteSheet = new SpriteSheet(createImage(pocketMonsterPokemonSheet.getWidth(),pocketMonsterPokemonSheet.getHeight(),pocketMonsterPokemonSheet,"pokemons_255,0,255_violet", new Color(255,0,255).getRGB()));
 
@@ -667,6 +703,15 @@ public class Images {
             }
         }
         return newImage;
+    }
+
+    public static BufferedImage flipHorizontal(BufferedImage image){
+        // Flip the image horizontally
+        AffineTransform tx = AffineTransform.getScaleInstance(-1, 1);
+        tx.translate(-image.getWidth(null), 0);
+        AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
+        image = op.filter(image, null);
+        return image;
     }
 
 }

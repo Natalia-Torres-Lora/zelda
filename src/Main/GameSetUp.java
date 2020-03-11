@@ -2,7 +2,9 @@ package Main;
 
 import Display.DisplayScreen;
 import Game.GameStates.*;
+import Game.GameStates.PocketStates.PocketMonsterGameState;
 import Game.GameStates.PocketStates.PocketMonsterIntroState;
+import Game.GameStates.PocketStates.PocketMonsterOptionState;
 import Input.KeyManager;
 import Input.MouseManager;
 import Resources.Images;
@@ -41,6 +43,8 @@ public class GameSetUp implements Runnable {
     public State galagaState;
     public State pacmanState;
     public State pocketMonsterState;
+    public State pocketMonsterGameState;
+    public State pocketMonsterOptionState;
 
 
 
@@ -76,6 +80,8 @@ public class GameSetUp implements Runnable {
         galagaState = new GalagaState(handler);
         pacmanState = new PacManState(handler);
         pocketMonsterState = new PocketMonsterIntroState(handler);
+        pocketMonsterGameState = new PocketMonsterGameState(handler);
+        pocketMonsterOptionState = new PocketMonsterOptionState(handler);
 
         handler.setScoreManager(new ScoreManager(handler));
         handler.setMusicHandler(new MusicHandler(handler));

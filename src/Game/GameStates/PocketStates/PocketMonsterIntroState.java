@@ -33,6 +33,7 @@ public class PocketMonsterIntroState extends State {
     private int tileY,finishTitleY,bounce = 0 ;
     private int versionX,finishVersionX ;
     Animation redAnim;
+    int selector = -1;
 
     public PocketMonsterIntroState(Handler handler) {
         super(handler);
@@ -76,10 +77,10 @@ public class PocketMonsterIntroState extends State {
 
     @Override
     public void tick() {
-        if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_ENTER) && stage < 4  ){
-            stage = 4;
-        }else if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_ENTER) && stage == 4 ){
+        if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_ESCAPE) && stage < 5  ){
             stage = 5;
+        }else if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_ESCAPE) && stage == 5 ){
+            stage = 6;
         }
         switch (stage){
             case 1:
@@ -218,8 +219,25 @@ public class PocketMonsterIntroState extends State {
                     }
                 }
                 break;
-            default:
+            case 5:
                 redAnim.tick();
+            default:
+
+                if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_DOWN) || handler.getKeyManager().keyJustPressed(KeyEvent.VK_S) ){
+                    selector = 1;
+                }
+                if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_UP) || handler.getKeyManager().keyJustPressed(KeyEvent.VK_W) ){
+                    selector = 0;
+                }
+                if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_ENTER)){
+                    if (selector == 0){
+                        handler.changeState(handler.getPMGameState());
+                    }else if (selector ==1){
+                        handler.changeState(handler.getPMOptionState());
+                    }else{
+                        selector =0;
+                    }
+                }
                 break;
         }
     }
@@ -358,15 +376,24 @@ public class PocketMonsterIntroState extends State {
 
                 break;
             case 5:
-                g.setColor(Color.white);
-                g.fillRect(startX,startY,stageWidth,stageHeight);
-                g.drawImage(Images.PokeSelectingSquarePane,startX+ (2*scale),startY+ (2*scale),2*(stageWidth/3),stageHeight/3,null);
-
-                break;
-            default:
                 g.drawImage(Images.PokeTitle,startX,startY,stageWidth,stageHeight,null);
                 g.drawImage(redAnim.getCurrentFrame(),startX+(82*scale),startY+(80*scale),Images.PokeRed[0].getWidth()*scale,Images.PokeRed[0].getHeight()*scale,null);
                 g.drawImage(Images.Pokemons.get(6),startX+(52*scale),startY+(104*scale),Images.Pokemons.get(6).getWidth()*scale,Images.Pokemons.get(6).getHeight()*scale,null);
+
+                break;
+            default:
+                g.setColor(Color.white);
+                g.fillRect(startX,startY,stageWidth,stageHeight);
+                g.drawImage(Images.PokeSelectingSquarePane,startX+ (2*scale),startY+ (2*scale),2*(stageWidth/3),stageHeight/3,null);
+                if (selector==0){
+                    g.drawImage(Images.arrow,startX+(8*scale), startY + (18*scale),5*scale,7*scale,null );//8,18
+                }else {
+                    g.drawImage(Images.arrow,startX+(8*scale), startY + (36*scale),5*scale,7*scale,null );//8,18
+                }
+                g.setColor(Color.BLACK);
+                g.setFont(new Font("TimesRoman", Font.ITALIC, 54));
+                g.drawString("NEW GAME" , startX + (15*scale), startY + (25*scale));
+                g.drawString("OPTION" , startX + (15*scale), startY + (43*scale));
 
                 break;
         }
@@ -374,7 +401,6 @@ public class PocketMonsterIntroState extends State {
         //fill the surrounding with black
         g.setColor(Color.DARK_GRAY);
         g.fillRect(0,0,startX,handler.getHeight());
-        g.fillRect(startX+stageWidth,0,handler.getWidth(),handler.getHeight());
         g.fillRect(startX+stageWidth,0,handler.getWidth(),handler.getHeight());
         g.fillRect(0,0,handler.getWidth(),startY);
         g.fillRect(0,startY+stageHeight,handler.getWidth(),handler.getHeight());
