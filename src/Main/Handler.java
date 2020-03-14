@@ -2,9 +2,6 @@ package Main;
 
 import Display.DisplayScreen;
 import Game.GameStates.*;
-import Game.GameStates.PocketStates.PocketMonsterGameState;
-import Game.GameStates.PocketStates.PocketMonsterIntroState;
-import Game.GameStates.PocketStates.PocketMonsterOptionState;
 import Game.PacMan.World.Map;
 import Game.PacMan.entities.Dynamics.PacMan;
 import Input.KeyManager;
@@ -85,18 +82,6 @@ public class Handler {
 
     public PacManState getPacManState (){
         return (PacManState)getGameProperties().pacmanState;
-    }
-
-    public PocketMonsterIntroState getPMIntroState (){
-        return (PocketMonsterIntroState) getGameProperties().pocketMonsterState;
-    }
-
-    public PocketMonsterOptionState getPMOptionState (){
-        return (PocketMonsterOptionState) getGameProperties().pocketMonsterOptionState;
-    }
-
-    public PocketMonsterGameState getPMGameState (){
-        return (PocketMonsterGameState) getGameProperties().pocketMonsterGameState;
     }
 
     public void changeState(State state){
