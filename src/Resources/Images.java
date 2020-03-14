@@ -47,33 +47,10 @@ public class Images {
 
 
     public static BufferedImage galagaImageSheet;
-    public static final int pinkColor = new Color(248,232,248).getRGB();
     public SpriteSheet galagaSpriteSheet;
 
     public static BufferedImage pacmanImageSheet;
     public SpriteSheet pacmanSpriteSheet;
-
-
-
-    //intro
-    public static BufferedImage pocketMonsterIntroSheet;
-    public SpriteSheet pocketMonsterIntroSpriteSheet;
-    public static BufferedImage PokeCopyRight,PokeBlank,PokeTitle,PokeMonLogo,version;
-    public static BufferedImage[] Pokelogo,Pokestar,PokeGengar,PokeNido,PokeGigly,PokeRed,PokeStars;
-
-    public static BufferedImage pocketMonsterPokemonSheet;
-    public static SpriteSheet pocketMonsterPokemonSpriteSheet;
-    public static ArrayList<BufferedImage> Pokemons;
-    public static BufferedImage pocketMonsterPokemonsFightsSheet;
-    public static SpriteSheet pocketMonsterPokemonsFightsSpriteSheet;
-    public static ArrayList<BufferedImage> PokemonsFights;
-    public static BufferedImage PokeSelectingSquarePane,earrow,arrow;
-
-    public static BufferedImage pocketMonsterPalletSheet;
-    public static SpriteSheet pocketMonsterPalletSpriteSheet;
-    public static BufferedImage pocketMonsterNPCSheet;
-    public static SpriteSheet pocketMonsterNPCSpriteSheet;
-    public static BufferedImage[] PokePallet,player;
 
     public Images() {
 
@@ -94,20 +71,6 @@ public class Images {
         pacmanDown = new BufferedImage[2];
         bound = new BufferedImage[16];
 
-        //intro
-        Pokelogo = new BufferedImage[4];
-        Pokestar = new BufferedImage[3];
-        PokeGengar = new BufferedImage[3];
-        PokeNido = new BufferedImage[3];
-        PokeGigly = new BufferedImage[3];
-        PokeRed = new BufferedImage[2];
-        PokeStars = new BufferedImage[4];
-
-        Pokemons = new ArrayList<>(152);
-        PokemonsFights = new ArrayList<>(152);
-
-        PokePallet = new BufferedImage[5];
-        player = new BufferedImage[6];
 
 
         try {
