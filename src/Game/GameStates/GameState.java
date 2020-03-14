@@ -3,6 +3,7 @@ package Game.GameStates;
 import Display.UI.ClickListlener;
 import Display.UI.UIImageButton;
 import Display.UI.UIManager;
+import Game.GameStates.Zelda.ZeldaGameCobyStates;
 import Main.Handler;
 import Resources.Images;
 
@@ -59,7 +60,7 @@ public class GameState extends State {
                 if (handler.getState() == handler.getGameState()) {
                     handler.getMouseManager().setUimanager(null);
                     handler.getMusicHandler().stopMusic();
-                    State.setState(handler.getPacManState());
+                    State.setState(new ZeldaGameCobyStates(handler));
                 }
             }
         }));

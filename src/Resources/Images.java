@@ -50,6 +50,11 @@ public class Images {
     public static BufferedImage pacmanImageSheet;
     public SpriteSheet pacmanSpriteSheet;
 
+    public static BufferedImage zeldaImageSheet;
+    public SpriteSheet zeldaSpriteSheet;
+
+    public static ArrayList<BufferedImage> zeldaTiles;
+
     public Images() {
 
         startGameButton = new BufferedImage[3];
@@ -69,6 +74,7 @@ public class Images {
         pacmanDown = new BufferedImage[2];
         bound = new BufferedImage[16];
 
+        zeldaTiles = new ArrayList<>();
 
 
         try {
@@ -172,6 +178,41 @@ public class Images {
 
             intro = ImageIO.read(getClass().getResourceAsStream("/UI/SpriteSheets/PacMan/intro.png"));
             start = ImageIO.read(getClass().getResourceAsStream("/UI/Backgrounds/startScreen.png"));
+
+            zeldaImageSheet = ImageIO.read(getClass().getResourceAsStream("/UI/Backgrounds/Zelda/tileSet.png"));
+            zeldaImageSheet = createImage(zeldaImageSheet.getWidth(),zeldaImageSheet.getHeight(),zeldaImageSheet,"tileSets_0,120,0,green",new Color(0,128,0).getRGB());
+            zeldaSpriteSheet = new SpriteSheet(zeldaImageSheet);
+
+            zeldaTiles.add(zeldaSpriteSheet.crop(815,11,32,32));
+            zeldaTiles.add(zeldaSpriteSheet.crop(848,11,32,32));
+            zeldaTiles.add(zeldaSpriteSheet.crop(881,11,32,32));
+            zeldaTiles.add(zeldaSpriteSheet.crop(914,11,32,32));
+            zeldaTiles.add(zeldaSpriteSheet.crop(947,11,32,32));
+            zeldaTiles.add(zeldaSpriteSheet.crop(848,44,32,32));
+            zeldaTiles.add(zeldaSpriteSheet.crop(815,44,32,32));
+            zeldaTiles.add(zeldaSpriteSheet.crop(881,44,32,32));
+            zeldaTiles.add(zeldaSpriteSheet.crop(914,44,32,32));
+            zeldaTiles.add(zeldaSpriteSheet.crop(947,44,32,32));
+            zeldaTiles.add(zeldaSpriteSheet.crop(815,77,32,32));
+            zeldaTiles.add(zeldaSpriteSheet.crop(848,77,32,32));
+            zeldaTiles.add(zeldaSpriteSheet.crop(881,77,32,32));
+            zeldaTiles.add(zeldaSpriteSheet.crop(914,77,32,32));
+            zeldaTiles.add(zeldaSpriteSheet.crop(947,77,32,32));
+            zeldaTiles.add(zeldaSpriteSheet.crop(815,110,32,32));
+            zeldaTiles.add(zeldaSpriteSheet.crop(848,110,32,32));
+            zeldaTiles.add(zeldaSpriteSheet.crop(881,110,32,32));
+            zeldaTiles.add(zeldaSpriteSheet.crop(914,110,32,32));
+            zeldaTiles.add(zeldaSpriteSheet.crop(947,110,32,32));
+            zeldaTiles.add(zeldaSpriteSheet.crop(984,11,16,16));
+            zeldaTiles.add(zeldaSpriteSheet.crop(1001,11,16,16));
+            zeldaTiles.add(zeldaSpriteSheet.crop(1018,11,16,16));
+            zeldaTiles.add(zeldaSpriteSheet.crop(1035,11,16,16));
+            zeldaTiles.add(zeldaSpriteSheet.crop(1001,28,16,16));
+            zeldaTiles.add(zeldaSpriteSheet.crop(984,28,16,16));
+            zeldaTiles.add(zeldaSpriteSheet.crop(1018,28,16,16));
+            zeldaTiles.add(zeldaSpriteSheet.crop(1035,28,16,16));
+            zeldaTiles.add(zeldaSpriteSheet.crop(984,45,16,16));
+            zeldaTiles.add(zeldaSpriteSheet.crop(1001,45,16,16));
 
 
 
