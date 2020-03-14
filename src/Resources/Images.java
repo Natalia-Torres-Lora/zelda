@@ -44,8 +44,6 @@ public class Images {
     public static BufferedImage intro;
     public static BufferedImage start;
 
-
-
     public static BufferedImage galagaImageSheet;
     public SpriteSheet galagaSpriteSheet;
 
