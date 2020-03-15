@@ -14,7 +14,7 @@ public class BaseEntity {
     public int x,y,width,height;
     public BufferedImage sprite;
     public Rectangle bounds;
-    Handler handler;
+    public Handler handler;
 
     public BaseEntity(int x, int y, BufferedImage sprite, Handler handler) {
         this.x = x;
@@ -37,7 +37,6 @@ public class BaseEntity {
     }
 
     public void render(Graphics g) {
-        g.setColor(Color.YELLOW);
-        g.fillRect(x,y,width,height);
+
     }
 }

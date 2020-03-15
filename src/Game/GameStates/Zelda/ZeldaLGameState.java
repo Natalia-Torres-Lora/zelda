@@ -38,11 +38,7 @@ public class ZeldaLGameState extends State {
     @Override
     public void render(Graphics g) {
         map.drawMap(((Graphics2D)g));
-        g.setColor(Color.BLACK);
-        g.fillRect(0,0,xOffset,handler.getHeight());
-        g.fillRect(xOffset+stageWidth,0,handler.getWidth(),handler.getHeight());
-        g.fillRect(0,0,handler.getWidth(),yOffset);
-        g.fillRect(0,yOffset+stageHeight,handler.getWidth(),handler.getHeight());
+
 
     }
 

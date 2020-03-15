@@ -79,15 +79,23 @@ public class ZeldaMapMakerState extends State {
             int xCoords = (handler.getMouseManager().getMouseX()/(pixelsPerSquare));
             int yCoords =  (handler.getMouseManager().getMouseY()/(pixelsPerSquare));
             if (grid.get(xCoords).get(yCoords) == null || !grid.get(xCoords).get(yCoords).equals(unChange)) {
-                grid.get(xCoords).set(yCoords, selectedList.get(counter));
-                int[] l = new int[2];
-                l[0] = xCoords;
-                l[1] = yCoords;
-                drawStack.add(l);
-                if (xCoords < pixelTotalWidth - 1 && yCoords < pixelTotalHeight - 1 &&  selectedList.get(counter).getHeight() *scale > pixelsPerSquare) {
-                    grid.get(xCoords).set(yCoords + 1, unChange);
-                    grid.get(xCoords + 1).set(yCoords, unChange);
-                    grid.get(xCoords + 1).set(yCoords + 1, unChange);
+                if (handler.getKeyManager().shift){
+                    grid.get(xCoords).set(yCoords, Images.zeldaLinkFrames[0]);
+                    int[] l = new int[2];
+                    l[0] = xCoords;
+                    l[1] = yCoords;
+                    drawStack.add(l);
+                }else {
+                    grid.get(xCoords).set(yCoords, selectedList.get(counter));
+                    int[] l = new int[2];
+                    l[0] = xCoords;
+                    l[1] = yCoords;
+                    drawStack.add(l);
+                    if (xCoords < pixelTotalWidth - 1 && yCoords < pixelTotalHeight - 1 && selectedList.get(counter).getHeight() * scale > pixelsPerSquare) {
+                        grid.get(xCoords).set(yCoords + 1, unChange);
+                        grid.get(xCoords + 1).set(yCoords, unChange);
+                        grid.get(xCoords + 1).set(yCoords + 1, unChange);
+                    }
                 }
             }
         }
@@ -139,6 +147,24 @@ public class ZeldaMapMakerState extends State {
                     break;
             }
         }
+        if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_MINUS)){
+            switch (selector){
+                case 0:
+                    if (counter==0){
+                        counter = 29;
+                    }else {
+                        counter--;
+                    }
+                    break;
+                default:
+                    if (counter==0){
+                        counter = 41;
+                    }else {
+                        counter--;
+                    }
+                    break;
+            }
+        }
 
         if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_J)){
             showingTiles = !showingTiles;
@@ -181,8 +207,13 @@ public class ZeldaMapMakerState extends State {
             }
         }
 
+        if (handler.getKeyManager().shift){
+            g.drawImage(Images.zeldaLinkFrames[0],handler.getMouseManager().getMouseX(),handler.getMouseManager().getMouseY(),selectedList.get(counter).getWidth()*scale,selectedList.get(counter).getHeight()*scale,null);
 
-        g.drawImage(selectedList.get(counter),handler.getMouseManager().getMouseX(),handler.getMouseManager().getMouseY(),selectedList.get(counter).getWidth()*scale,selectedList.get(counter).getHeight()*scale,null);
+        }else{
+            g.drawImage(selectedList.get(counter),handler.getMouseManager().getMouseX(),handler.getMouseManager().getMouseY(),selectedList.get(counter).getWidth()*scale,selectedList.get(counter).getHeight()*scale,null);
+        }
+
 
         if (showingTiles){
             g.setColor(Color.LIGHT_GRAY);

@@ -7,6 +7,7 @@ import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.nio.BufferOverflowException;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -61,6 +62,10 @@ public class Images {
     public SpriteSheet zeldaWorldLayoutTileSpriteSheet;
     public static ArrayList<BufferedImage> zeldaWorldLayoutTiles;
 
+    public static BufferedImage zeldaLinkImage;
+    public SpriteSheet zeldaLinkSpriteSheet;
+    public static BufferedImage[] zeldaLinkFrames;
+
     public static ArrayList<BufferedImage> forestTiles;
     public static ArrayList<BufferedImage> caveTiles;
     public static ArrayList<BufferedImage> mountainTiles;
@@ -92,6 +97,8 @@ public class Images {
         caveTiles = new ArrayList<>();
         graveTiles = new ArrayList<>();
         mountainTiles = new ArrayList<>();
+
+        zeldaLinkFrames = new BufferedImage[8];
 
 
 
@@ -203,6 +210,18 @@ public class Images {
             zeldaMap = createImageTransparent(zeldaMap.getWidth(),zeldaMap.getHeight(),zeldaMap,"zelddaMap_0,128,0,green",new Color(0,128,0).getRGB());
             zeldaImageSheet = createImageTransparent(zeldaImageSheet.getWidth(),zeldaImageSheet.getHeight(),zeldaImageSheet,"tileSets_0,120,0,green",new Color(0,128,0).getRGB());
             zeldaSpriteSheet = new SpriteSheet(zeldaImageSheet);
+
+            zeldaLinkImage = ImageIO.read(getClass().getResourceAsStream("/UI/Backgrounds/Zelda/link.png"));
+            zeldaLinkImage = createImageTransparent(zeldaLinkImage.getWidth(),zeldaLinkImage.getHeight(),zeldaLinkImage,"link_0,128,0_green",new Color(0,128,0).getRGB());
+            zeldaLinkSpriteSheet = new SpriteSheet(createImageTransparent(zeldaLinkImage.getWidth(),zeldaLinkImage.getHeight(),zeldaLinkImage,"link_116,116,116_gray",new Color(116,116,116).getRGB()));
+            zeldaLinkFrames[0] = zeldaLinkSpriteSheet.crop(1,11,16,16);
+            zeldaLinkFrames[1] = zeldaLinkSpriteSheet.crop(18,11,16,16);
+            zeldaLinkFrames[2] = zeldaLinkSpriteSheet.crop(35,11,16,16);
+            zeldaLinkFrames[3] = zeldaLinkSpriteSheet.crop(52,11,16,16);
+            zeldaLinkFrames[4] = zeldaLinkSpriteSheet.crop(69,11,16,16);
+            zeldaLinkFrames[5] = zeldaLinkSpriteSheet.crop(86,11,16,16);
+            zeldaLinkFrames[6] = zeldaLinkSpriteSheet.crop(213,11,16,16);
+            zeldaLinkFrames[7] = zeldaLinkSpriteSheet.crop(230,11,16,16);
 
             zeldaWorldLayoutTileImage = ImageIO.read(getClass().getResourceAsStream("/UI/Backgrounds/Zelda/layout.png"));
             zeldaWorldLayoutTileSpriteSheet = new SpriteSheet( createImageTransparent(zeldaWorldLayoutTileImage.getWidth(),zeldaWorldLayoutTileImage.getHeight(),zeldaWorldLayoutTileImage,"layout_0,128,0_green",new Color(0,128,0).getRGB()));
