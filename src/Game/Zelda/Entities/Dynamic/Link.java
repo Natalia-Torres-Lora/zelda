@@ -33,7 +33,7 @@ public class Link extends BaseMovingEntity {
 
     @Override
     public void tick() {
-        if (handler.getKeyManager().up ) {
+        if (handler.getKeyManager().up) {
             if (direction!=Direction.UP){
                 BufferedImage[] animList = new BufferedImage[2];
                 animList[0] = sprites[4];
@@ -96,6 +96,30 @@ public class Link extends BaseMovingEntity {
     @Override
     public void move(Direction direction) {
         moving = true;
+        changeIntersectingBounds();
+        for (SolidStaticEntities objects:handler.getZeldaGameState().objects.get(handler.getZeldaGameState().mapX).get(handler.getZeldaGameState().mapY)){
+            if (objects instanceof SectionDoor && objects.bounds.intersects(bounds)){
+                System.out.println("Move to next area to: " + ((SectionDoor) objects).direction);
+            }else if (objects.bounds.intersects(interactBounds)){
+                switch (direction) {
+                    case RIGHT:
+                        x -= speed;
+                        break;
+                    case LEFT:
+                        x += speed;
+
+                        break;
+                    case UP:
+                        y += speed;
+                        break;
+                    case DOWN:
+                        y -= speed;
+
+                        break;
+                }
+                return;
+            }
+        }
         switch (direction) {
             case RIGHT:
                 x += speed;
@@ -114,12 +138,6 @@ public class Link extends BaseMovingEntity {
         }
         bounds.x = x;
         bounds.y = y;
-        changeIntersectingBounds();
-        for (SolidStaticEntities doors:handler.getZeldaGameState().objects.get(handler.getZeldaGameState().mapX).get(handler.getZeldaGameState().mapY)){
-            if (doors instanceof SectionDoor && doors.bounds.intersects(bounds)){
-                System.out.println("Move to next area to: " + ((SectionDoor) doors).direction);
-            }
-        }
 
     }
 }

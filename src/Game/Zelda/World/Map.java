@@ -5,6 +5,7 @@ import Game.PacMan.entities.Dynamics.PacMan;
 import Game.PacMan.entities.Statics.BaseStatic;
 import Game.Zelda.Entities.BaseEntity;
 import Game.Zelda.Entities.Dynamic.BaseMovingEntity;
+import Game.Zelda.Entities.Dynamic.Link;
 import Main.Handler;
 
 import java.awt.*;
@@ -36,8 +37,11 @@ public class Map {
             g2.drawImage(block.sprite, block.x, block.y, block.width, block.height, null);
         }
         for (BaseMovingEntity entity:enemiesOnMap) {
-
-            g2.drawImage(entity.sprite, entity.x, entity.y, entity.width, entity.height, null);
+            if (entity instanceof Link){
+                entity.render(g2);
+            }else {
+                g2.drawImage(entity.sprite, entity.x, entity.y, entity.width, entity.height, null);
+            }
 
         }
 
