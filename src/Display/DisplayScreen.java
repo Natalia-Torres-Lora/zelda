@@ -65,6 +65,10 @@ public class DisplayScreen {
         return JOptionPane.showInputDialog(getFrame(), Promp, initialBoxValue);
     }
 
+    public void confirm(String Promp){
+        JOptionPane.showMessageDialog(getFrame(), Promp);
+    }
+
     public int doubleInputPopUp(String Promp){
         return JOptionPane.showConfirmDialog(getFrame(), Promp);
     }

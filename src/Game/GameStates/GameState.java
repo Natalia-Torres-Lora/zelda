@@ -3,11 +3,18 @@ package Game.GameStates;
 import Display.UI.ClickListlener;
 import Display.UI.UIImageButton;
 import Display.UI.UIManager;
-import Game.GameStates.Zelda.ZeldaGameCobyStates;
+import Game.GameStates.Zelda.ZeldaLGameState;
+import Game.GameStates.Zelda.ZeldaMapMakerState;
+import Game.Zelda.World.MapBuilder;
 import Main.Handler;
 import Resources.Images;
 
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.io.IOException;
 
 /**
  * Created by AlexVR on 1/24/2020.
@@ -27,6 +34,28 @@ public class GameState extends State {
 
         handler.getMouseManager().setUimanager(uiManager);
         uiManager.tick();
+
+        if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_M)){
+                handler.getMouseManager().setUimanager(null);
+                State.setState(handler.getZeldaMMState());
+        }
+        if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_L)){
+            handler.getMouseManager().setUimanager(null);
+            JFileChooser chooser = new JFileChooser("/maps");
+            FileNameExtensionFilter filter = new FileNameExtensionFilter(
+                    "JPG, & PNG Images", "jpg", "png");
+            chooser.setFileFilter(filter);
+            int returnVal = chooser.showOpenDialog(null);
+            if (returnVal == JFileChooser.APPROVE_OPTION) {
+                System.out.println("You chose to open this file: " + chooser.getSelectedFile().getAbsolutePath());
+                try {
+                State.setState(new ZeldaLGameState(handler,MapBuilder.createMap(ImageIO.read(chooser.getSelectedFile()), handler)));
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
 
     }
 
@@ -60,7 +89,18 @@ public class GameState extends State {
                 if (handler.getState() == handler.getGameState()) {
                     handler.getMouseManager().setUimanager(null);
                     handler.getMusicHandler().stopMusic();
-                    State.setState(new ZeldaGameCobyStates(handler));
+                    State.setState(handler.getPacManState());
+                }
+            }
+        }));
+
+        uiManager.addObjects(new UIImageButton(((handler.getWidth() / 2)) + ((handler.getWidth() / 5)) - ((handler.getWidth() / 64)), (handler.getHeight() /2)-(handler.getHeight() /32), handler.getWidth()/8, handler.getHeight()/8, Images.zeldaTriforceLogo, new ClickListlener() {
+            @Override
+            public void onClick() {
+                if (handler.getState() == handler.getGameState()) {
+                    handler.getMouseManager().setUimanager(null);
+                    handler.getMusicHandler().stopMusic();
+                    State.setState(handler.getZeldaGameState());
                 }
             }
         }));

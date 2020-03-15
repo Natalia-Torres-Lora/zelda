@@ -52,8 +52,19 @@ public class Images {
 
     public static BufferedImage zeldaImageSheet;
     public SpriteSheet zeldaSpriteSheet;
+    public static BufferedImage zeldaTriforceLogo;
+    public static BufferedImage zeldaMap;
 
     public static ArrayList<BufferedImage> zeldaTiles;
+
+    public static BufferedImage zeldaWorldLayoutTileImage;
+    public SpriteSheet zeldaWorldLayoutTileSpriteSheet;
+    public static ArrayList<BufferedImage> zeldaWorldLayoutTiles;
+
+    public static ArrayList<BufferedImage> forestTiles;
+    public static ArrayList<BufferedImage> caveTiles;
+    public static ArrayList<BufferedImage> mountainTiles;
+    public static ArrayList<BufferedImage> graveTiles;
 
     public Images() {
 
@@ -75,6 +86,13 @@ public class Images {
         bound = new BufferedImage[16];
 
         zeldaTiles = new ArrayList<>();
+        zeldaWorldLayoutTiles = new ArrayList<>();
+
+        forestTiles = new ArrayList<>();
+        caveTiles = new ArrayList<>();
+        graveTiles = new ArrayList<>();
+        mountainTiles = new ArrayList<>();
+
 
 
         try {
@@ -180,9 +198,21 @@ public class Images {
             start = ImageIO.read(getClass().getResourceAsStream("/UI/Backgrounds/startScreen.png"));
 
             zeldaImageSheet = ImageIO.read(getClass().getResourceAsStream("/UI/Backgrounds/Zelda/tileSet.png"));
-            zeldaImageSheet = createImage(zeldaImageSheet.getWidth(),zeldaImageSheet.getHeight(),zeldaImageSheet,"tileSets_0,120,0,green",new Color(0,128,0).getRGB());
+            zeldaTriforceLogo = ImageIO.read(getClass().getResourceAsStream("/UI/Backgrounds/Zelda/triforceLogo.png"));
+            zeldaMap = ImageIO.read(getClass().getResourceAsStream("/UI/Backgrounds/Zelda/map.png"));
+            zeldaMap = createImageTransparent(zeldaMap.getWidth(),zeldaMap.getHeight(),zeldaMap,"zelddaMap_0,128,0,green",new Color(0,128,0).getRGB());
+            zeldaImageSheet = createImageTransparent(zeldaImageSheet.getWidth(),zeldaImageSheet.getHeight(),zeldaImageSheet,"tileSets_0,120,0,green",new Color(0,128,0).getRGB());
             zeldaSpriteSheet = new SpriteSheet(zeldaImageSheet);
 
+            zeldaWorldLayoutTileImage = ImageIO.read(getClass().getResourceAsStream("/UI/Backgrounds/Zelda/layout.png"));
+            zeldaWorldLayoutTileSpriteSheet = new SpriteSheet( createImageTransparent(zeldaWorldLayoutTileImage.getWidth(),zeldaWorldLayoutTileImage.getHeight(),zeldaWorldLayoutTileImage,"layout_0,128,0_green",new Color(0,128,0).getRGB()));
+            zeldaWorldLayoutTiles.add(zeldaWorldLayoutTileSpriteSheet.crop(1,154,152,84));
+            zeldaWorldLayoutTiles.add(createImage(zeldaWorldLayoutTiles.get(0).getWidth(),zeldaWorldLayoutTiles.get(0).getHeight(),zeldaWorldLayoutTiles.get(0),"forest_brown4greeen",brown.getRGB(),new Color(0,168,0).getRGB()));
+            zeldaWorldLayoutTiles.add(createImage(zeldaWorldLayoutTiles.get(0).getWidth(),zeldaWorldLayoutTiles.get(0).getHeight(),zeldaWorldLayoutTiles.get(0),"cave_brown4greeen",brown.getRGB(),new Color(124,8,0).getRGB()));
+            zeldaWorldLayoutTiles.add(createImage(zeldaWorldLayoutTiles.get(0).getWidth(),zeldaWorldLayoutTiles.get(0).getHeight(),zeldaWorldLayoutTiles.get(0),"grave_brown4greeen",brown.getRGB(),new Color(252,252,252).getRGB()));
+
+
+            //dungeon one tiles
             zeldaTiles.add(zeldaSpriteSheet.crop(815,11,32,32));
             zeldaTiles.add(zeldaSpriteSheet.crop(848,11,32,32));
             zeldaTiles.add(zeldaSpriteSheet.crop(881,11,32,32));
@@ -214,6 +244,183 @@ public class Images {
             zeldaTiles.add(zeldaSpriteSheet.crop(984,45,16,16));
             zeldaTiles.add(zeldaSpriteSheet.crop(1001,45,16,16));
 
+            //main world tiles
+            SpriteSheet mountain = new SpriteSheet(zeldaWorldLayoutTiles.get(0));
+            SpriteSheet forest = new SpriteSheet(zeldaWorldLayoutTiles.get(1));
+            SpriteSheet cave = new SpriteSheet(zeldaWorldLayoutTiles.get(2));
+            SpriteSheet grave = new SpriteSheet(zeldaWorldLayoutTiles.get(3));
+
+            mountainTiles.add(mountain.crop(0,0,16,16));
+            mountainTiles.add(mountain.crop(17,0,16,16));
+            mountainTiles.add(mountain.crop(34,0,16,16));
+            mountainTiles.add(mountain.crop(51,0,16,16));
+            mountainTiles.add(mountain.crop(17,17,16,16));
+            mountainTiles.add(mountain.crop(34,17,16,16));
+            mountainTiles.add(mountain.crop(51,17,16,16));
+            mountainTiles.add(mountain.crop(68,0,16,16));
+            mountainTiles.add(mountain.crop(85,0,16,16));
+            mountainTiles.add(mountain.crop(102,0,16,16));
+            mountainTiles.add(mountain.crop(68,17,16,16));
+            mountainTiles.add(mountain.crop(85,17,16,16));
+            mountainTiles.add(mountain.crop(102,17,16,16));
+            mountainTiles.add(mountain.crop(68,34,16,16));
+            mountainTiles.add(mountain.crop(85,34,16,16));
+            mountainTiles.add(mountain.crop(102,34,16,16));
+            mountainTiles.add(mountain.crop(119,0,16,16));
+            mountainTiles.add(mountain.crop(136,0,16,16));
+            mountainTiles.add(mountain.crop(119,17,16,16));
+            mountainTiles.add(mountain.crop(136,17,16,16));
+            mountainTiles.add(mountain.crop(119,34,16,16));
+            mountainTiles.add(mountain.crop(136,34,16,16));
+            mountainTiles.add(mountain.crop(0,51,16,16));
+            mountainTiles.add(mountain.crop(17,51,16,16));
+            mountainTiles.add(mountain.crop(34,51,16,16));
+            mountainTiles.add(mountain.crop(0,68,16,16));
+            mountainTiles.add(mountain.crop(34,68,16,16));
+            mountainTiles.add(mountain.crop(51,51,16,16));
+            mountainTiles.add(mountain.crop(68,51,16,16));
+            mountainTiles.add(mountain.crop(85,51,16,16));
+            mountainTiles.add(mountain.crop(51,68,16,16));
+            mountainTiles.add(mountain.crop(85,68,16,16));
+            mountainTiles.add(mountain.crop(0,17,16,16));
+            mountainTiles.add(mountain.crop(0,34,16,16));
+            mountainTiles.add(mountain.crop(17,34,16,16));
+            mountainTiles.add(mountain.crop(34,34,16,16));
+            mountainTiles.add(mountain.crop(51,34,16,16));
+            mountainTiles.add(mountain.crop(17,68,16,16));
+            mountainTiles.add(mountain.crop(68,68,16,16));
+            mountainTiles.add(mountain.crop(102,51,16,16));
+            mountainTiles.add(mountain.crop(119,51,16,16));
+            mountainTiles.add(mountain.crop(136,51,16,16));
+
+            forestTiles.add(forest.crop(0,0,16,16));
+            forestTiles.add(forest.crop(17,0,16,16));
+            forestTiles.add(forest.crop(34,0,16,16));
+            forestTiles.add(forest.crop(51,0,16,16));
+            forestTiles.add(forest.crop(17,17,16,16));
+            forestTiles.add(forest.crop(34,17,16,16));
+            forestTiles.add(forest.crop(51,17,16,16));
+            forestTiles.add(forest.crop(68,0,16,16));
+            forestTiles.add(forest.crop(85,0,16,16));
+            forestTiles.add(forest.crop(102,0,16,16));
+            forestTiles.add(forest.crop(68,17,16,16));
+            forestTiles.add(forest.crop(85,17,16,16));
+            forestTiles.add(forest.crop(102,17,16,16));
+            forestTiles.add(forest.crop(68,34,16,16));
+            forestTiles.add(forest.crop(85,34,16,16));
+            forestTiles.add(forest.crop(102,34,16,16));
+            forestTiles.add(forest.crop(119,0,16,16));
+            forestTiles.add(forest.crop(136,0,16,16));
+            forestTiles.add(forest.crop(119,17,16,16));
+            forestTiles.add(forest.crop(136,17,16,16));
+            forestTiles.add(forest.crop(119,34,16,16));
+            forestTiles.add(forest.crop(136,34,16,16));
+            forestTiles.add(forest.crop(0,51,16,16));
+            forestTiles.add(forest.crop(17,51,16,16));
+            forestTiles.add(forest.crop(34,51,16,16));
+            forestTiles.add(forest.crop(0,68,16,16));
+            forestTiles.add(forest.crop(34,68,16,16));
+            forestTiles.add(forest.crop(51,51,16,16));
+            forestTiles.add(forest.crop(68,51,16,16));
+            forestTiles.add(forest.crop(85,51,16,16));
+            forestTiles.add(forest.crop(51,68,16,16));
+            forestTiles.add(forest.crop(85,68,16,16));
+            forestTiles.add(forest.crop(0,17,16,16));
+            forestTiles.add(forest.crop(0,34,16,16));
+            forestTiles.add(forest.crop(17,34,16,16));
+            forestTiles.add(forest.crop(34,34,16,16));
+            forestTiles.add(forest.crop(51,34,16,16));
+            forestTiles.add(forest.crop(17,68,16,16));
+            forestTiles.add(forest.crop(68,68,16,16));
+            forestTiles.add(forest.crop(102,51,16,16));
+            forestTiles.add(forest.crop(119,51,16,16));
+            forestTiles.add(forest.crop(136,51,16,16));
+
+            caveTiles.add(cave.crop(0,0,16,16));
+            caveTiles.add(cave.crop(17,0,16,16));
+            caveTiles.add(cave.crop(34,0,16,16));
+            caveTiles.add(cave.crop(51,0,16,16));
+            caveTiles.add(cave.crop(17,17,16,16));
+            caveTiles.add(cave.crop(34,17,16,16));
+            caveTiles.add(cave.crop(51,17,16,16));
+            caveTiles.add(cave.crop(68,0,16,16));
+            caveTiles.add(cave.crop(85,0,16,16));
+            caveTiles.add(cave.crop(102,0,16,16));
+            caveTiles.add(cave.crop(68,17,16,16));
+            caveTiles.add(cave.crop(85,17,16,16));
+            caveTiles.add(cave.crop(102,17,16,16));
+            caveTiles.add(cave.crop(68,34,16,16));
+            caveTiles.add(cave.crop(85,34,16,16));
+            caveTiles.add(cave.crop(102,34,16,16));
+            caveTiles.add(cave.crop(119,0,16,16));
+            caveTiles.add(cave.crop(136,0,16,16));
+            caveTiles.add(cave.crop(119,17,16,16));
+            caveTiles.add(cave.crop(136,17,16,16));
+            caveTiles.add(cave.crop(119,34,16,16));
+            caveTiles.add(cave.crop(136,34,16,16));
+            caveTiles.add(cave.crop(0,51,16,16));
+            caveTiles.add(cave.crop(17,51,16,16));
+            caveTiles.add(cave.crop(34,51,16,16));
+            caveTiles.add(cave.crop(0,68,16,16));
+            caveTiles.add(cave.crop(34,68,16,16));
+            caveTiles.add(cave.crop(51,51,16,16));
+            caveTiles.add(cave.crop(68,51,16,16));
+            caveTiles.add(cave.crop(85,51,16,16));
+            caveTiles.add(cave.crop(51,68,16,16));
+            caveTiles.add(cave.crop(85,68,16,16));
+            caveTiles.add(cave.crop(0,17,16,16));
+            caveTiles.add(cave.crop(0,34,16,16));
+            caveTiles.add(cave.crop(17,34,16,16));
+            caveTiles.add(cave.crop(34,34,16,16));
+            caveTiles.add(cave.crop(51,34,16,16));
+            caveTiles.add(cave.crop(17,68,16,16));
+            caveTiles.add(cave.crop(68,68,16,16));
+            caveTiles.add(cave.crop(102,51,16,16));
+            caveTiles.add(cave.crop(119,51,16,16));
+            caveTiles.add(cave.crop(136,51,16,16));
+
+            graveTiles.add(grave.crop(0,0,16,16));
+            graveTiles.add(grave.crop(17,0,16,16));
+            graveTiles.add(grave.crop(34,0,16,16));
+            graveTiles.add(grave.crop(51,0,16,16));
+            graveTiles.add(grave.crop(17,17,16,16));
+            graveTiles.add(grave.crop(34,17,16,16));
+            graveTiles.add(grave.crop(51,17,16,16));
+            graveTiles.add(grave.crop(68,0,16,16));
+            graveTiles.add(grave.crop(85,0,16,16));
+            graveTiles.add(grave.crop(102,0,16,16));
+            graveTiles.add(grave.crop(68,17,16,16));
+            graveTiles.add(grave.crop(85,17,16,16));
+            graveTiles.add(grave.crop(102,17,16,16));
+            graveTiles.add(grave.crop(68,34,16,16));
+            graveTiles.add(grave.crop(85,34,16,16));
+            graveTiles.add(grave.crop(102,34,16,16));
+            graveTiles.add(grave.crop(119,0,16,16));
+            graveTiles.add(grave.crop(136,0,16,16));
+            graveTiles.add(grave.crop(119,17,16,16));
+            graveTiles.add(grave.crop(136,17,16,16));
+            graveTiles.add(grave.crop(119,34,16,16));
+            graveTiles.add(grave.crop(136,34,16,16));
+            graveTiles.add(grave.crop(0,51,16,16));
+            graveTiles.add(grave.crop(17,51,16,16));
+            graveTiles.add(grave.crop(34,51,16,16));
+            graveTiles.add(grave.crop(0,68,16,16));
+            graveTiles.add(grave.crop(34,68,16,16));
+            graveTiles.add(grave.crop(51,51,16,16));
+            graveTiles.add(grave.crop(68,51,16,16));
+            graveTiles.add(grave.crop(85,51,16,16));
+            graveTiles.add(grave.crop(51,68,16,16));
+            graveTiles.add(grave.crop(85,68,16,16));
+            graveTiles.add(grave.crop(0,17,16,16));
+            graveTiles.add(grave.crop(0,34,16,16));
+            graveTiles.add(grave.crop(17,34,16,16));
+            graveTiles.add(grave.crop(34,34,16,16));
+            graveTiles.add(grave.crop(51,34,16,16));
+            graveTiles.add(grave.crop(17,68,16,16));
+            graveTiles.add(grave.crop(68,68,16,16));
+            graveTiles.add(grave.crop(102,51,16,16));
+            graveTiles.add(grave.crop(119,51,16,16));
+            graveTiles.add(grave.crop(136,51,16,16));
 
 
         }catch (IOException e) {
@@ -224,8 +431,15 @@ public class Images {
     }
 
     public static Color transparant = new Color(255, 255, 255, 0);
+    public static Color brown = new Color(200,76,12);
 
-    public BufferedImage createImage(int width,int height,BufferedImage image,String name, int RGBToReplace){
+    public BufferedImage createImageTransparent(int width, int height, BufferedImage image, String name, int RGBToReplace){
+
+
+        return createImage(width,height,image,name,RGBToReplace,transparant.getRGB());
+    }
+
+    public BufferedImage createImage(int width, int height, BufferedImage image, String name, int RGBToReplace,int RGBReplaicing){
 
         String path = Objects.requireNonNull(getClass().getClassLoader().getResource(".")).getPath();
         String path2 = path.substring(0,path.indexOf("/out/"))+"/res/Edited/"+name+".png";
@@ -251,7 +465,7 @@ public class Images {
             for (int x = 0; x < width; x++)
             {
                 if (image.getRGB(x, y) == RGBToReplace) {
-                    img.setRGB(x, y, transparant.getRGB());
+                    img.setRGB(x, y, RGBReplaicing);
                 } else {
                     img.setRGB(x, y, image.getRGB(x, y));
                 }
