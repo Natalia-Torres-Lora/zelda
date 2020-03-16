@@ -449,6 +449,47 @@ public class Images {
 
     }
 
+
+    public BufferedImage invertImage(BufferedImage bufferedImage, String name) {
+        String path = Objects.requireNonNull(getClass().getClassLoader().getResource(".")).getPath();
+        String path2 = path.substring(0,path.indexOf("/out/"))+"/res/Edited/"+name+".png";
+        File imagess = new File(path2.replaceAll("%20"," "));
+        if (imagess.exists()){
+            try {
+                return ImageIO.read(imagess.getAbsoluteFile());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        for (int x = 0; x < bufferedImage.getWidth(); x++) {
+            for (int y = 0; y < bufferedImage.getHeight(); y++) {
+                int rgba = bufferedImage.getRGB(x, y);
+                Color col = new Color(rgba, true);
+                col = new Color(255 - col.getRed(),
+                        255 - col.getGreen(),
+                        255 - col.getBlue());
+                bufferedImage.setRGB(x, y, col.getRGB());
+            }
+        }
+        File f = null;
+
+        try
+        {
+            path = Objects.requireNonNull(getClass().getClassLoader().getResource(".")).getPath();
+            path2 = path.substring(0,path.indexOf("/out/"))+"/res/Edited/"+name+".png";
+            f = new File(path2.replaceAll("%20"," "));
+            System.out.println("File saved in: "+path2);
+            ImageIO.write(bufferedImage, "png", f);
+        }
+        catch(IOException e)
+        {
+            System.out.println("Error: " + e);
+        }
+        return bufferedImage;
+    }
+
     public static Color transparant = new Color(255, 255, 255, 0);
     public static Color brown = new Color(200,76,12);
 

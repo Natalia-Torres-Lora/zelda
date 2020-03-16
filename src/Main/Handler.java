@@ -3,6 +3,7 @@ package Main;
 import Display.DisplayScreen;
 import Game.GameStates.*;
 import Game.GameStates.Zelda.ZeldaGameState;
+import Game.GameStates.Zelda.ZeldaIntroStates;
 import Game.GameStates.Zelda.ZeldaMapMakerState;
 import Game.PacMan.World.Map;
 import Game.PacMan.entities.Dynamics.PacMan;
@@ -88,6 +89,10 @@ public class Handler {
 
     public ZeldaGameState getZeldaGameState (){
         return (ZeldaGameState)getGameProperties().zeldaGameState;
+    }
+
+    public ZeldaIntroStates getZeldaIntroState (){
+        return (ZeldaIntroStates) getGameProperties().zeldaIntroState;
     }
 
     public ZeldaMapMakerState getZeldaMMState (){
