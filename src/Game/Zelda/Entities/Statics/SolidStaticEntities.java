@@ -21,6 +21,6 @@ public class SolidStaticEntities extends BaseEntity {
 
     @Override
     public void render(Graphics g) {
-        g.drawImage(sprite,(x* (ZeldaGameState.stageHeight/16)) + ZeldaGameState.xOffset,(y* (ZeldaGameState.stageHeight/11)) + ZeldaGameState.yOffset,width,height,null);
+        g.drawImage(sprite,(x* (ZeldaGameState.stageWidth/16)) + ZeldaGameState.xOffset,(y* (ZeldaGameState.stageHeight/11)) + ZeldaGameState.yOffset,width,height,null);
     }
 }

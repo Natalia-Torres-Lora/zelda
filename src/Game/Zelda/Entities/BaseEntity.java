@@ -7,6 +7,8 @@ import Resources.Images;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
+import static Game.GameStates.Zelda.ZeldaGameState.worldScale;
+
 /**
  * Created by AlexVR on 3/14/2020
  */
@@ -22,8 +24,8 @@ public class BaseEntity {
         this.sprite = sprite;
         this.handler = handler;
         if (sprite!=null) {
-            width = sprite.getWidth() * ZeldaMapMakerState.scale;
-            height = sprite.getHeight() * ZeldaMapMakerState.scale;
+            width = sprite.getWidth() * worldScale;
+            height = sprite.getHeight() * worldScale;
         }else{
             width = 1;
             height = 1;

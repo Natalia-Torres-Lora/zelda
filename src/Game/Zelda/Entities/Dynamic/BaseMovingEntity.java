@@ -28,8 +28,8 @@ public class BaseMovingEntity extends BaseEntity {
         direction = UP;
         sprites = sprite;
         interactBounds = (Rectangle) bounds.clone();
-
-        interactBounds.y-=(height/4);
+        interactBounds.y+=(height/2);
+        interactBounds.height/=2;
     }
 
     @Override
@@ -49,22 +49,21 @@ public class BaseMovingEntity extends BaseEntity {
     }
 
     public void changeIntersectingBounds() {
+        interactBounds = (Rectangle) bounds.clone();
+        interactBounds.y+=(height/2);
+        interactBounds.height/=2;
         switch (direction){
             case DOWN:
-                interactBounds = (Rectangle) bounds.clone();
-                interactBounds.y+=(height/4);
+                interactBounds.y+=speed;
                 break;
             case UP:
-                interactBounds = (Rectangle) bounds.clone();
-                interactBounds.y-=(height/4);
+                interactBounds.y-=speed;
                 break;
             case LEFT:
-                interactBounds = (Rectangle) bounds.clone();
-                interactBounds.x-=(width/4);
+                interactBounds.x-=speed;
                 break;
             case RIGHT:
-                interactBounds = (Rectangle) bounds.clone();
-                interactBounds.x+=(width/4);
+                interactBounds.x+=speed;
                 break;
         }
     }
