@@ -2,6 +2,7 @@ package Game.Zelda.World;
 
 import Game.GameStates.State;
 import Game.GameStates.Zelda.ZeldaMapMakerState;
+import Game.Zelda.Entities.Dynamic.LLink;
 import Game.Zelda.Entities.Dynamic.Link;
 import Game.Zelda.Entities.Statics.SolidStaticEntities;
 import Game.Zelda.Entities.Statics.WalkingSolidEntities;
@@ -618,12 +619,16 @@ public class MapBuilder {
 					WalkingSolidEntities ghost = new WalkingSolidEntities(xPos, yPos, Images.graveTiles.get(41), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == Link) {
-					Game.Zelda.Entities.Dynamic.Link ghost = new Link(xPos, yPos, Images.zeldaLinkFrames, handler);
+					Game.Zelda.Entities.Dynamic.LLink ghost = new LLink(xPos, yPos, Images.zeldaLinkFrames, handler);
 					mapInCreation.addEnemy(ghost);
+					mapInCreation.link = ghost;
 				}
 
 
 				}
+		}
+		if (mapInCreation.link != null) {
+			mapInCreation.link.map = mapInCreation;
 		}
 		return mapInCreation;
 	}

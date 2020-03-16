@@ -162,7 +162,6 @@ public class Link extends BaseMovingEntity {
             }
             g.drawImage(sprite, x , y, width , height , null);
         }
-        ((Graphics2D)g).draw(interactBounds);
     }
 
     @Override

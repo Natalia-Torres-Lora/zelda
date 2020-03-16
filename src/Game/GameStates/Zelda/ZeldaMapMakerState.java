@@ -1,6 +1,7 @@
 package Game.GameStates.Zelda;
 
 import Game.GameStates.State;
+import Game.Zelda.World.Map;
 import Game.Zelda.World.MapBuilder;
 import Main.Handler;
 import Resources.Images;
@@ -172,7 +173,12 @@ public class ZeldaMapMakerState extends State {
 
 
         if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_ENTER)){
-            handler.changeState(new ZeldaLGameState(handler,MapBuilder.createMap(Objects.requireNonNull(MapBuilder.arrayToRGBImage(grid, handler.getDisplayScreen().stringInputPopUp("Enter File Name", "testName1"))),handler)));
+            Map map = MapBuilder.createMap(Objects.requireNonNull(MapBuilder.arrayToRGBImage(grid, handler.getDisplayScreen().stringInputPopUp("Enter File Name", "testName1"))),handler);
+            if (map.link == null){
+                handler.getDisplayScreen().confirm("Must have a Link, hold shift and click where you wiah to add him");
+            }else {
+                handler.changeState(new ZeldaLGameState(handler, map));
+            }
         }
 
     }

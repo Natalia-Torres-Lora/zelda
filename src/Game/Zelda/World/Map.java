@@ -1,10 +1,12 @@
 package Game.Zelda.World;
 
+import Game.GameStates.Zelda.ZeldaLGameState;
 import Game.PacMan.entities.Dynamics.BaseDynamic;
 import Game.PacMan.entities.Dynamics.PacMan;
 import Game.PacMan.entities.Statics.BaseStatic;
 import Game.Zelda.Entities.BaseEntity;
 import Game.Zelda.Entities.Dynamic.BaseMovingEntity;
+import Game.Zelda.Entities.Dynamic.LLink;
 import Game.Zelda.Entities.Dynamic.Link;
 import Main.Handler;
 
@@ -17,6 +19,8 @@ public class Map {
     ArrayList<BaseEntity> blocksOnMap;
     ArrayList<BaseMovingEntity> enemiesOnMap;
     Handler handler;
+    public LLink link;
+    public int xOffset =0,yOffset = 0;
 
     public Map(Handler handler) {
         this.handler=handler;
@@ -34,13 +38,13 @@ public class Map {
 
     public void drawMap(Graphics2D g2) {
         for (BaseEntity block:blocksOnMap) {
-            g2.drawImage(block.sprite, block.x, block.y, block.width, block.height, null);
+            g2.drawImage(block.sprite, block.x + xOffset, block.y + yOffset, block.width * ZeldaLGameState.worldScale, block.height * ZeldaLGameState.worldScale, null);
         }
         for (BaseMovingEntity entity:enemiesOnMap) {
-            if (entity instanceof Link){
+            if (entity instanceof LLink){
                 entity.render(g2);
             }else {
-                g2.drawImage(entity.sprite, entity.x, entity.y, entity.width, entity.height, null);
+                g2.drawImage(entity.sprite, entity.x + xOffset, entity.y + yOffset, entity.width * ZeldaLGameState.worldScale, entity.height * ZeldaLGameState.worldScale, null);
             }
 
         }

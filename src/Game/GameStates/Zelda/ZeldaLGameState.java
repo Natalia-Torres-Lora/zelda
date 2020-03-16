@@ -16,17 +16,13 @@ import java.awt.image.BufferedImage;
 public class ZeldaLGameState extends State {
 
 
-    static int xOffset,yOffset,stageWidth,stageHeight,worldScale;
+    public static int worldScale;
     Map map;
 
 
 
     public ZeldaLGameState(Handler handler, Map map) {
         super(handler);
-        xOffset = handler.getWidth()/3;
-        yOffset = handler.getHeight()/4;
-        stageWidth = handler.getWidth()/2;
-        stageHeight = handler.getHeight()/2;
         worldScale = 4;
         this.map = map;
 
