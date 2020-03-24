@@ -3,6 +3,7 @@ package Game.Zelda.World;
 import Game.GameStates.Zelda.ZeldaMapMakerState;
 import Game.Zelda.Entities.Dynamic.MMLink;
 import Game.Zelda.Entities.Statics.MMSolidStaticEntities;
+import Game.Zelda.Entities.Statics.MMTeleport;
 import Game.Zelda.Entities.Statics.MMWalkingSolidEntities;
 import Main.Handler;
 import Resources.Images;
@@ -10,16 +11,60 @@ import Resources.Images;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Objects;
 
 public class MapBuilder {
 
 
-	public static Map createMap(BufferedImage mapImage, Handler handler){
+
+	public static Map createMap(BufferedImage mapImage, Handler handler,String name){
+		if (name.contains(".png")){
+			name = name.replace(".png","");
+		}
+		name+=".txt";
+		String path = Objects.requireNonNull(MapBuilder.class.getClassLoader().getResource(".")).getPath();
+		String path2 = path.substring(0,path.indexOf("/out/"))+"/res/Edited/"+name;
+		ArrayList<ArrayList<int[]>> linkedTeli = new ArrayList<>();
+		try {
+			BufferedReader br = new BufferedReader(new FileReader( new File(path2)));
+			String line;
+			// read through the first two lines to get to the data
+			line = br.readLine();
+			while ((line = br.readLine()) != null) {
+				System.out.println("Parsing: " + line);
+
+				String xy1 = (line.substring(line.indexOf("[") + 1,line.indexOf("]")));
+				String xy2 = (line.substring(line.lastIndexOf("[") + 1,line.lastIndexOf("]")));
+				System.out.println("xy1: " + xy1);
+				System.out.println("xy2: " + xy2);
+
+				ArrayList<int[]> coords = new ArrayList<>();
+				int[] xy = new int[2];
+				xy[0] = Integer.parseInt(xy1.substring(0,xy1.indexOf(",")));
+				xy[1] = Integer.parseInt(xy1.substring(xy1.indexOf(",") + 2));
+				coords.add(xy);
+				xy = new int[2];
+				xy[0] = Integer.parseInt(xy2.substring(0,xy2.indexOf(",")));
+				xy[1] = Integer.parseInt(xy2.substring(xy2.indexOf(",") + 2));
+				coords.add(xy);
+				linkedTeli.add(coords);
+				System.out.println(Arrays.toString(coords.get(0)) + " , " + Arrays.toString(coords.get(1)));
+				System.out.println();
+			}
+			br.close();
+		} catch (Exception e) {
+			handler.getDisplayScreen().confirm("There was an issue parsing the file:\n" +
+					path2 + "\n" +
+					"It was not found, assuming there is no teleport pads in map\n" +
+					"If there is, they wont work.");
+			System.out.println("There was an issue parsing the file. Teleport file not found, assuming there is no teleport pads in map\n" +
+					"If there is, they wont work.");
+		}
 		Map mapInCreation = new Map(handler);
 		for (int i = 0; i < mapImage.getWidth(); i++) {
 			for (int j = 0; j < mapImage.getHeight(); j++) {
@@ -234,8 +279,9 @@ public class MapBuilder {
 					MMWalkingSolidEntities ghost = new MMWalkingSolidEntities(xPos, yPos, Images.forestTiles.get(40), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == forest41) {
-					MMWalkingSolidEntities ghost = new MMWalkingSolidEntities(xPos, yPos, Images.forestTiles.get(41), handler);
+					MMTeleport ghost = new MMTeleport(xPos, yPos, Images.forestTiles.get(41), handler);
 					mapInCreation.addBlock(ghost);
+					checkForTeli(ghost,xPos,yPos,linkedTeli);
 				}else if(currentPixel == cave) {
 					MMWalkingSolidEntities ghost = new MMWalkingSolidEntities(xPos, yPos, Images.caveTiles.get(0), handler);
 					mapInCreation.addBlock(ghost);
@@ -360,8 +406,9 @@ public class MapBuilder {
 					MMWalkingSolidEntities ghost = new MMWalkingSolidEntities(xPos, yPos, Images.caveTiles.get(40), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == cave41) {
-					MMWalkingSolidEntities ghost = new MMWalkingSolidEntities(xPos, yPos, Images.caveTiles.get(41), handler);
+					MMTeleport ghost = new MMTeleport(xPos, yPos, Images.caveTiles.get(41), handler);
 					mapInCreation.addBlock(ghost);
+					checkForTeli(ghost,xPos,yPos,linkedTeli);
 				}else if(currentPixel == mountain) {
 					MMWalkingSolidEntities ghost = new MMWalkingSolidEntities(xPos, yPos, Images.mountainTiles.get(0), handler);
 					mapInCreation.addBlock(ghost);
@@ -486,8 +533,9 @@ public class MapBuilder {
 					MMWalkingSolidEntities ghost = new MMWalkingSolidEntities(xPos, yPos, Images.mountainTiles.get(40), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == mountain41) {
-					MMWalkingSolidEntities ghost = new MMWalkingSolidEntities(xPos, yPos, Images.mountainTiles.get(41), handler);
+					MMTeleport ghost = new MMTeleport(xPos, yPos, Images.mountainTiles.get(41), handler);
 					mapInCreation.addBlock(ghost);
+					checkForTeli(ghost,xPos,yPos,linkedTeli);
 				}else if(currentPixel == grave) {
 					MMWalkingSolidEntities ghost = new MMWalkingSolidEntities(xPos, yPos, Images.graveTiles.get(0), handler);
 					mapInCreation.addBlock(ghost);
@@ -612,8 +660,9 @@ public class MapBuilder {
 					MMWalkingSolidEntities ghost = new MMWalkingSolidEntities(xPos, yPos, Images.graveTiles.get(40), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == grave41) {
-					MMWalkingSolidEntities ghost = new MMWalkingSolidEntities(xPos, yPos, Images.graveTiles.get(41), handler);
+					MMTeleport ghost = new MMTeleport(xPos, yPos, Images.graveTiles.get(41), handler);
 					mapInCreation.addBlock(ghost);
+					checkForTeli(ghost,xPos,yPos,linkedTeli);
 				}else if(currentPixel == Link) {
 					MMLink ghost = new MMLink(xPos, yPos, Images.zeldaLinkFrames, handler);
 					mapInCreation.addEnemy(ghost);
@@ -623,7 +672,7 @@ public class MapBuilder {
 				}
 
 
-				}
+			}
 		}
 		if (mapInCreation.link != null) {
 			mapInCreation.link.map = mapInCreation;
@@ -631,8 +680,7 @@ public class MapBuilder {
 		return mapInCreation;
 	}
 
-	public static BufferedImage
-	arrayToRGBImage(ArrayList<ArrayList<BufferedImage>> info,String name){
+	public static BufferedImage arrayToRGBImage(ArrayList<ArrayList<BufferedImage>> info,String name,ArrayList<ArrayList<int[]>> teleportList){
 
 		String path = Objects.requireNonNull(MapBuilder.class.getClassLoader().getResource(".")).getPath();
 		String path2 = path.substring(0,path.indexOf("/out/"))+"/res/Edited/"+name+".png";
@@ -648,7 +696,7 @@ public class MapBuilder {
 		BufferedImage image = new BufferedImage(info.size(),info.get(0).size(), BufferedImage.TYPE_INT_ARGB);
 		// file object
 		File f = null;
-		java.util.Map<BufferedImage, Integer> mapping = new HashMap<BufferedImage, Integer>();
+		File f2 = null;
 		for (int y = 0; y < info.get(0).size(); y++) {
 			for (int x = 0; x < info.size(); x++) {
 				if (Images.zeldaTiles.get(0).equals(info.get(x).get(y))){
@@ -1051,20 +1099,60 @@ public class MapBuilder {
 			}
 		}
 
-		try
-		{
+		try {
 			path = Objects.requireNonNull(MapBuilder.class.getClassLoader().getResource(".")).getPath();
-			path2 = path.substring(0,path.indexOf("/out/"))+"/res/Edited/"+name+".png";
-			f = new File(path2.replaceAll("%20"," "));
-			System.out.println("File saved in: "+path2);
+			path2 = path.substring(0, path.indexOf("/out/")) + "/res/Edited/" + name + ".png";
+			String path3 = path.substring(0, path.indexOf("/out/")) + "/res/Edited/" + name + ".txt";
+			f = new File(path2.replaceAll("%20", " "));
+			System.out.println("File saved in: " + path2);
 			ImageIO.write(image, "png", f);
-		}
-		catch(IOException e)
-		{
+
+			if (!teleportList.isEmpty()) {
+				f2 = new File(path3);
+				FileOutputStream fos = new FileOutputStream(f2);
+
+				BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));
+				bw.write("List of linked teleports");
+				bw.newLine();
+				for (int i = 0; i < teleportList.size(); i++) {
+					bw.write("Teleporter at " + Arrays.toString(teleportList.get(i).get(0)) + " linked to " + Arrays.toString(teleportList.get(i).get(1)));
+					bw.newLine();
+				}
+
+				bw.close();
+			}
+		} catch (IOException e) {
 			System.out.println("Error: " + e);
 		}
+
 		return image;
 
+	}
+
+	private static void checkForTeli(MMTeleport ghost, int x, int y,ArrayList<ArrayList<int[]>> linkedTeleport) {
+		x=x/pixelMultiplier;
+		y=y/pixelMultiplier;
+		if (linkedTeleport.isEmpty()){
+			System.out.println("List is empty");
+			return;
+		}
+		for (ArrayList<int[]> linkedTelis: linkedTeleport){
+			System.out.println("Linking " + x + " , " + y + " to "+ Arrays.toString(linkedTelis.get(0)) + " or " + Arrays.toString(linkedTelis.get(1)));
+
+			if (linkedTelis.get(0)[0] == x && linkedTelis.get(0)[1] == y){
+				System.out.println("Linked " + x + " , " + y + " to "+ Arrays.toString(linkedTelis.get(1)));
+				ghost.linkedX = linkedTelis.get(1)[0]*pixelMultiplier;
+				ghost.linkedY = linkedTelis.get(1)[1]*pixelMultiplier;
+			}
+			else if (linkedTelis.get(1)[0] == x && linkedTelis.get(1)[1] == y){
+				System.out.println("Linked " + x + " , " + y + " to "+ Arrays.toString(linkedTelis.get(0)));
+
+				ghost.linkedX = linkedTelis.get(0)[0]*pixelMultiplier;
+				ghost.linkedY = linkedTelis.get(0)[1]*pixelMultiplier;
+			}
+			System.out.println();
+
+		}
 	}
 
 	public static int pixelMultiplier = ZeldaMapMakerState.pixelsPerSquare;//change this for size of blocks

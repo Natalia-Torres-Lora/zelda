@@ -14,6 +14,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
+import java.util.Objects;
 
 /**
  * Created by AlexVR on 1/24/2020.
@@ -35,20 +36,29 @@ public class GameState extends State {
         uiManager.tick();
 
         if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_M)){
+            handler.getDisplayScreen().confirm("You can press 'H' for help once in the map maker. Continue will take you there.\n" +
+                                                        "Note: Some keys will require you to press them multiple times, not just why tbh.\n" +
+                                                        "Also, if sharing the map made, and if it has teleport pads, make sure to share the '.txt' file crated alongside the '.png' or they wont work");
                 handler.getMouseManager().setUimanager(null);
                 State.setState(handler.getZeldaMMState());
         }
         if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_L)){
+            handler.getDisplayScreen().confirm("If youre loading a world from someone else, make sure you also have the '.txt' file\n" +
+                                                        "that was created along side the map if it has teleport pads or tehy wont work.\n" +
+                                                        "This file is named exactly like the map but its '.txt' instead of '.png' ");
             handler.getMouseManager().setUimanager(null);
-            JFileChooser chooser = new JFileChooser("/maps");
+            String path = Objects.requireNonNull(getClass().getClassLoader().getResource(".")).getPath();
+            String path2 = path.substring(0,path.indexOf("/out/"))+"/res/Edited";
+            JFileChooser chooser = new JFileChooser(path2.replaceAll("%20"," "));
             FileNameExtensionFilter filter = new FileNameExtensionFilter(
                     "JPG, & PNG Images", "jpg", "png");
             chooser.setFileFilter(filter);
+
             int returnVal = chooser.showOpenDialog(null);
             if (returnVal == JFileChooser.APPROVE_OPTION) {
                 System.out.println("You chose to open this file: " + chooser.getSelectedFile().getAbsolutePath());
                 try {
-                State.setState(new ZeldaMMGameState(handler,MapBuilder.createMap(ImageIO.read(chooser.getSelectedFile()), handler)));
+                State.setState(new ZeldaMMGameState(handler,MapBuilder.createMap(ImageIO.read(chooser.getSelectedFile()), handler,chooser.getSelectedFile().getName())));
 
                 } catch (IOException e) {
                     e.printStackTrace();

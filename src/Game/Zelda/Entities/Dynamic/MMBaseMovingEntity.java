@@ -20,7 +20,7 @@ public class MMBaseMovingEntity extends MMBaseEntity {
     Animation animation;
     BufferedImage[] sprites;
     boolean moving = false;
-    Rectangle interactBounds;
+    public Rectangle interactBounds;
 
     public MMBaseMovingEntity(int x, int y, BufferedImage[] sprite, Handler handler) {
         super(x, y, sprite[0], handler);
