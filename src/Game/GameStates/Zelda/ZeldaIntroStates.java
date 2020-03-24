@@ -27,6 +27,8 @@ public class ZeldaIntroStates extends State {
     @Override
     public void render(Graphics g) {
 
+        g.setColor(Color.WHITE);
+        g.drawString("Title WIP, press enter to continue",handler.getWidth()/2 - handler.getWidth()/6,handler.getHeight()/2);
     }
 
     @Override
