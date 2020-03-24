@@ -1143,14 +1143,17 @@ public class MapBuilder {
 				System.out.println("Linked " + x + " , " + y + " to "+ Arrays.toString(linkedTelis.get(1)));
 				ghost.linkedX = linkedTelis.get(1)[0]*pixelMultiplier;
 				ghost.linkedY = linkedTelis.get(1)[1]*pixelMultiplier;
+				System.out.println();
+				return;
 			}
 			else if (linkedTelis.get(1)[0] == x && linkedTelis.get(1)[1] == y){
 				System.out.println("Linked " + x + " , " + y + " to "+ Arrays.toString(linkedTelis.get(0)));
 
 				ghost.linkedX = linkedTelis.get(0)[0]*pixelMultiplier;
 				ghost.linkedY = linkedTelis.get(0)[1]*pixelMultiplier;
+				System.out.println();
+				return;
 			}
-			System.out.println();
 
 		}
 	}
