@@ -266,7 +266,7 @@ public class Images {
             //main world tiles
             SpriteSheet mountain = new SpriteSheet(zeldaWorldLayoutTiles.get(0));
             SpriteSheet forest = new SpriteSheet(zeldaWorldLayoutTiles.get(1));
-            SpriteSheet cave = new SpriteSheet(zeldaWorldLayoutTiles.get(2));
+            SpriteSheet cave = new SpriteSheet(createImageTransparent(zeldaWorldLayoutTiles.get(2).getWidth(),zeldaWorldLayoutTiles.get(2).getHeight(),zeldaWorldLayoutTiles.get(2),"caveTransparent_252,216,168_crema", new Color(252,216,168).getRGB()));
             SpriteSheet grave = new SpriteSheet(zeldaWorldLayoutTiles.get(3));
 
             mountainTiles.add(mountain.crop(0,0,16,16));

@@ -1,6 +1,7 @@
 package Game.Zelda.Entities.Dynamic;
 
 import Game.GameStates.Zelda.ZeldaGameState;
+import Game.Zelda.Entities.Statics.DungeonDoor;
 import Game.Zelda.Entities.Statics.SectionDoor;
 import Game.Zelda.Entities.Statics.SolidStaticEntities;
 import Main.Handler;
@@ -169,43 +170,68 @@ public class Link extends BaseMovingEntity {
         moving = true;
         changeIntersectingBounds();
         //chack for collisions
-        for (SolidStaticEntities objects:handler.getZeldaGameState().objects.get(handler.getZeldaGameState().mapX).get(handler.getZeldaGameState().mapY)){
-            if (objects instanceof SectionDoor && objects.bounds.intersects(bounds) && direction == ((SectionDoor) objects).direction){
-                movingMap = true;
-                movingTo = ((SectionDoor) objects).direction;
-                switch (((SectionDoor) objects).direction) {
-                    case RIGHT:
-                         newMapX = -(((handler.getZeldaGameState().mapWidth) + 1)*worldScale);
-                         newMapY = 0;
-                         handler.getZeldaGameState().mapX++;
-                         xExtraCounter = 8*worldScale + (2*worldScale);
-                        break;
-                    case LEFT:
-                        newMapX =  (((handler.getZeldaGameState().mapWidth) + 1)*worldScale);
-                        newMapY = 0;
-                        handler.getZeldaGameState().mapX--;
-                        xExtraCounter = 8*worldScale+ (2*worldScale);
-                        break;
-                    case UP:
-                        newMapX = 0;
-                        newMapY =  -(((handler.getZeldaGameState().mapHeight) + 1)*worldScale);
-                        handler.getZeldaGameState().mapY--;
-                        yExtraCounter = 8*worldScale+ (2*worldScale);
-                        break;
-                    case DOWN:
-                        newMapX = 0;
-                        newMapY = (((handler.getZeldaGameState().mapHeight) + 1)*worldScale);
-                        handler.getZeldaGameState().mapY++;
-                        yExtraCounter = 8*worldScale+ (2*worldScale);
-                        break;
+        if (ZeldaGameState.inCave){
+            for (SolidStaticEntities objects : handler.getZeldaGameState().caveObjects) {
+                if ((objects instanceof DungeonDoor) && objects.bounds.intersects(bounds) && direction == ((DungeonDoor) objects).direction) {
+                    if (((DungeonDoor) objects).name.equals("caveStartLeave")) {
+                        ZeldaGameState.inCave = false;
+                        x = ((DungeonDoor) objects).nLX;
+                        y = ((DungeonDoor) objects).nLY;
+                        direction = DOWN;
+                    }
+                } else if (!(objects instanceof DungeonDoor) && objects.bounds.intersects(interactBounds)) {
+                    //dont move
+                    return;
                 }
-                System.out.println("Move to next area to: " + ((SectionDoor) objects).direction);
-                System.out.println("X: " + objects.x + " Y: " + objects.y);
-                System.out.println("X: " + x + " Y: " + y);
-                return;
-            }else if (!(objects instanceof SectionDoor) && objects.bounds.intersects(interactBounds)){
-                //dont move
-                return;
+            }
+        }
+        else {
+            for (SolidStaticEntities objects : handler.getZeldaGameState().objects.get(handler.getZeldaGameState().mapX).get(handler.getZeldaGameState().mapY)) {
+                if ((objects instanceof SectionDoor) && objects.bounds.intersects(bounds) && direction == ((SectionDoor) objects).direction) {
+                    if (!(objects instanceof DungeonDoor)) {
+                        movingMap = true;
+                        movingTo = ((SectionDoor) objects).direction;
+                        switch (((SectionDoor) objects).direction) {
+                            case RIGHT:
+                                newMapX = -(((handler.getZeldaGameState().mapWidth) + 1) * worldScale);
+                                newMapY = 0;
+                                handler.getZeldaGameState().mapX++;
+                                xExtraCounter = 8 * worldScale + (2 * worldScale);
+                                break;
+                            case LEFT:
+                                newMapX = (((handler.getZeldaGameState().mapWidth) + 1) * worldScale);
+                                newMapY = 0;
+                                handler.getZeldaGameState().mapX--;
+                                xExtraCounter = 8 * worldScale + (2 * worldScale);
+                                break;
+                            case UP:
+                                newMapX = 0;
+                                newMapY = -(((handler.getZeldaGameState().mapHeight) + 1) * worldScale);
+                                handler.getZeldaGameState().mapY--;
+                                yExtraCounter = 8 * worldScale + (2 * worldScale);
+                                break;
+                            case DOWN:
+                                newMapX = 0;
+                                newMapY = (((handler.getZeldaGameState().mapHeight) + 1) * worldScale);
+                                handler.getZeldaGameState().mapY++;
+                                yExtraCounter = 8 * worldScale + (2 * worldScale);
+                                break;
+                        }
+                        return;
+                    }
+                    else {
+                        if (((DungeonDoor) objects).name.equals("caveStartEnter")) {
+                            ZeldaGameState.inCave = true;
+                            x = ((DungeonDoor) objects).nLX;
+                            y = ((DungeonDoor) objects).nLY;
+                            direction = UP;
+                        }
+                    }
+                }
+                else if (!(objects instanceof SectionDoor) && objects.bounds.intersects(interactBounds)) {
+                    //dont move
+                    return;
+                }
             }
         }
         switch (direction) {
