@@ -1,8 +1,10 @@
 package Game.Zelda.Entities.Dynamic;
 
-import Game.GameStates.Zelda.ZeldaLGameState;
+import Game.GameStates.Zelda.ZeldaMMGameState;
+import Game.GameStates.Zelda.ZeldaMapMakerState;
 import Game.Zelda.Entities.BaseEntity;
-import Game.Zelda.Entities.Statics.SectionDoor;
+import Game.Zelda.Entities.MMBaseEntity;
+import Game.Zelda.Entities.Statics.MMSolidStaticEntities;
 import Game.Zelda.Entities.Statics.SolidStaticEntities;
 import Game.Zelda.World.Map;
 import Main.Handler;
@@ -18,18 +20,18 @@ import static Game.Zelda.Entities.Dynamic.Direction.UP;
 /**
  * Created by AlexVR on 3/15/2020
  */
-public class LLink extends BaseMovingEntity {
+public class MMLink extends MMBaseMovingEntity {
 
 
     private final int animSpeed = 120;
     public Map map;
 
 
-    public LLink(int x, int y, BufferedImage[] sprite, Handler handler) {
+    public MMLink(int x, int y, BufferedImage[] sprite, Handler handler) {
         super(x, y, sprite, handler);
         speed = 4;
-        width = sprite[0].getWidth() *  ZeldaLGameState.worldScale;
-        height = sprite[0].getHeight() *  ZeldaLGameState.worldScale;
+        width = sprite[0].getWidth() * ZeldaMapMakerState.scale;
+        height = sprite[0].getHeight()* ZeldaMapMakerState.scale;
         BufferedImage[] animList = new BufferedImage[2];
         animList[0] = sprite[4];
         animList[1] = sprite[5];
@@ -93,9 +95,9 @@ public class LLink extends BaseMovingEntity {
     @Override
     public void render(Graphics g) {
         if (moving) {
-            g.drawImage(animation.getCurrentFrame(),x , y, width  * ZeldaLGameState.worldScale, height  * ZeldaLGameState.worldScale , null);
+            g.drawImage(animation.getCurrentFrame(),x , y, width  , height   , null);
         } else {
-            g.drawImage(sprite, x , y, width * ZeldaLGameState.worldScale , height * ZeldaLGameState.worldScale , null);
+            g.drawImage(sprite, x , y, width , height, null);
         }
     }
 
@@ -104,8 +106,8 @@ public class LLink extends BaseMovingEntity {
         moving = true;
         changeIntersectingBounds();
         //chack for collisions
-        for (BaseEntity solidStaticEntities:map.getBlocksOnMap()){
-            if (solidStaticEntities instanceof SolidStaticEntities && solidStaticEntities.bounds.intersects(interactBounds)){
+        for (MMBaseEntity solidStaticEntities:map.getBlocksOnMap()){
+            if (solidStaticEntities instanceof MMSolidStaticEntities && solidStaticEntities.bounds.intersects(interactBounds)){
                 return;
             }
         }

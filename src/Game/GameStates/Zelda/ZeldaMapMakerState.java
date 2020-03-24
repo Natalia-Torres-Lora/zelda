@@ -177,7 +177,7 @@ public class ZeldaMapMakerState extends State {
             if (map.link == null){
                 handler.getDisplayScreen().confirm("Must have a Link, hold shift and click where you wiah to add him");
             }else {
-                handler.changeState(new ZeldaLGameState(handler, map));
+                handler.changeState(new ZeldaMMGameState(handler, map));
             }
         }
 
@@ -201,6 +201,10 @@ public class ZeldaMapMakerState extends State {
                 g.setFont(new Font("TimesRoman", Font.PLAIN, 10));
 
                 if (grid.get(x).get(y) != null || grid.get(x).get(y) == unChange){
+                    if (grid.get(x).get(y) == Images.zeldaLinkFrames[0]){
+                        g.drawImage(Images.forestTiles.get(0),x*pixelsPerSquare,y*pixelsPerSquare,grid.get(x).get(y).getWidth()*scale,grid.get(x).get(y).getHeight()*scale,null);
+
+                    }
                     g.drawImage(grid.get(x).get(y),x*pixelsPerSquare,y*pixelsPerSquare,grid.get(x).get(y).getWidth()*scale,grid.get(x).get(y).getHeight()*scale,null);
 
                 }else{

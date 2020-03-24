@@ -3,8 +3,7 @@ package Game.GameStates;
 import Display.UI.ClickListlener;
 import Display.UI.UIImageButton;
 import Display.UI.UIManager;
-import Game.GameStates.Zelda.ZeldaLGameState;
-import Game.GameStates.Zelda.ZeldaMapMakerState;
+import Game.GameStates.Zelda.ZeldaMMGameState;
 import Game.Zelda.World.MapBuilder;
 import Main.Handler;
 import Resources.Images;
@@ -49,7 +48,7 @@ public class GameState extends State {
             if (returnVal == JFileChooser.APPROVE_OPTION) {
                 System.out.println("You chose to open this file: " + chooser.getSelectedFile().getAbsolutePath());
                 try {
-                State.setState(new ZeldaLGameState(handler,MapBuilder.createMap(ImageIO.read(chooser.getSelectedFile()), handler)));
+                State.setState(new ZeldaMMGameState(handler,MapBuilder.createMap(ImageIO.read(chooser.getSelectedFile()), handler)));
 
                 } catch (IOException e) {
                     e.printStackTrace();

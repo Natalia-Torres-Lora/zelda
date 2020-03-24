@@ -1,24 +1,20 @@
 package Game.Zelda.World;
 
-import Game.GameStates.State;
 import Game.GameStates.Zelda.ZeldaMapMakerState;
-import Game.Zelda.Entities.Dynamic.LLink;
-import Game.Zelda.Entities.Dynamic.Link;
-import Game.Zelda.Entities.Statics.SolidStaticEntities;
-import Game.Zelda.Entities.Statics.WalkingSolidEntities;
+import Game.Zelda.Entities.Dynamic.MMLink;
+import Game.Zelda.Entities.Statics.MMSolidStaticEntities;
+import Game.Zelda.Entities.Statics.MMWalkingSolidEntities;
 import Main.Handler;
 import Resources.Images;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
-import java.util.Random;
 
 public class MapBuilder {
 
@@ -31,597 +27,599 @@ public class MapBuilder {
 				int xPos = i*pixelMultiplier;
 				int yPos = j*pixelMultiplier;
 				if(currentPixel == DDDoor){
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos,yPos,Images.zeldaTiles.get(0),handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos,yPos,Images.zeldaTiles.get(0),handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == DDDoor1){
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos,yPos,Images.zeldaTiles.get(1),handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos,yPos,Images.zeldaTiles.get(1),handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == DDDoor2){
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos,yPos,Images.zeldaTiles.get(2),handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos,yPos,Images.zeldaTiles.get(2),handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == DDDoor3){
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos,yPos,Images.zeldaTiles.get(3),handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos,yPos,Images.zeldaTiles.get(3),handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == DDDoor4){
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos,yPos,Images.zeldaTiles.get(4),handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos,yPos,Images.zeldaTiles.get(4),handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == DRDoor){
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos,yPos,Images.zeldaTiles.get(5),handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos,yPos,Images.zeldaTiles.get(5),handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == DRDoor1){
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos,yPos,Images.zeldaTiles.get(6),handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos,yPos,Images.zeldaTiles.get(6),handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == DRDoor2){
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos,yPos,Images.zeldaTiles.get(7),handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos,yPos,Images.zeldaTiles.get(7),handler);
 					mapInCreation.addBlock(ghost);
 				}if(currentPixel == DRDoor3){
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos,yPos,Images.zeldaTiles.get(8),handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos,yPos,Images.zeldaTiles.get(8),handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == DRDoor4){
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos,yPos,Images.zeldaTiles.get(9),handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos,yPos,Images.zeldaTiles.get(9),handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == DLDoor){
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos,yPos,Images.zeldaTiles.get(10),handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos,yPos,Images.zeldaTiles.get(10),handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == DLDoor1){
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos,yPos,Images.zeldaTiles.get(11),handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos,yPos,Images.zeldaTiles.get(11),handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == DLDoor2){
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos,yPos,Images.zeldaTiles.get(12),handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos,yPos,Images.zeldaTiles.get(12),handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == DLDoor3){
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos,yPos,Images.zeldaTiles.get(13),handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos,yPos,Images.zeldaTiles.get(13),handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == DLDoor4){
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos,yPos,Images.zeldaTiles.get(14),handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos,yPos,Images.zeldaTiles.get(14),handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == DUDoor){
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos,yPos,Images.zeldaTiles.get(15),handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos,yPos,Images.zeldaTiles.get(15),handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == DUDoor1){
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos,yPos,Images.zeldaTiles.get(16),handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos,yPos,Images.zeldaTiles.get(16),handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == DUDoor2){
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos,yPos,Images.zeldaTiles.get(17),handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos,yPos,Images.zeldaTiles.get(17),handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == DUDoor3){
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos,yPos,Images.zeldaTiles.get(18),handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos,yPos,Images.zeldaTiles.get(18),handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == DUDoor4){
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos,yPos,Images.zeldaTiles.get(19),handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos,yPos,Images.zeldaTiles.get(19),handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == Dfloor){
-					WalkingSolidEntities ghost = new WalkingSolidEntities(xPos,yPos,Images.zeldaTiles.get(20),handler);
+					MMWalkingSolidEntities ghost = new MMWalkingSolidEntities(xPos,yPos,Images.zeldaTiles.get(20),handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == Dwall){
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos,yPos,Images.zeldaTiles.get(21),handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos,yPos,Images.zeldaTiles.get(21),handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == DRShooter){
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos,yPos,Images.zeldaTiles.get(22),handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos,yPos,Images.zeldaTiles.get(22),handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == DLShooter){
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos,yPos,Images.zeldaTiles.get(23),handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos,yPos,Images.zeldaTiles.get(23),handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == Dhole){
-					WalkingSolidEntities ghost = new WalkingSolidEntities(xPos,yPos,Images.zeldaTiles.get(24),handler);
+					MMWalkingSolidEntities ghost = new MMWalkingSolidEntities(xPos,yPos,Images.zeldaTiles.get(24),handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == Dsand){
-					WalkingSolidEntities ghost = new WalkingSolidEntities(xPos,yPos,Images.zeldaTiles.get(25),handler);
+					MMWalkingSolidEntities ghost = new MMWalkingSolidEntities(xPos,yPos,Images.zeldaTiles.get(25),handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == Dwater){
-					WalkingSolidEntities ghost = new WalkingSolidEntities(xPos,yPos,Images.zeldaTiles.get(26),handler);
+					MMWalkingSolidEntities ghost = new MMWalkingSolidEntities(xPos,yPos,Images.zeldaTiles.get(26),handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == Dstairs){
-					WalkingSolidEntities ghost = new WalkingSolidEntities(xPos,yPos,Images.zeldaTiles.get(27),handler);
+					MMWalkingSolidEntities ghost = new MMWalkingSolidEntities(xPos,yPos,Images.zeldaTiles.get(27),handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == forest) {
-					WalkingSolidEntities ghost = new WalkingSolidEntities(xPos, yPos, Images.forestTiles.get(0), handler);
+					MMWalkingSolidEntities ghost = new MMWalkingSolidEntities(xPos, yPos, Images.forestTiles.get(0), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == forest1) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.forestTiles.get(1), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.forestTiles.get(1), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == forest2) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.forestTiles.get(2), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.forestTiles.get(2), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == forest3) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.forestTiles.get(3), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.forestTiles.get(3), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == forest4) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.forestTiles.get(4), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.forestTiles.get(4), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == forest5) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.forestTiles.get(5), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.forestTiles.get(5), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == forest6) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.forestTiles.get(6), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.forestTiles.get(6), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == forest7) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.forestTiles.get(7), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.forestTiles.get(7), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == forest8) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.forestTiles.get(8), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.forestTiles.get(8), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == forest9) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.forestTiles.get(9), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.forestTiles.get(9), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == forest10) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.forestTiles.get(10), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.forestTiles.get(10), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == forest11) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.forestTiles.get(11), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.forestTiles.get(11), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == forest12) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.forestTiles.get(12), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.forestTiles.get(12), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == forest13) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.forestTiles.get(13), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.forestTiles.get(13), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == forest14) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.forestTiles.get(14), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.forestTiles.get(14), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == forest15) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.forestTiles.get(15), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.forestTiles.get(15), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == forest16) {
-					WalkingSolidEntities ghost = new WalkingSolidEntities(xPos, yPos, Images.forestTiles.get(16), handler);
+					MMWalkingSolidEntities ghost = new MMWalkingSolidEntities(xPos, yPos, Images.forestTiles.get(16), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == forest17) {
-					WalkingSolidEntities ghost = new WalkingSolidEntities(xPos, yPos, Images.forestTiles.get(17), handler);
+					MMWalkingSolidEntities ghost = new MMWalkingSolidEntities(xPos, yPos, Images.forestTiles.get(17), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == forest18) {
-					WalkingSolidEntities ghost = new WalkingSolidEntities(xPos, yPos, Images.forestTiles.get(18), handler);
+					MMWalkingSolidEntities ghost = new MMWalkingSolidEntities(xPos, yPos, Images.forestTiles.get(18), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == forest19) {
-					WalkingSolidEntities ghost = new WalkingSolidEntities(xPos, yPos, Images.forestTiles.get(19), handler);
+					MMWalkingSolidEntities ghost = new MMWalkingSolidEntities(xPos, yPos, Images.forestTiles.get(19), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == forest20) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.forestTiles.get(20), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.forestTiles.get(20), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == forest21) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.forestTiles.get(21), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.forestTiles.get(21), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == forest22) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.forestTiles.get(22), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.forestTiles.get(22), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == forest23) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.forestTiles.get(23), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.forestTiles.get(23), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == forest24) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.forestTiles.get(24), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.forestTiles.get(24), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == forest25) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.forestTiles.get(25), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.forestTiles.get(25), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == forest26) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.forestTiles.get(26), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.forestTiles.get(26), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == forest27) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.forestTiles.get(27), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.forestTiles.get(27), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == forest28) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.forestTiles.get(28), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.forestTiles.get(28), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == forest29) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.forestTiles.get(29), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.forestTiles.get(29), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == forest30) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.forestTiles.get(30), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.forestTiles.get(30), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == forest31) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.forestTiles.get(31), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.forestTiles.get(31), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == forest32) {
-					WalkingSolidEntities ghost = new WalkingSolidEntities(xPos, yPos, Images.forestTiles.get(32), handler);
+					MMWalkingSolidEntities ghost = new MMWalkingSolidEntities(xPos, yPos, Images.forestTiles.get(32), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == forest33) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.forestTiles.get(33), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.forestTiles.get(33), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == forest34) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.forestTiles.get(34), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.forestTiles.get(34), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == forest35) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.forestTiles.get(35), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.forestTiles.get(35), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == forest36) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.forestTiles.get(36), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.forestTiles.get(36), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == forest37) {
-					WalkingSolidEntities ghost = new WalkingSolidEntities(xPos, yPos, Images.forestTiles.get(37), handler);
+					MMWalkingSolidEntities ghost = new MMWalkingSolidEntities(xPos, yPos, Images.forestTiles.get(37), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == forest38) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.forestTiles.get(38), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.forestTiles.get(38), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == forest39) {
-					WalkingSolidEntities ghost = new WalkingSolidEntities(xPos, yPos, Images.forestTiles.get(39), handler);
+					MMWalkingSolidEntities ghost = new MMWalkingSolidEntities(xPos, yPos, Images.forestTiles.get(39), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == forest40) {
-					WalkingSolidEntities ghost = new WalkingSolidEntities(xPos, yPos, Images.forestTiles.get(40), handler);
+					MMWalkingSolidEntities ghost = new MMWalkingSolidEntities(xPos, yPos, Images.forestTiles.get(40), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == forest41) {
-					WalkingSolidEntities ghost = new WalkingSolidEntities(xPos, yPos, Images.forestTiles.get(41), handler);
+					MMWalkingSolidEntities ghost = new MMWalkingSolidEntities(xPos, yPos, Images.forestTiles.get(41), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == cave) {
-					WalkingSolidEntities ghost = new WalkingSolidEntities(xPos, yPos, Images.caveTiles.get(0), handler);
+					MMWalkingSolidEntities ghost = new MMWalkingSolidEntities(xPos, yPos, Images.caveTiles.get(0), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == cave1) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.caveTiles.get(1), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.caveTiles.get(1), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == cave2) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.caveTiles.get(2), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.caveTiles.get(2), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == cave3) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.caveTiles.get(3), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.caveTiles.get(3), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == cave4) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.caveTiles.get(4), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.caveTiles.get(4), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == cave5) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.caveTiles.get(5), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.caveTiles.get(5), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == cave6) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.caveTiles.get(6), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.caveTiles.get(6), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == cave7) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.caveTiles.get(7), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.caveTiles.get(7), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == cave8) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.caveTiles.get(8), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.caveTiles.get(8), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == cave9) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.caveTiles.get(9), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.caveTiles.get(9), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == cave10) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.caveTiles.get(10), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.caveTiles.get(10), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == cave11) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.caveTiles.get(11), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.caveTiles.get(11), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == cave12) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.caveTiles.get(12), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.caveTiles.get(12), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == cave13) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.caveTiles.get(13), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.caveTiles.get(13), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == cave14) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.caveTiles.get(14), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.caveTiles.get(14), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == cave15) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.caveTiles.get(15), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.caveTiles.get(15), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == cave16) {
-					WalkingSolidEntities ghost = new WalkingSolidEntities(xPos, yPos, Images.caveTiles.get(16), handler);
+					MMWalkingSolidEntities ghost = new MMWalkingSolidEntities(xPos, yPos, Images.caveTiles.get(16), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == cave17) {
-					WalkingSolidEntities ghost = new WalkingSolidEntities(xPos, yPos, Images.caveTiles.get(17), handler);
+					MMWalkingSolidEntities ghost = new MMWalkingSolidEntities(xPos, yPos, Images.caveTiles.get(17), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == cave18) {
-					WalkingSolidEntities ghost = new WalkingSolidEntities(xPos, yPos, Images.caveTiles.get(18), handler);
+					MMWalkingSolidEntities ghost = new MMWalkingSolidEntities(xPos, yPos, Images.caveTiles.get(18), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == cave19) {
-					WalkingSolidEntities ghost = new WalkingSolidEntities(xPos, yPos, Images.caveTiles.get(19), handler);
+					MMWalkingSolidEntities ghost = new MMWalkingSolidEntities(xPos, yPos, Images.caveTiles.get(19), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == cave20) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.caveTiles.get(20), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.caveTiles.get(20), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == cave21) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.caveTiles.get(21), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.caveTiles.get(21), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == cave22) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.caveTiles.get(22), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.caveTiles.get(22), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == cave23) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.caveTiles.get(23), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.caveTiles.get(23), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == cave24) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.caveTiles.get(24), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.caveTiles.get(24), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == cave25) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.caveTiles.get(25), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.caveTiles.get(25), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == cave26) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.caveTiles.get(26), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.caveTiles.get(26), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == cave27) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.caveTiles.get(27), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.caveTiles.get(27), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == cave28) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.caveTiles.get(28), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.caveTiles.get(28), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == cave29) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.caveTiles.get(29), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.caveTiles.get(29), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == cave30) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.caveTiles.get(30), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.caveTiles.get(30), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == cave31) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.caveTiles.get(31), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.caveTiles.get(31), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == cave32) {
-					WalkingSolidEntities ghost = new WalkingSolidEntities(xPos, yPos, Images.caveTiles.get(32), handler);
+					MMWalkingSolidEntities ghost = new MMWalkingSolidEntities(xPos, yPos, Images.caveTiles.get(32), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == cave33) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.caveTiles.get(33), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.caveTiles.get(33), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == cave34) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.caveTiles.get(34), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.caveTiles.get(34), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == cave35) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.caveTiles.get(35), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.caveTiles.get(35), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == cave36) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.caveTiles.get(36), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.caveTiles.get(36), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == cave37) {
-					WalkingSolidEntities ghost = new WalkingSolidEntities(xPos, yPos, Images.caveTiles.get(37), handler);
+					MMWalkingSolidEntities ghost = new MMWalkingSolidEntities(xPos, yPos, Images.caveTiles.get(37), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == cave38) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.caveTiles.get(38), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.caveTiles.get(38), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == cave39) {
-					WalkingSolidEntities ghost = new WalkingSolidEntities(xPos, yPos, Images.caveTiles.get(39), handler);
+					MMWalkingSolidEntities ghost = new MMWalkingSolidEntities(xPos, yPos, Images.caveTiles.get(39), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == cave40) {
-					WalkingSolidEntities ghost = new WalkingSolidEntities(xPos, yPos, Images.caveTiles.get(40), handler);
+					MMWalkingSolidEntities ghost = new MMWalkingSolidEntities(xPos, yPos, Images.caveTiles.get(40), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == cave41) {
-					WalkingSolidEntities ghost = new WalkingSolidEntities(xPos, yPos, Images.caveTiles.get(41), handler);
+					MMWalkingSolidEntities ghost = new MMWalkingSolidEntities(xPos, yPos, Images.caveTiles.get(41), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == mountain) {
-					WalkingSolidEntities ghost = new WalkingSolidEntities(xPos, yPos, Images.mountainTiles.get(0), handler);
+					MMWalkingSolidEntities ghost = new MMWalkingSolidEntities(xPos, yPos, Images.mountainTiles.get(0), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == mountain1) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.mountainTiles.get(1), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.mountainTiles.get(1), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == mountain2) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.mountainTiles.get(2), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.mountainTiles.get(2), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == mountain3) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.mountainTiles.get(3), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.mountainTiles.get(3), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == mountain4) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.mountainTiles.get(4), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.mountainTiles.get(4), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == mountain5) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.mountainTiles.get(5), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.mountainTiles.get(5), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == mountain6) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.mountainTiles.get(6), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.mountainTiles.get(6), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == mountain7) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.mountainTiles.get(7), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.mountainTiles.get(7), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == mountain8) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.mountainTiles.get(8), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.mountainTiles.get(8), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == mountain9) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.mountainTiles.get(9), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.mountainTiles.get(9), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == mountain10) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.mountainTiles.get(10), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.mountainTiles.get(10), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == mountain11) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.mountainTiles.get(11), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.mountainTiles.get(11), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == mountain12) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.mountainTiles.get(12), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.mountainTiles.get(12), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == mountain13) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.mountainTiles.get(13), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.mountainTiles.get(13), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == mountain14) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.mountainTiles.get(14), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.mountainTiles.get(14), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == mountain15) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.mountainTiles.get(15), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.mountainTiles.get(15), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == mountain16) {
-					WalkingSolidEntities ghost = new WalkingSolidEntities(xPos, yPos, Images.mountainTiles.get(16), handler);
+					MMWalkingSolidEntities ghost = new MMWalkingSolidEntities(xPos, yPos, Images.mountainTiles.get(16), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == mountain17) {
-					WalkingSolidEntities ghost = new WalkingSolidEntities(xPos, yPos, Images.mountainTiles.get(17), handler);
+					MMWalkingSolidEntities ghost = new MMWalkingSolidEntities(xPos, yPos, Images.mountainTiles.get(17), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == mountain18) {
-					WalkingSolidEntities ghost = new WalkingSolidEntities(xPos, yPos, Images.mountainTiles.get(18), handler);
+					MMWalkingSolidEntities ghost = new MMWalkingSolidEntities(xPos, yPos, Images.mountainTiles.get(18), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == mountain19) {
-					WalkingSolidEntities ghost = new WalkingSolidEntities(xPos, yPos, Images.mountainTiles.get(19), handler);
+					MMWalkingSolidEntities ghost = new MMWalkingSolidEntities(xPos, yPos, Images.mountainTiles.get(19), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == mountain20) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.mountainTiles.get(20), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.mountainTiles.get(20), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == mountain21) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.mountainTiles.get(21), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.mountainTiles.get(21), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == mountain22) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.mountainTiles.get(22), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.mountainTiles.get(22), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == mountain23) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.mountainTiles.get(23), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.mountainTiles.get(23), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == mountain24) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.mountainTiles.get(24), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.mountainTiles.get(24), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == mountain25) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.mountainTiles.get(25), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.mountainTiles.get(25), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == mountain26) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.mountainTiles.get(26), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.mountainTiles.get(26), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == mountain27) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.mountainTiles.get(27), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.mountainTiles.get(27), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == mountain28) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.mountainTiles.get(28), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.mountainTiles.get(28), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == mountain29) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.mountainTiles.get(29), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.mountainTiles.get(29), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == mountain30) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.mountainTiles.get(30), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.mountainTiles.get(30), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == mountain31) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.mountainTiles.get(31), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.mountainTiles.get(31), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == mountain32) {
-					WalkingSolidEntities ghost = new WalkingSolidEntities(xPos, yPos, Images.mountainTiles.get(32), handler);
+					MMWalkingSolidEntities ghost = new MMWalkingSolidEntities(xPos, yPos, Images.mountainTiles.get(32), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == mountain33) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.mountainTiles.get(33), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.mountainTiles.get(33), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == mountain34) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.mountainTiles.get(34), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.mountainTiles.get(34), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == mountain35) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.mountainTiles.get(35), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.mountainTiles.get(35), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == mountain36) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.mountainTiles.get(36), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.mountainTiles.get(36), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == mountain37) {
-					WalkingSolidEntities ghost = new WalkingSolidEntities(xPos, yPos, Images.mountainTiles.get(37), handler);
+					MMWalkingSolidEntities ghost = new MMWalkingSolidEntities(xPos, yPos, Images.mountainTiles.get(37), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == mountain38) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.mountainTiles.get(38), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.mountainTiles.get(38), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == mountain39) {
-					WalkingSolidEntities ghost = new WalkingSolidEntities(xPos, yPos, Images.mountainTiles.get(39), handler);
+					MMWalkingSolidEntities ghost = new MMWalkingSolidEntities(xPos, yPos, Images.mountainTiles.get(39), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == mountain40) {
-					WalkingSolidEntities ghost = new WalkingSolidEntities(xPos, yPos, Images.mountainTiles.get(40), handler);
+					MMWalkingSolidEntities ghost = new MMWalkingSolidEntities(xPos, yPos, Images.mountainTiles.get(40), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == mountain41) {
-					WalkingSolidEntities ghost = new WalkingSolidEntities(xPos, yPos, Images.mountainTiles.get(41), handler);
+					MMWalkingSolidEntities ghost = new MMWalkingSolidEntities(xPos, yPos, Images.mountainTiles.get(41), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == grave) {
-					WalkingSolidEntities ghost = new WalkingSolidEntities(xPos, yPos, Images.graveTiles.get(0), handler);
+					MMWalkingSolidEntities ghost = new MMWalkingSolidEntities(xPos, yPos, Images.graveTiles.get(0), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == grave1) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.graveTiles.get(1), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.graveTiles.get(1), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == grave2) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.graveTiles.get(2), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.graveTiles.get(2), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == grave3) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.graveTiles.get(3), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.graveTiles.get(3), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == grave4) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.graveTiles.get(4), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.graveTiles.get(4), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == grave5) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.graveTiles.get(5), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.graveTiles.get(5), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == grave6) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.graveTiles.get(6), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.graveTiles.get(6), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == grave7) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.graveTiles.get(7), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.graveTiles.get(7), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == grave8) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.graveTiles.get(8), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.graveTiles.get(8), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == grave9) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.graveTiles.get(9), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.graveTiles.get(9), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == grave10) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.graveTiles.get(10), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.graveTiles.get(10), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == grave11) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.graveTiles.get(11), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.graveTiles.get(11), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == grave12) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.graveTiles.get(12), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.graveTiles.get(12), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == grave13) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.graveTiles.get(13), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.graveTiles.get(13), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == grave14) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.graveTiles.get(14), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.graveTiles.get(14), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == grave15) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.graveTiles.get(15), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.graveTiles.get(15), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == grave16) {
-					WalkingSolidEntities ghost = new WalkingSolidEntities(xPos, yPos, Images.graveTiles.get(16), handler);
+					MMWalkingSolidEntities ghost = new MMWalkingSolidEntities(xPos, yPos, Images.graveTiles.get(16), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == grave17) {
-					WalkingSolidEntities ghost = new WalkingSolidEntities(xPos, yPos, Images.graveTiles.get(17), handler);
+					MMWalkingSolidEntities ghost = new MMWalkingSolidEntities(xPos, yPos, Images.graveTiles.get(17), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == grave18) {
-					WalkingSolidEntities ghost = new WalkingSolidEntities(xPos, yPos, Images.graveTiles.get(18), handler);
+					MMWalkingSolidEntities ghost = new MMWalkingSolidEntities(xPos, yPos, Images.graveTiles.get(18), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == grave19) {
-					WalkingSolidEntities ghost = new WalkingSolidEntities(xPos, yPos, Images.graveTiles.get(19), handler);
+					MMWalkingSolidEntities ghost = new MMWalkingSolidEntities(xPos, yPos, Images.graveTiles.get(19), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == grave20) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.graveTiles.get(20), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.graveTiles.get(20), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == grave21) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.graveTiles.get(21), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.graveTiles.get(21), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == grave22) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.graveTiles.get(22), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.graveTiles.get(22), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == grave23) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.graveTiles.get(23), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.graveTiles.get(23), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == grave24) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.graveTiles.get(24), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.graveTiles.get(24), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == grave25) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.graveTiles.get(25), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.graveTiles.get(25), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == grave26) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.graveTiles.get(26), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.graveTiles.get(26), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == grave27) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.graveTiles.get(27), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.graveTiles.get(27), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == grave28) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.graveTiles.get(28), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.graveTiles.get(28), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == grave29) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.graveTiles.get(29), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.graveTiles.get(29), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == grave30) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.graveTiles.get(30), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.graveTiles.get(30), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == grave31) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.graveTiles.get(31), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.graveTiles.get(31), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == grave32) {
-					WalkingSolidEntities ghost = new WalkingSolidEntities(xPos, yPos, Images.graveTiles.get(32), handler);
+					MMWalkingSolidEntities ghost = new MMWalkingSolidEntities(xPos, yPos, Images.graveTiles.get(32), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == grave33) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.graveTiles.get(33), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.graveTiles.get(33), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == grave34) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.graveTiles.get(34), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.graveTiles.get(34), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == grave35) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.graveTiles.get(35), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.graveTiles.get(35), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == grave36) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.graveTiles.get(36), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.graveTiles.get(36), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == grave37) {
-					WalkingSolidEntities ghost = new WalkingSolidEntities(xPos, yPos, Images.graveTiles.get(37), handler);
+					MMWalkingSolidEntities ghost = new MMWalkingSolidEntities(xPos, yPos, Images.graveTiles.get(37), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == grave38) {
-					SolidStaticEntities ghost = new SolidStaticEntities(xPos, yPos, Images.graveTiles.get(38), handler);
+					MMSolidStaticEntities ghost = new MMSolidStaticEntities(xPos, yPos, Images.graveTiles.get(38), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == grave39) {
-					WalkingSolidEntities ghost = new WalkingSolidEntities(xPos, yPos, Images.graveTiles.get(39), handler);
+					MMWalkingSolidEntities ghost = new MMWalkingSolidEntities(xPos, yPos, Images.graveTiles.get(39), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == grave40) {
-					WalkingSolidEntities ghost = new WalkingSolidEntities(xPos, yPos, Images.graveTiles.get(40), handler);
+					MMWalkingSolidEntities ghost = new MMWalkingSolidEntities(xPos, yPos, Images.graveTiles.get(40), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == grave41) {
-					WalkingSolidEntities ghost = new WalkingSolidEntities(xPos, yPos, Images.graveTiles.get(41), handler);
+					MMWalkingSolidEntities ghost = new MMWalkingSolidEntities(xPos, yPos, Images.graveTiles.get(41), handler);
 					mapInCreation.addBlock(ghost);
 				}else if(currentPixel == Link) {
-					Game.Zelda.Entities.Dynamic.LLink ghost = new LLink(xPos, yPos, Images.zeldaLinkFrames, handler);
+					MMLink ghost = new MMLink(xPos, yPos, Images.zeldaLinkFrames, handler);
 					mapInCreation.addEnemy(ghost);
 					mapInCreation.link = ghost;
+					MMWalkingSolidEntities ghost1 = new MMWalkingSolidEntities(xPos, yPos, Images.forestTiles.get(0), handler);
+					mapInCreation.addBlock(ghost1);
 				}
 
 
