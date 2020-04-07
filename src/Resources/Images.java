@@ -52,12 +52,16 @@ public class Images {
     public SpriteSheet pacmanSpriteSheet;
 
     public static BufferedImage zeldaImageSheet;
+    public static BufferedImage storyImageSheet;
+
     public SpriteSheet zeldaSpriteSheet;
+    public SpriteSheet storySpriteSheet;
     public static BufferedImage zeldaTriforceLogo;
     public static BufferedImage zeldaMap;
 
     public static ArrayList<BufferedImage> zeldaTiles;
-
+    public static BufferedImage[] zeldaTitleFrames;
+    public static BufferedImage[] zeldaStoryFrames;
     public static BufferedImage zeldaWorldLayoutTileImage;
     public SpriteSheet zeldaWorldLayoutTileSpriteSheet;
     public static ArrayList<BufferedImage> zeldaWorldLayoutTiles;
@@ -91,6 +95,8 @@ public class Images {
         bound = new BufferedImage[16];
 
         zeldaTiles = new ArrayList<>();
+        zeldaTitleFrames = new BufferedImage[6];
+        zeldaStoryFrames = new BufferedImage[8];
         zeldaWorldLayoutTiles = new ArrayList<>();
 
         forestTiles = new ArrayList<>();
@@ -210,6 +216,24 @@ public class Images {
             zeldaMap = createImageTransparent(zeldaMap.getWidth(),zeldaMap.getHeight(),zeldaMap,"zelddaMap_0,128,0,green",new Color(0,128,0).getRGB());
             zeldaImageSheet = createImageTransparent(zeldaImageSheet.getWidth(),zeldaImageSheet.getHeight(),zeldaImageSheet,"tileSets_0,120,0,green",new Color(0,128,0).getRGB());
             zeldaSpriteSheet = new SpriteSheet(zeldaImageSheet);
+
+            storyImageSheet = ImageIO.read(getClass().getResourceAsStream("/UI/Backgrounds/Zelda/title.png"));
+            storySpriteSheet = new SpriteSheet(storyImageSheet);
+            zeldaTitleFrames[5] = ImageIO.read(getClass().getResourceAsStream("/UI/Backgrounds/Zelda/TitleScreen/frame_0.gif"));
+            zeldaTitleFrames[4] = ImageIO.read(getClass().getResourceAsStream("/UI/Backgrounds/Zelda/TitleScreen/frame_1.gif"));
+            zeldaTitleFrames[3] = ImageIO.read(getClass().getResourceAsStream("/UI/Backgrounds/Zelda/TitleScreen/frame_2.gif"));
+            zeldaTitleFrames[2] = ImageIO.read(getClass().getResourceAsStream("/UI/Backgrounds/Zelda/TitleScreen/frame_3.gif"));
+            zeldaTitleFrames[1] = ImageIO.read(getClass().getResourceAsStream("/UI/Backgrounds/Zelda/TitleScreen/frame_4.gif"));
+            zeldaTitleFrames[0] = ImageIO.read(getClass().getResourceAsStream("/UI/Backgrounds/Zelda/TitleScreen/frame_5.gif"));
+
+            zeldaStoryFrames[0] = storySpriteSheet.crop(1, 250, 256,223);
+            zeldaStoryFrames[1] = storySpriteSheet.crop(258, 250, 256,223);
+            zeldaStoryFrames[2] = storySpriteSheet.crop(515, 250, 256,223);
+            zeldaStoryFrames[3] = storySpriteSheet.crop(772, 250, 256,223);
+            zeldaStoryFrames[4] = storySpriteSheet.crop(1, 475, 256,223);
+            zeldaStoryFrames[5] = storySpriteSheet.crop(258, 475, 256,223);
+            zeldaStoryFrames[6] = storySpriteSheet.crop(515, 475, 256,223);
+            zeldaStoryFrames[7] = storySpriteSheet.crop(772, 475, 256,64);
 
             zeldaLinkImage = ImageIO.read(getClass().getResourceAsStream("/UI/Backgrounds/Zelda/link.png"));
             zeldaLinkImage = createImageTransparent(zeldaLinkImage.getWidth(),zeldaLinkImage.getHeight(),zeldaLinkImage,"link_0,128,0_green",new Color(0,128,0).getRGB());

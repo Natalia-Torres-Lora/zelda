@@ -2,6 +2,8 @@ package Game.GameStates.Zelda;
 
 import Game.GameStates.State;
 import Main.Handler;
+import Resources.Animation;
+import Resources.Images;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -10,10 +12,13 @@ import java.awt.event.KeyEvent;
  * Created by AlexVR on 3/14/2020
  */
 public class ZeldaIntroStates extends State {
-
-
+    private Animation introAnimation;
+    private int stage = 0;
+    private int stageCounter = 60 * 3; // 3 seconds
+    private int yStoryOffset = 0;
     public ZeldaIntroStates(Handler handler) {
         super(handler);
+        introAnimation = new Animation(100, Images.zeldaTitleFrames);
     }
 
     @Override
@@ -21,14 +26,34 @@ public class ZeldaIntroStates extends State {
         if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_ENTER)){
             handler.changeState(handler.getZeldaGameState());
         }
+        if(stage == 0) {
+            introAnimation.tick();
+        }else if(stage==1){
+            if (stageCounter< 60*42){
+                yStoryOffset +=3;
+
+            }
+        }else{
+            handler.changeState(handler.getZeldaGameState());
+        }
+        if(stageCounter==0){
+            stageCounter = 60 * 45;
+            stage++;
+        }else{
+            stageCounter--;
+        }
 
     }
 
     @Override
     public void render(Graphics g) {
-
-        g.setColor(Color.WHITE);
-        g.drawString("Title WIP, press enter to continue",handler.getWidth()/2 - handler.getWidth()/6,handler.getHeight()/2);
+        if(stage == 0){
+            g.drawImage(introAnimation.getCurrentFrame(),handler.getWidth()/4,0 ,handler.getWidth()/2,handler.getHeight(),null);
+        }else if(stage ==1){
+            for(int i=0; i<Images.zeldaStoryFrames.length;i++){
+                g.drawImage(Images.zeldaStoryFrames[i],handler.getWidth()/4,handler.getHeight()*i -yStoryOffset ,handler.getWidth()/2,handler.getHeight(),null);
+            }
+        }
     }
 
     @Override
