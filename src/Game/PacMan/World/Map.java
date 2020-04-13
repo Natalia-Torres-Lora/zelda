@@ -61,6 +61,7 @@ public class Map {
                 }
             }
             else {
+
                 g2.drawImage(entity.sprite, entity.x, entity.y, entity.width, entity.height, null);
             }
         }

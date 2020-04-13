@@ -2,6 +2,9 @@ package Main;
 
 import Display.DisplayScreen;
 import Game.GameStates.*;
+import Game.GameStates.Zelda.ZeldaGameState;
+import Game.GameStates.Zelda.ZeldaIntroStates;
+import Game.GameStates.Zelda.ZeldaMapMakerState;
 import Game.PacMan.World.Map;
 import Game.PacMan.entities.Dynamics.PacMan;
 import Input.KeyManager;
@@ -84,6 +87,17 @@ public class Handler {
         return (PacManState)getGameProperties().pacmanState;
     }
 
+    public ZeldaGameState getZeldaGameState (){
+        return (ZeldaGameState)getGameProperties().zeldaGameState;
+    }
+
+    public ZeldaIntroStates getZeldaIntroState (){
+        return (ZeldaIntroStates) getGameProperties().zeldaIntroState;
+    }
+
+    public ZeldaMapMakerState getZeldaMMState (){
+        return (ZeldaMapMakerState)getGameProperties().zeldaMapMakerState;
+    }
 
     public void changeState(State state){
         State.setState(state);

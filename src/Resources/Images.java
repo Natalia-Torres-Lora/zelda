@@ -1,8 +1,14 @@
 package Resources;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * Created by AlexVR on 1/24/2020.
@@ -38,13 +44,39 @@ public class Images {
     public static BufferedImage intro;
     public static BufferedImage start;
 
-
-
     public static BufferedImage galagaImageSheet;
     public SpriteSheet galagaSpriteSheet;
 
     public static BufferedImage pacmanImageSheet;
     public SpriteSheet pacmanSpriteSheet;
+
+    public static BufferedImage zeldaImageSheet;
+    public static BufferedImage storyImageSheet;
+
+    public SpriteSheet zeldaSpriteSheet;
+    public SpriteSheet storySpriteSheet;
+    public static BufferedImage zeldaTriforceLogo;
+    public static BufferedImage zeldaMap;
+
+    public static ArrayList<BufferedImage> zeldaTiles;
+    public static BufferedImage[] zeldaTitleFrames;
+    public static BufferedImage[] zeldaStoryFrames;
+    public static BufferedImage zeldaWorldLayoutTileImage;
+    public SpriteSheet zeldaWorldLayoutTileSpriteSheet;
+    public static ArrayList<BufferedImage> zeldaWorldLayoutTiles;
+
+    public static BufferedImage zeldaLinkImage;
+    public SpriteSheet zeldaLinkSpriteSheet;
+    public static BufferedImage[] zeldaLinkFrames;
+
+    public static ArrayList<BufferedImage> forestTiles;
+    public static ArrayList<BufferedImage> caveTiles;
+    public static ArrayList<BufferedImage> mountainTiles;
+    public static ArrayList<BufferedImage> graveTiles;
+
+    public static BufferedImage EnemyOverwoldImage;
+    public SpriteSheet EnemyOverwoldSpriteSheet;
+    public static BufferedImage[] bouncyEnemyFrames;
 
     public Images() {
 
@@ -64,6 +96,21 @@ public class Images {
         pacmanUp = new BufferedImage[2];
         pacmanDown = new BufferedImage[2];
         bound = new BufferedImage[16];
+
+        zeldaTiles = new ArrayList<>();
+        zeldaTitleFrames = new BufferedImage[6];
+        zeldaStoryFrames = new BufferedImage[8];
+        zeldaWorldLayoutTiles = new ArrayList<>();
+
+        forestTiles = new ArrayList<>();
+        caveTiles = new ArrayList<>();
+        graveTiles = new ArrayList<>();
+        mountainTiles = new ArrayList<>();
+
+        zeldaLinkFrames = new BufferedImage[8];
+
+        bouncyEnemyFrames = new BufferedImage[2];
+
 
 
         try {
@@ -168,6 +215,267 @@ public class Images {
             intro = ImageIO.read(getClass().getResourceAsStream("/UI/SpriteSheets/PacMan/intro.png"));
             start = ImageIO.read(getClass().getResourceAsStream("/UI/Backgrounds/startScreen.png"));
 
+            zeldaImageSheet = ImageIO.read(getClass().getResourceAsStream("/UI/Backgrounds/Zelda/tileSet.png"));
+            zeldaTriforceLogo = ImageIO.read(getClass().getResourceAsStream("/UI/Backgrounds/Zelda/triforceLogo.png"));
+            zeldaMap = ImageIO.read(getClass().getResourceAsStream("/UI/Backgrounds/Zelda/map.png"));
+            zeldaMap = createImageTransparent(zeldaMap,"zelddaMap_0,128,0,green",new Color(0,128,0).getRGB());
+            zeldaImageSheet = createImageTransparent(zeldaImageSheet,"tileSets_0,120,0,green",new Color(0,128,0).getRGB());
+            zeldaSpriteSheet = new SpriteSheet(zeldaImageSheet);
+
+            storyImageSheet = ImageIO.read(getClass().getResourceAsStream("/UI/Backgrounds/Zelda/title.png"));
+            storySpriteSheet = new SpriteSheet(storyImageSheet);
+            zeldaTitleFrames[5] = ImageIO.read(getClass().getResourceAsStream("/UI/Backgrounds/Zelda/TitleScreen/frame_0.gif"));
+            zeldaTitleFrames[4] = ImageIO.read(getClass().getResourceAsStream("/UI/Backgrounds/Zelda/TitleScreen/frame_1.gif"));
+            zeldaTitleFrames[3] = ImageIO.read(getClass().getResourceAsStream("/UI/Backgrounds/Zelda/TitleScreen/frame_2.gif"));
+            zeldaTitleFrames[2] = ImageIO.read(getClass().getResourceAsStream("/UI/Backgrounds/Zelda/TitleScreen/frame_3.gif"));
+            zeldaTitleFrames[1] = ImageIO.read(getClass().getResourceAsStream("/UI/Backgrounds/Zelda/TitleScreen/frame_4.gif"));
+            zeldaTitleFrames[0] = ImageIO.read(getClass().getResourceAsStream("/UI/Backgrounds/Zelda/TitleScreen/frame_5.gif"));
+
+            zeldaStoryFrames[0] = storySpriteSheet.crop(1, 250, 256,223);
+            zeldaStoryFrames[1] = storySpriteSheet.crop(258, 250, 256,223);
+            zeldaStoryFrames[2] = storySpriteSheet.crop(515, 250, 256,223);
+            zeldaStoryFrames[3] = storySpriteSheet.crop(772, 250, 256,223);
+            zeldaStoryFrames[4] = storySpriteSheet.crop(1, 475, 256,223);
+            zeldaStoryFrames[5] = storySpriteSheet.crop(258, 475, 256,223);
+            zeldaStoryFrames[6] = storySpriteSheet.crop(515, 475, 256,223);
+            zeldaStoryFrames[7] = storySpriteSheet.crop(772, 475, 256,64);
+
+            zeldaLinkImage = ImageIO.read(getClass().getResourceAsStream("/UI/Backgrounds/Zelda/link.png"));
+            zeldaLinkImage = createImageTransparent(zeldaLinkImage,"link_0,128,0_green",new Color(0,128,0).getRGB());
+            zeldaLinkSpriteSheet = new SpriteSheet(createImageTransparent(zeldaLinkImage,"link_116,116,116_gray",new Color(116,116,116).getRGB()));
+            zeldaLinkFrames[0] = zeldaLinkSpriteSheet.crop(1,11,16,16);
+            zeldaLinkFrames[1] = zeldaLinkSpriteSheet.crop(18,11,16,16);
+            zeldaLinkFrames[2] = zeldaLinkSpriteSheet.crop(35,11,16,16);
+            zeldaLinkFrames[3] = zeldaLinkSpriteSheet.crop(52,11,16,16);
+            zeldaLinkFrames[4] = zeldaLinkSpriteSheet.crop(69,11,16,16);
+            zeldaLinkFrames[5] = zeldaLinkSpriteSheet.crop(86,11,16,16);
+            zeldaLinkFrames[6] = zeldaLinkSpriteSheet.crop(213,11,16,16);
+            zeldaLinkFrames[7] = zeldaLinkSpriteSheet.crop(230,11,16,16);
+
+            zeldaWorldLayoutTileImage = ImageIO.read(getClass().getResourceAsStream("/UI/Backgrounds/Zelda/layout.png"));
+            zeldaWorldLayoutTileSpriteSheet = new SpriteSheet( createImageTransparent(zeldaWorldLayoutTileImage,"layout_0,128,0_green",new Color(0,128,0).getRGB()));
+            zeldaWorldLayoutTiles.add(zeldaWorldLayoutTileSpriteSheet.crop(1,154,152,84));
+            zeldaWorldLayoutTiles.add(createImage(zeldaWorldLayoutTiles.get(0),"forest_brown4greeen",brown.getRGB(),new Color(0,168,0).getRGB()));
+            zeldaWorldLayoutTiles.add(createImage(zeldaWorldLayoutTiles.get(0),"cave_brown4greeen",brown.getRGB(),new Color(124,8,0).getRGB()));
+            zeldaWorldLayoutTiles.add(createImage(zeldaWorldLayoutTiles.get(0),"grave_brown4greeen",brown.getRGB(),new Color(252,252,252).getRGB()));
+
+
+            EnemyOverwoldImage = ImageIO.read(getClass().getResourceAsStream("/UI/Backgrounds/Zelda/enemy3.png"));
+            EnemyOverwoldImage = createImageTransparent(EnemyOverwoldImage,"enemies_overworld_116,116,116_green",new Color(116,116,116).getRGB());
+            EnemyOverwoldSpriteSheet = new SpriteSheet( createImageTransparent(EnemyOverwoldImage,"enemies_overworld_0,128,0_green",new Color(0,128,0).getRGB()));
+
+            bouncyEnemyFrames[0] = EnemyOverwoldSpriteSheet.crop(162,90,16,16);
+            bouncyEnemyFrames[1] = EnemyOverwoldSpriteSheet.crop(179,90,16,16);
+
+            //dungeon one tiles
+            zeldaTiles.add(zeldaSpriteSheet.crop(815,11,32,32));
+            zeldaTiles.add(zeldaSpriteSheet.crop(848,11,32,32));
+            zeldaTiles.add(zeldaSpriteSheet.crop(881,11,32,32));
+            zeldaTiles.add(zeldaSpriteSheet.crop(914,11,32,32));
+            zeldaTiles.add(zeldaSpriteSheet.crop(947,11,32,32));
+            zeldaTiles.add(zeldaSpriteSheet.crop(848,44,32,32));
+            zeldaTiles.add(zeldaSpriteSheet.crop(815,44,32,32));
+            zeldaTiles.add(zeldaSpriteSheet.crop(881,44,32,32));
+            zeldaTiles.add(zeldaSpriteSheet.crop(914,44,32,32));
+            zeldaTiles.add(zeldaSpriteSheet.crop(947,44,32,32));
+            zeldaTiles.add(zeldaSpriteSheet.crop(815,77,32,32));
+            zeldaTiles.add(zeldaSpriteSheet.crop(848,77,32,32));
+            zeldaTiles.add(zeldaSpriteSheet.crop(881,77,32,32));
+            zeldaTiles.add(zeldaSpriteSheet.crop(914,77,32,32));
+            zeldaTiles.add(zeldaSpriteSheet.crop(947,77,32,32));
+            zeldaTiles.add(zeldaSpriteSheet.crop(815,110,32,32));
+            zeldaTiles.add(zeldaSpriteSheet.crop(848,110,32,32));
+            zeldaTiles.add(zeldaSpriteSheet.crop(881,110,32,32));
+            zeldaTiles.add(zeldaSpriteSheet.crop(914,110,32,32));
+            zeldaTiles.add(zeldaSpriteSheet.crop(947,110,32,32));
+            zeldaTiles.add(zeldaSpriteSheet.crop(984,11,16,16));
+            zeldaTiles.add(zeldaSpriteSheet.crop(1001,11,16,16));
+            zeldaTiles.add(zeldaSpriteSheet.crop(1018,11,16,16));
+            zeldaTiles.add(zeldaSpriteSheet.crop(1035,11,16,16));
+            zeldaTiles.add(zeldaSpriteSheet.crop(1001,28,16,16));
+            zeldaTiles.add(zeldaSpriteSheet.crop(984,28,16,16));
+            zeldaTiles.add(zeldaSpriteSheet.crop(1018,28,16,16));
+            zeldaTiles.add(zeldaSpriteSheet.crop(1035,28,16,16));
+            zeldaTiles.add(zeldaSpriteSheet.crop(984,45,16,16));
+            zeldaTiles.add(zeldaSpriteSheet.crop(1001,45,16,16));
+
+            //main world tiles
+            SpriteSheet mountain = new SpriteSheet(zeldaWorldLayoutTiles.get(0));
+            SpriteSheet forest = new SpriteSheet(zeldaWorldLayoutTiles.get(1));
+            SpriteSheet cave = new SpriteSheet(createImageTransparent(zeldaWorldLayoutTiles.get(2),"caveTransparent_252,216,168_crema", new Color(252,216,168).getRGB()));
+            SpriteSheet grave = new SpriteSheet(zeldaWorldLayoutTiles.get(3));
+
+            mountainTiles.add(mountain.crop(0,0,16,16));
+            mountainTiles.add(mountain.crop(17,0,16,16));
+            mountainTiles.add(mountain.crop(34,0,16,16));
+            mountainTiles.add(mountain.crop(51,0,16,16));
+            mountainTiles.add(mountain.crop(17,17,16,16));
+            mountainTiles.add(mountain.crop(34,17,16,16));
+            mountainTiles.add(mountain.crop(51,17,16,16));
+            mountainTiles.add(mountain.crop(68,0,16,16));
+            mountainTiles.add(mountain.crop(85,0,16,16));
+            mountainTiles.add(mountain.crop(102,0,16,16));
+            mountainTiles.add(mountain.crop(68,17,16,16));
+            mountainTiles.add(mountain.crop(85,17,16,16));
+            mountainTiles.add(mountain.crop(102,17,16,16));
+            mountainTiles.add(mountain.crop(68,34,16,16));
+            mountainTiles.add(mountain.crop(85,34,16,16));
+            mountainTiles.add(mountain.crop(102,34,16,16));
+            mountainTiles.add(mountain.crop(119,0,16,16));
+            mountainTiles.add(mountain.crop(136,0,16,16));
+            mountainTiles.add(mountain.crop(119,17,16,16));
+            mountainTiles.add(mountain.crop(136,17,16,16));
+            mountainTiles.add(mountain.crop(119,34,16,16));
+            mountainTiles.add(mountain.crop(136,34,16,16));
+            mountainTiles.add(mountain.crop(0,51,16,16));
+            mountainTiles.add(mountain.crop(17,51,16,16));
+            mountainTiles.add(mountain.crop(34,51,16,16));
+            mountainTiles.add(mountain.crop(0,68,16,16));
+            mountainTiles.add(mountain.crop(34,68,16,16));
+            mountainTiles.add(mountain.crop(51,51,16,16));
+            mountainTiles.add(mountain.crop(68,51,16,16));
+            mountainTiles.add(mountain.crop(85,51,16,16));
+            mountainTiles.add(mountain.crop(51,68,16,16));
+            mountainTiles.add(mountain.crop(85,68,16,16));
+            mountainTiles.add(mountain.crop(0,17,16,16));
+            mountainTiles.add(mountain.crop(0,34,16,16));
+            mountainTiles.add(mountain.crop(17,34,16,16));
+            mountainTiles.add(mountain.crop(34,34,16,16));
+            mountainTiles.add(mountain.crop(51,34,16,16));
+            mountainTiles.add(mountain.crop(17,68,16,16));
+            mountainTiles.add(mountain.crop(68,68,16,16));
+            mountainTiles.add(mountain.crop(102,51,16,16));
+            mountainTiles.add(mountain.crop(119,51,16,16));
+            mountainTiles.add(mountain.crop(136,51,16,16));
+
+            forestTiles.add(forest.crop(0,0,16,16));
+            forestTiles.add(forest.crop(17,0,16,16));
+            forestTiles.add(forest.crop(34,0,16,16));
+            forestTiles.add(forest.crop(51,0,16,16));
+            forestTiles.add(forest.crop(17,17,16,16));
+            forestTiles.add(forest.crop(34,17,16,16));
+            forestTiles.add(forest.crop(51,17,16,16));
+            forestTiles.add(forest.crop(68,0,16,16));
+            forestTiles.add(forest.crop(85,0,16,16));
+            forestTiles.add(forest.crop(102,0,16,16));
+            forestTiles.add(forest.crop(68,17,16,16));
+            forestTiles.add(forest.crop(85,17,16,16));
+            forestTiles.add(forest.crop(102,17,16,16));
+            forestTiles.add(forest.crop(68,34,16,16));
+            forestTiles.add(forest.crop(85,34,16,16));
+            forestTiles.add(forest.crop(102,34,16,16));
+            forestTiles.add(forest.crop(119,0,16,16));
+            forestTiles.add(forest.crop(136,0,16,16));
+            forestTiles.add(forest.crop(119,17,16,16));
+            forestTiles.add(forest.crop(136,17,16,16));
+            forestTiles.add(forest.crop(119,34,16,16));
+            forestTiles.add(forest.crop(136,34,16,16));
+            forestTiles.add(forest.crop(0,51,16,16));
+            forestTiles.add(forest.crop(17,51,16,16));
+            forestTiles.add(forest.crop(34,51,16,16));
+            forestTiles.add(forest.crop(0,68,16,16));
+            forestTiles.add(forest.crop(34,68,16,16));
+            forestTiles.add(forest.crop(51,51,16,16));
+            forestTiles.add(forest.crop(68,51,16,16));
+            forestTiles.add(forest.crop(85,51,16,16));
+            forestTiles.add(forest.crop(51,68,16,16));
+            forestTiles.add(forest.crop(85,68,16,16));
+            forestTiles.add(forest.crop(0,17,16,16));
+            forestTiles.add(forest.crop(0,34,16,16));
+            forestTiles.add(forest.crop(17,34,16,16));
+            forestTiles.add(forest.crop(34,34,16,16));
+            forestTiles.add(forest.crop(51,34,16,16));
+            forestTiles.add(forest.crop(17,68,16,16));
+            forestTiles.add(forest.crop(68,68,16,16));
+            forestTiles.add(forest.crop(102,51,16,16));
+            forestTiles.add(forest.crop(119,51,16,16));
+            forestTiles.add(forest.crop(136,51,16,16));
+
+            caveTiles.add(cave.crop(0,0,16,16));
+            caveTiles.add(cave.crop(17,0,16,16));
+            caveTiles.add(cave.crop(34,0,16,16));
+            caveTiles.add(cave.crop(51,0,16,16));
+            caveTiles.add(cave.crop(17,17,16,16));
+            caveTiles.add(cave.crop(34,17,16,16));
+            caveTiles.add(cave.crop(51,17,16,16));
+            caveTiles.add(cave.crop(68,0,16,16));
+            caveTiles.add(cave.crop(85,0,16,16));
+            caveTiles.add(cave.crop(102,0,16,16));
+            caveTiles.add(cave.crop(68,17,16,16));
+            caveTiles.add(cave.crop(85,17,16,16));
+            caveTiles.add(cave.crop(102,17,16,16));
+            caveTiles.add(cave.crop(68,34,16,16));
+            caveTiles.add(cave.crop(85,34,16,16));
+            caveTiles.add(cave.crop(102,34,16,16));
+            caveTiles.add(cave.crop(119,0,16,16));
+            caveTiles.add(cave.crop(136,0,16,16));
+            caveTiles.add(cave.crop(119,17,16,16));
+            caveTiles.add(cave.crop(136,17,16,16));
+            caveTiles.add(cave.crop(119,34,16,16));
+            caveTiles.add(cave.crop(136,34,16,16));
+            caveTiles.add(cave.crop(0,51,16,16));
+            caveTiles.add(cave.crop(17,51,16,16));
+            caveTiles.add(cave.crop(34,51,16,16));
+            caveTiles.add(cave.crop(0,68,16,16));
+            caveTiles.add(cave.crop(34,68,16,16));
+            caveTiles.add(cave.crop(51,51,16,16));
+            caveTiles.add(cave.crop(68,51,16,16));
+            caveTiles.add(cave.crop(85,51,16,16));
+            caveTiles.add(cave.crop(51,68,16,16));
+            caveTiles.add(cave.crop(85,68,16,16));
+            caveTiles.add(cave.crop(0,17,16,16));
+            caveTiles.add(cave.crop(0,34,16,16));
+            caveTiles.add(cave.crop(17,34,16,16));
+            caveTiles.add(cave.crop(34,34,16,16));
+            caveTiles.add(cave.crop(51,34,16,16));
+            caveTiles.add(cave.crop(17,68,16,16));
+            caveTiles.add(cave.crop(68,68,16,16));
+            caveTiles.add(cave.crop(102,51,16,16));
+            caveTiles.add(cave.crop(119,51,16,16));
+            caveTiles.add(cave.crop(136,51,16,16));
+
+            graveTiles.add(grave.crop(0,0,16,16));
+            graveTiles.add(grave.crop(17,0,16,16));
+            graveTiles.add(grave.crop(34,0,16,16));
+            graveTiles.add(grave.crop(51,0,16,16));
+            graveTiles.add(grave.crop(17,17,16,16));
+            graveTiles.add(grave.crop(34,17,16,16));
+            graveTiles.add(grave.crop(51,17,16,16));
+            graveTiles.add(grave.crop(68,0,16,16));
+            graveTiles.add(grave.crop(85,0,16,16));
+            graveTiles.add(grave.crop(102,0,16,16));
+            graveTiles.add(grave.crop(68,17,16,16));
+            graveTiles.add(grave.crop(85,17,16,16));
+            graveTiles.add(grave.crop(102,17,16,16));
+            graveTiles.add(grave.crop(68,34,16,16));
+            graveTiles.add(grave.crop(85,34,16,16));
+            graveTiles.add(grave.crop(102,34,16,16));
+            graveTiles.add(grave.crop(119,0,16,16));
+            graveTiles.add(grave.crop(136,0,16,16));
+            graveTiles.add(grave.crop(119,17,16,16));
+            graveTiles.add(grave.crop(136,17,16,16));
+            graveTiles.add(grave.crop(119,34,16,16));
+            graveTiles.add(grave.crop(136,34,16,16));
+            graveTiles.add(grave.crop(0,51,16,16));
+            graveTiles.add(grave.crop(17,51,16,16));
+            graveTiles.add(grave.crop(34,51,16,16));
+            graveTiles.add(grave.crop(0,68,16,16));
+            graveTiles.add(grave.crop(34,68,16,16));
+            graveTiles.add(grave.crop(51,51,16,16));
+            graveTiles.add(grave.crop(68,51,16,16));
+            graveTiles.add(grave.crop(85,51,16,16));
+            graveTiles.add(grave.crop(51,68,16,16));
+            graveTiles.add(grave.crop(85,68,16,16));
+            graveTiles.add(grave.crop(0,17,16,16));
+            graveTiles.add(grave.crop(0,34,16,16));
+            graveTiles.add(grave.crop(17,34,16,16));
+            graveTiles.add(grave.crop(34,34,16,16));
+            graveTiles.add(grave.crop(51,34,16,16));
+            graveTiles.add(grave.crop(17,68,16,16));
+            graveTiles.add(grave.crop(68,68,16,16));
+            graveTiles.add(grave.crop(102,51,16,16));
+            graveTiles.add(grave.crop(119,51,16,16));
+            graveTiles.add(grave.crop(136,51,16,16));
 
 
         }catch (IOException e) {
@@ -177,6 +485,110 @@ public class Images {
 
     }
 
+
+    public BufferedImage invertImage(BufferedImage bufferedImage, String name) {
+        String path = Objects.requireNonNull(getClass().getClassLoader().getResource(".")).getPath();
+        String path2 = path.substring(0,path.indexOf("/out/"))+"/res/Edited/"+name+".png";
+        File imagess = new File(path2.replaceAll("%20"," "));
+        if (imagess.exists()){
+            try {
+                return ImageIO.read(imagess.getAbsoluteFile());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        for (int x = 0; x < bufferedImage.getWidth(); x++) {
+            for (int y = 0; y < bufferedImage.getHeight(); y++) {
+                int rgba = bufferedImage.getRGB(x, y);
+                Color col = new Color(rgba, true);
+                col = new Color(255 - col.getRed(),
+                        255 - col.getGreen(),
+                        255 - col.getBlue());
+                bufferedImage.setRGB(x, y, col.getRGB());
+            }
+        }
+        File f = null;
+
+        try
+        {
+            path = Objects.requireNonNull(getClass().getClassLoader().getResource(".")).getPath();
+            path2 = path.substring(0,path.indexOf("/out/"))+"/res/Edited/"+name+".png";
+            f = new File(path2.replaceAll("%20"," "));
+            System.out.println("File saved in: "+path2);
+            ImageIO.write(bufferedImage, "png", f);
+        }
+        catch(IOException e)
+        {
+            System.out.println("Error: " + e);
+        }
+        return bufferedImage;
+    }
+
+    public static Color transparant = new Color(255, 255, 255, 0);
+    public static Color brown = new Color(200,76,12);
+
+    public BufferedImage createImageTransparent(BufferedImage image, String name, int RGBToReplace){
+
+
+        return createImage(image,name,RGBToReplace,transparant.getRGB());
+    }
+
+    public BufferedImage createImage(BufferedImage image, String name, int RGBToReplace,int RGBReplaicing){
+
+        int width = image.getWidth();
+        int height = image.getHeight();
+        String path = Objects.requireNonNull(getClass().getClassLoader().getResource(".")).getPath();
+        String path2 = path.substring(0,path.indexOf("/out/"))+"/res/Edited/"+name+".png";
+        File imagess = new File(path2.replaceAll("%20"," "));
+        if (imagess.exists()){
+            try {
+                return ImageIO.read(imagess.getAbsoluteFile());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+        // Create buffered image object
+        BufferedImage img = null;
+
+        img = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+        // file object
+        File f = null;
+
+        // create random values pixel by pixel
+        for (int y = 0; y < height; y++)
+        {
+            for (int x = 0; x < width; x++)
+            {
+                if (image.getRGB(x, y) == RGBToReplace) {
+                    img.setRGB(x, y, RGBReplaicing);
+                } else {
+                    img.setRGB(x, y, image.getRGB(x, y));
+                }
+
+
+            }
+        }
+
+        // write image, AKA save it to pc
+        try
+        {
+            path = Objects.requireNonNull(getClass().getClassLoader().getResource(".")).getPath();
+            path2 = path.substring(0,path.indexOf("/out/"))+"/res/Edited/"+name+".png";
+            f = new File(path2.replaceAll("%20"," "));
+            System.out.println("File saved in: "+path2);
+            ImageIO.write(img, "png", f);
+        }
+        catch(IOException e)
+        {
+            System.out.println("Error: " + e);
+        }
+        return img;
+    }
+
+
     public static BufferedImage loadImage(String path) {
         try {
             return ImageIO.read(Images.class.getResourceAsStream(path));
@@ -185,6 +597,39 @@ public class Images {
             System.exit(1);
         }
         return null;
+    }
+
+    public static BufferedImage tint(BufferedImage src, float r, float g, float b) {
+
+        // Copy image
+        BufferedImage newImage = new BufferedImage(src.getWidth(), src.getHeight(), BufferedImage.TRANSLUCENT);
+        Graphics2D graphics = newImage.createGraphics();
+        graphics.drawImage(src, 0, 0, null);
+        graphics.dispose();
+
+        // Color image
+        for (int i = 0; i < newImage.getWidth(); i++) {
+            for (int j = 0; j < newImage.getHeight(); j++) {
+                int ax = newImage.getColorModel().getAlpha(newImage.getRaster().getDataElements(i, j, null));
+                int rx = newImage.getColorModel().getRed(newImage.getRaster().getDataElements(i, j, null));
+                int gx = newImage.getColorModel().getGreen(newImage.getRaster().getDataElements(i, j, null));
+                int bx = newImage.getColorModel().getBlue(newImage.getRaster().getDataElements(i, j, null));
+                rx *= r;
+                gx *= g;
+                bx *= b;
+                newImage.setRGB(i, j, (ax << 24) | (rx << 16) | (gx << 8) | (bx << 0));
+            }
+        }
+        return newImage;
+    }
+
+    public static BufferedImage flipHorizontal(BufferedImage image){
+        // Flip the image horizontally
+        AffineTransform tx = AffineTransform.getScaleInstance(-1, 1);
+        tx.translate(-image.getWidth(null), 0);
+        AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
+        image = op.filter(image, null);
+        return image;
     }
 
 }
