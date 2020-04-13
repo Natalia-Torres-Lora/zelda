@@ -1,6 +1,7 @@
 package Game.GameStates.Zelda;
 
 import Game.GameStates.State;
+import Game.Zelda.Entities.Dynamic.BaseMovingEntity;
 import Game.Zelda.Entities.Dynamic.Direction;
 import Game.Zelda.Entities.Dynamic.Link;
 import Game.Zelda.Entities.Statics.DungeonDoor;
@@ -24,6 +25,7 @@ public class ZeldaGameState extends State {
     public int mapX,mapY,mapWidth,mapHeight;
 
     public ArrayList<ArrayList<ArrayList<SolidStaticEntities>>> objects;
+    public ArrayList<ArrayList<ArrayList<BaseMovingEntity>>> enemies;
     public Link link;
     public static boolean inCave = false;
     public ArrayList<SolidStaticEntities> caveObjects;
@@ -44,11 +46,14 @@ public class ZeldaGameState extends State {
         cameraOffsetX =  ((mapWidth*mapX) + mapX + 1)*worldScale;
         cameraOffsetY = ((mapHeight*mapY) + mapY + 1)*worldScale;
         objects = new ArrayList<>();
+        enemies = new ArrayList<>();
         caveObjects = new ArrayList<>();
         for (int i =0;i<16;i++){
             objects.add(new ArrayList<>());
+            enemies.add(new ArrayList<>());
             for (int j =0;j<8;j++) {
                 objects.get(i).add(new ArrayList<>());
+                enemies.get(i).add(new ArrayList<>());
             }
         }
 
@@ -71,6 +76,12 @@ public class ZeldaGameState extends State {
                 for (SolidStaticEntities entity : objects.get(mapX).get(mapY)) {
                     entity.tick();
                 }
+                for (BaseMovingEntity entity : enemies.get(mapX).get(mapY)) {
+                    entity.tick();
+                    if (entity.getInteractBounds().intersects(link.getInteractBounds())){
+                        link.damage(1);
+                    }
+                }
             }
         }
     }
@@ -90,6 +101,9 @@ public class ZeldaGameState extends State {
             g.drawImage(Images.zeldaMap, -cameraOffsetX + xOffset, -cameraOffsetY + yOffset, Images.zeldaMap.getWidth() * worldScale, Images.zeldaMap.getHeight() * worldScale, null);
             if (!link.movingMap) {
                 for (SolidStaticEntities entity : objects.get(mapX).get(mapY)) {
+                    entity.render(g);
+                }
+                for (BaseMovingEntity entity : enemies.get(mapX).get(mapY)) {
                     entity.render(g);
                 }
             }
@@ -129,67 +143,72 @@ public class ZeldaGameState extends State {
         caveObjects.add(new DungeonDoor(7,9,16*worldScale*2,16*worldScale * 2,Direction.DOWN,"caveStartLeave",handler,(4 * (ZeldaGameState.stageWidth/16)) + ZeldaGameState.xOffset,(2 * (ZeldaGameState.stageHeight/11)) + ZeldaGameState.yOffset));
 
         //7,7
-        ArrayList<SolidStaticEntities> doors = new ArrayList<>();
-        doors.add(new SectionDoor( 0,5,16*worldScale,16*worldScale, Direction.LEFT,handler));
-        doors.add(new SectionDoor( 7,0,16*worldScale * 2,16*worldScale,Direction.UP,handler));
-        doors.add(new DungeonDoor( 4,1,16*worldScale,16*worldScale,Direction.UP,"caveStartEnter",handler,(7 * (ZeldaGameState.stageWidth/16)) + ZeldaGameState.xOffset,(9 * (ZeldaGameState.stageHeight/11)) + ZeldaGameState.yOffset));
-        doors.add(new SectionDoor( 15,5,16*worldScale,16*worldScale,Direction.RIGHT,handler));
-        doors.add(new SolidStaticEntities(6,0,Images.forestTiles.get(2),handler));
-        doors.add(new SolidStaticEntities(5,1,Images.forestTiles.get(5),handler));
-        doors.add(new SolidStaticEntities(6,1,Images.forestTiles.get(6),handler));
-        doors.add(new SolidStaticEntities(3,2,Images.forestTiles.get(6),handler));
-        doors.add(new SolidStaticEntities(2,3,Images.forestTiles.get(6),handler));
-        doors.add(new SolidStaticEntities(1,4,Images.forestTiles.get(6),handler));
-        doors.add(new SolidStaticEntities(1,6,Images.forestTiles.get(3),handler));
-        doors.add(new SolidStaticEntities(1,7,Images.forestTiles.get(5),handler));
-        doors.add(new SolidStaticEntities(1,8,Images.forestTiles.get(5),handler));
-        doors.add(new SolidStaticEntities(2,9,Images.forestTiles.get(2),handler));
-        doors.add(new SolidStaticEntities(3,9,Images.forestTiles.get(2),handler));
-        doors.add(new SolidStaticEntities(4,9,Images.forestTiles.get(2),handler));
-        doors.add(new SolidStaticEntities(5,9,Images.forestTiles.get(2),handler));
-        doors.add(new SolidStaticEntities(6,9,Images.forestTiles.get(2),handler));
-        doors.add(new SolidStaticEntities(7,9,Images.forestTiles.get(2),handler));
-        doors.add(new SolidStaticEntities(8,9,Images.forestTiles.get(2),handler));
-        doors.add(new SolidStaticEntities(9,9,Images.forestTiles.get(2),handler));
-        doors.add(new SolidStaticEntities(10,9,Images.forestTiles.get(2),handler));
-        doors.add(new SolidStaticEntities(11,9,Images.forestTiles.get(2),handler));
-        doors.add(new SolidStaticEntities(12,9,Images.forestTiles.get(2),handler));
-        doors.add(new SolidStaticEntities(13,9,Images.forestTiles.get(2),handler));
-        doors.add(new SolidStaticEntities(14,8,Images.forestTiles.get(5),handler));
-        doors.add(new SolidStaticEntities(14,7,Images.forestTiles.get(5),handler));
-        doors.add(new SolidStaticEntities(14,6,Images.forestTiles.get(2),handler));
-        doors.add(new SolidStaticEntities(14,4,Images.forestTiles.get(5),handler));
-        doors.add(new SolidStaticEntities(13,4,Images.forestTiles.get(5),handler));
-        doors.add(new SolidStaticEntities(12,4,Images.forestTiles.get(5),handler));
-        doors.add(new SolidStaticEntities(11,4,Images.forestTiles.get(5),handler));
-        doors.add(new SolidStaticEntities(10,4,Images.forestTiles.get(5),handler));
-        doors.add(new SolidStaticEntities(9,4,Images.forestTiles.get(4),handler));
-        doors.add(new SolidStaticEntities(9,3,Images.forestTiles.get(5),handler));
-        doors.add(new SolidStaticEntities(9,2,Images.forestTiles.get(5),handler));
-        doors.add(new SolidStaticEntities(9,1,Images.forestTiles.get(5),handler));
-        doors.add(new SolidStaticEntities(9,0,Images.forestTiles.get(5),handler));
-        objects.get(7).set(7,doors);
+        ArrayList<SolidStaticEntities> solids = new ArrayList<>();
+        ArrayList<BaseMovingEntity> monster = new ArrayList<>();
+        solids.add(new SectionDoor( 0,5,16*worldScale,16*worldScale, Direction.LEFT,handler));
+        solids.add(new SectionDoor( 7,0,16*worldScale * 2,16*worldScale,Direction.UP,handler));
+        solids.add(new DungeonDoor( 4,1,16*worldScale,16*worldScale,Direction.UP,"caveStartEnter",handler,(7 * (ZeldaGameState.stageWidth/16)) + ZeldaGameState.xOffset,(9 * (ZeldaGameState.stageHeight/11)) + ZeldaGameState.yOffset));
+        solids.add(new SectionDoor( 15,5,16*worldScale,16*worldScale,Direction.RIGHT,handler));
+        solids.add(new SolidStaticEntities(6,0,Images.forestTiles.get(2),handler));
+        solids.add(new SolidStaticEntities(5,1,Images.forestTiles.get(5),handler));
+        solids.add(new SolidStaticEntities(6,1,Images.forestTiles.get(6),handler));
+        solids.add(new SolidStaticEntities(3,2,Images.forestTiles.get(6),handler));
+        solids.add(new SolidStaticEntities(2,3,Images.forestTiles.get(6),handler));
+        solids.add(new SolidStaticEntities(1,4,Images.forestTiles.get(6),handler));
+        solids.add(new SolidStaticEntities(1,6,Images.forestTiles.get(3),handler));
+        solids.add(new SolidStaticEntities(1,7,Images.forestTiles.get(5),handler));
+        solids.add(new SolidStaticEntities(1,8,Images.forestTiles.get(5),handler));
+        solids.add(new SolidStaticEntities(2,9,Images.forestTiles.get(2),handler));
+        solids.add(new SolidStaticEntities(3,9,Images.forestTiles.get(2),handler));
+        solids.add(new SolidStaticEntities(4,9,Images.forestTiles.get(2),handler));
+        solids.add(new SolidStaticEntities(5,9,Images.forestTiles.get(2),handler));
+        solids.add(new SolidStaticEntities(6,9,Images.forestTiles.get(2),handler));
+        solids.add(new SolidStaticEntities(7,9,Images.forestTiles.get(2),handler));
+        solids.add(new SolidStaticEntities(8,9,Images.forestTiles.get(2),handler));
+        solids.add(new SolidStaticEntities(9,9,Images.forestTiles.get(2),handler));
+        solids.add(new SolidStaticEntities(10,9,Images.forestTiles.get(2),handler));
+        solids.add(new SolidStaticEntities(11,9,Images.forestTiles.get(2),handler));
+        solids.add(new SolidStaticEntities(12,9,Images.forestTiles.get(2),handler));
+        solids.add(new SolidStaticEntities(13,9,Images.forestTiles.get(2),handler));
+        solids.add(new SolidStaticEntities(14,8,Images.forestTiles.get(5),handler));
+        solids.add(new SolidStaticEntities(14,7,Images.forestTiles.get(5),handler));
+        solids.add(new SolidStaticEntities(14,6,Images.forestTiles.get(2),handler));
+        solids.add(new SolidStaticEntities(14,4,Images.forestTiles.get(5),handler));
+        solids.add(new SolidStaticEntities(13,4,Images.forestTiles.get(5),handler));
+        solids.add(new SolidStaticEntities(12,4,Images.forestTiles.get(5),handler));
+        solids.add(new SolidStaticEntities(11,4,Images.forestTiles.get(5),handler));
+        solids.add(new SolidStaticEntities(10,4,Images.forestTiles.get(5),handler));
+        solids.add(new SolidStaticEntities(9,4,Images.forestTiles.get(4),handler));
+        solids.add(new SolidStaticEntities(9,3,Images.forestTiles.get(5),handler));
+        solids.add(new SolidStaticEntities(9,2,Images.forestTiles.get(5),handler));
+        solids.add(new SolidStaticEntities(9,1,Images.forestTiles.get(5),handler));
+        solids.add(new SolidStaticEntities(9,0,Images.forestTiles.get(5),handler));
+        objects.get(7).set(7,solids);
 
         //6,7
-        doors = new ArrayList<>();
-        doors.add(new SectionDoor( 0,2,16*worldScale,16*worldScale*7, Direction.LEFT,handler));
-        doors.add(new SectionDoor( 12,0,16*worldScale * 2,16*worldScale,Direction.UP,handler));
-        doors.add(new SectionDoor( 15,5,16*worldScale,16*worldScale,Direction.RIGHT,handler));
-        objects.get(6).set(7,doors);
+        monster = new ArrayList<>();
+        solids = new ArrayList<>();
+        solids.add(new SectionDoor( 0,2,16*worldScale,16*worldScale*7, Direction.LEFT,handler));
+        solids.add(new SectionDoor( 12,0,16*worldScale * 2,16*worldScale,Direction.UP,handler));
+        solids.add(new SectionDoor( 15,5,16*worldScale,16*worldScale,Direction.RIGHT,handler));
+        objects.get(6).set(7,solids);
+
 
         //7,6
-        doors = new ArrayList<>();
-        doors.add(new SectionDoor( 0,4,16*worldScale,16*worldScale*3, Direction.LEFT,handler));
-        doors.add(new SectionDoor( 7,10,16*worldScale * 2,16*worldScale,Direction.DOWN,handler));
-        doors.add(new SectionDoor( 15,4,16*worldScale,16*worldScale*3,Direction.RIGHT,handler));
-        objects.get(7).set(6,doors);
+        monster = new ArrayList<>();
+        solids = new ArrayList<>();
+        solids.add(new SectionDoor( 0,4,16*worldScale,16*worldScale*3, Direction.LEFT,handler));
+        solids.add(new SectionDoor( 7,10,16*worldScale * 2,16*worldScale,Direction.DOWN,handler));
+        solids.add(new SectionDoor( 15,4,16*worldScale,16*worldScale*3,Direction.RIGHT,handler));
+        objects.get(7).set(6,solids);
 
         //8,7
-        doors = new ArrayList<>();
-        doors.add(new SectionDoor( 0,5,16*worldScale,16*worldScale, Direction.LEFT,handler));
-        doors.add(new SectionDoor( 2,0,16*worldScale * 13,16*worldScale,Direction.UP,handler));
-        doors.add(new SectionDoor( 15,2,16*worldScale,16*worldScale*7,Direction.RIGHT,handler));
-        objects.get(8).set(7,doors);
+        monster = new ArrayList<>();
+        solids = new ArrayList<>();
+        solids.add(new SectionDoor( 0,5,16*worldScale,16*worldScale, Direction.LEFT,handler));
+        solids.add(new SectionDoor( 2,0,16*worldScale * 13,16*worldScale,Direction.UP,handler));
+        solids.add(new SectionDoor( 15,2,16*worldScale,16*worldScale*7,Direction.RIGHT,handler));
+        objects.get(8).set(7,solids);
     }
 
     @Override

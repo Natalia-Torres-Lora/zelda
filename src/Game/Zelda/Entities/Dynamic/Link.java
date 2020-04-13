@@ -9,15 +9,11 @@ import Resources.Animation;
 import Resources.Images;
 
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 
 import static Game.GameStates.Zelda.ZeldaGameState.worldScale;
 import static Game.Zelda.Entities.Dynamic.Direction.DOWN;
 import static Game.Zelda.Entities.Dynamic.Direction.UP;
-import static javax.swing.JSplitPane.LEFT;
-import static javax.swing.JSplitPane.RIGHT;
 
 /**
  * Created by AlexVR on 3/15/2020
@@ -30,9 +26,11 @@ public class Link extends BaseMovingEntity {
     public boolean movingMap = false;
     Direction movingTo;
 
+
     public Link(int x, int y, BufferedImage[] sprite, Handler handler) {
         super(x, y, sprite, handler);
         speed = 4;
+        health = 6;
         BufferedImage[] animList = new BufferedImage[2];
         animList[0] = sprite[4];
         animList[1] = sprite[5];

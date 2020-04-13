@@ -7,7 +7,6 @@ import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.nio.BufferOverflowException;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -75,6 +74,10 @@ public class Images {
     public static ArrayList<BufferedImage> mountainTiles;
     public static ArrayList<BufferedImage> graveTiles;
 
+    public static BufferedImage EnemyOverwoldImage;
+    public SpriteSheet EnemyOverwoldSpriteSheet;
+    public static BufferedImage[] bouncyEnemyFrames;
+
     public Images() {
 
         startGameButton = new BufferedImage[3];
@@ -105,6 +108,8 @@ public class Images {
         mountainTiles = new ArrayList<>();
 
         zeldaLinkFrames = new BufferedImage[8];
+
+        bouncyEnemyFrames = new BufferedImage[2];
 
 
 
@@ -213,8 +218,8 @@ public class Images {
             zeldaImageSheet = ImageIO.read(getClass().getResourceAsStream("/UI/Backgrounds/Zelda/tileSet.png"));
             zeldaTriforceLogo = ImageIO.read(getClass().getResourceAsStream("/UI/Backgrounds/Zelda/triforceLogo.png"));
             zeldaMap = ImageIO.read(getClass().getResourceAsStream("/UI/Backgrounds/Zelda/map.png"));
-            zeldaMap = createImageTransparent(zeldaMap.getWidth(),zeldaMap.getHeight(),zeldaMap,"zelddaMap_0,128,0,green",new Color(0,128,0).getRGB());
-            zeldaImageSheet = createImageTransparent(zeldaImageSheet.getWidth(),zeldaImageSheet.getHeight(),zeldaImageSheet,"tileSets_0,120,0,green",new Color(0,128,0).getRGB());
+            zeldaMap = createImageTransparent(zeldaMap,"zelddaMap_0,128,0,green",new Color(0,128,0).getRGB());
+            zeldaImageSheet = createImageTransparent(zeldaImageSheet,"tileSets_0,120,0,green",new Color(0,128,0).getRGB());
             zeldaSpriteSheet = new SpriteSheet(zeldaImageSheet);
 
             storyImageSheet = ImageIO.read(getClass().getResourceAsStream("/UI/Backgrounds/Zelda/title.png"));
@@ -236,8 +241,8 @@ public class Images {
             zeldaStoryFrames[7] = storySpriteSheet.crop(772, 475, 256,64);
 
             zeldaLinkImage = ImageIO.read(getClass().getResourceAsStream("/UI/Backgrounds/Zelda/link.png"));
-            zeldaLinkImage = createImageTransparent(zeldaLinkImage.getWidth(),zeldaLinkImage.getHeight(),zeldaLinkImage,"link_0,128,0_green",new Color(0,128,0).getRGB());
-            zeldaLinkSpriteSheet = new SpriteSheet(createImageTransparent(zeldaLinkImage.getWidth(),zeldaLinkImage.getHeight(),zeldaLinkImage,"link_116,116,116_gray",new Color(116,116,116).getRGB()));
+            zeldaLinkImage = createImageTransparent(zeldaLinkImage,"link_0,128,0_green",new Color(0,128,0).getRGB());
+            zeldaLinkSpriteSheet = new SpriteSheet(createImageTransparent(zeldaLinkImage,"link_116,116,116_gray",new Color(116,116,116).getRGB()));
             zeldaLinkFrames[0] = zeldaLinkSpriteSheet.crop(1,11,16,16);
             zeldaLinkFrames[1] = zeldaLinkSpriteSheet.crop(18,11,16,16);
             zeldaLinkFrames[2] = zeldaLinkSpriteSheet.crop(35,11,16,16);
@@ -248,12 +253,19 @@ public class Images {
             zeldaLinkFrames[7] = zeldaLinkSpriteSheet.crop(230,11,16,16);
 
             zeldaWorldLayoutTileImage = ImageIO.read(getClass().getResourceAsStream("/UI/Backgrounds/Zelda/layout.png"));
-            zeldaWorldLayoutTileSpriteSheet = new SpriteSheet( createImageTransparent(zeldaWorldLayoutTileImage.getWidth(),zeldaWorldLayoutTileImage.getHeight(),zeldaWorldLayoutTileImage,"layout_0,128,0_green",new Color(0,128,0).getRGB()));
+            zeldaWorldLayoutTileSpriteSheet = new SpriteSheet( createImageTransparent(zeldaWorldLayoutTileImage,"layout_0,128,0_green",new Color(0,128,0).getRGB()));
             zeldaWorldLayoutTiles.add(zeldaWorldLayoutTileSpriteSheet.crop(1,154,152,84));
-            zeldaWorldLayoutTiles.add(createImage(zeldaWorldLayoutTiles.get(0).getWidth(),zeldaWorldLayoutTiles.get(0).getHeight(),zeldaWorldLayoutTiles.get(0),"forest_brown4greeen",brown.getRGB(),new Color(0,168,0).getRGB()));
-            zeldaWorldLayoutTiles.add(createImage(zeldaWorldLayoutTiles.get(0).getWidth(),zeldaWorldLayoutTiles.get(0).getHeight(),zeldaWorldLayoutTiles.get(0),"cave_brown4greeen",brown.getRGB(),new Color(124,8,0).getRGB()));
-            zeldaWorldLayoutTiles.add(createImage(zeldaWorldLayoutTiles.get(0).getWidth(),zeldaWorldLayoutTiles.get(0).getHeight(),zeldaWorldLayoutTiles.get(0),"grave_brown4greeen",brown.getRGB(),new Color(252,252,252).getRGB()));
+            zeldaWorldLayoutTiles.add(createImage(zeldaWorldLayoutTiles.get(0),"forest_brown4greeen",brown.getRGB(),new Color(0,168,0).getRGB()));
+            zeldaWorldLayoutTiles.add(createImage(zeldaWorldLayoutTiles.get(0),"cave_brown4greeen",brown.getRGB(),new Color(124,8,0).getRGB()));
+            zeldaWorldLayoutTiles.add(createImage(zeldaWorldLayoutTiles.get(0),"grave_brown4greeen",brown.getRGB(),new Color(252,252,252).getRGB()));
 
+
+            EnemyOverwoldImage = ImageIO.read(getClass().getResourceAsStream("/UI/Backgrounds/Zelda/enemy3.png"));
+            EnemyOverwoldImage = createImageTransparent(EnemyOverwoldImage,"enemies_overworld_116,116,116_green",new Color(116,116,116).getRGB());
+            EnemyOverwoldSpriteSheet = new SpriteSheet( createImageTransparent(EnemyOverwoldImage,"enemies_overworld_0,128,0_green",new Color(0,128,0).getRGB()));
+
+            bouncyEnemyFrames[0] = EnemyOverwoldSpriteSheet.crop(162,90,16,16);
+            bouncyEnemyFrames[1] = EnemyOverwoldSpriteSheet.crop(179,90,16,16);
 
             //dungeon one tiles
             zeldaTiles.add(zeldaSpriteSheet.crop(815,11,32,32));
@@ -290,7 +302,7 @@ public class Images {
             //main world tiles
             SpriteSheet mountain = new SpriteSheet(zeldaWorldLayoutTiles.get(0));
             SpriteSheet forest = new SpriteSheet(zeldaWorldLayoutTiles.get(1));
-            SpriteSheet cave = new SpriteSheet(createImageTransparent(zeldaWorldLayoutTiles.get(2).getWidth(),zeldaWorldLayoutTiles.get(2).getHeight(),zeldaWorldLayoutTiles.get(2),"caveTransparent_252,216,168_crema", new Color(252,216,168).getRGB()));
+            SpriteSheet cave = new SpriteSheet(createImageTransparent(zeldaWorldLayoutTiles.get(2),"caveTransparent_252,216,168_crema", new Color(252,216,168).getRGB()));
             SpriteSheet grave = new SpriteSheet(zeldaWorldLayoutTiles.get(3));
 
             mountainTiles.add(mountain.crop(0,0,16,16));
@@ -517,14 +529,16 @@ public class Images {
     public static Color transparant = new Color(255, 255, 255, 0);
     public static Color brown = new Color(200,76,12);
 
-    public BufferedImage createImageTransparent(int width, int height, BufferedImage image, String name, int RGBToReplace){
+    public BufferedImage createImageTransparent(BufferedImage image, String name, int RGBToReplace){
 
 
-        return createImage(width,height,image,name,RGBToReplace,transparant.getRGB());
+        return createImage(image,name,RGBToReplace,transparant.getRGB());
     }
 
-    public BufferedImage createImage(int width, int height, BufferedImage image, String name, int RGBToReplace,int RGBReplaicing){
+    public BufferedImage createImage(BufferedImage image, String name, int RGBToReplace,int RGBReplaicing){
 
+        int width = image.getWidth();
+        int height = image.getHeight();
         String path = Objects.requireNonNull(getClass().getClassLoader().getResource(".")).getPath();
         String path2 = path.substring(0,path.indexOf("/out/"))+"/res/Edited/"+name+".png";
         File imagess = new File(path2.replaceAll("%20"," "));
