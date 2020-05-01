@@ -488,7 +488,7 @@ public class Images {
 
     public BufferedImage invertImage(BufferedImage bufferedImage, String name) {
         String path = Objects.requireNonNull(getClass().getClassLoader().getResource(".")).getPath();
-        String path2 = path.substring(0,path.indexOf("/out/"))+"/res/Edited/"+name+".png";
+        String path2 = path.substring(0,path.indexOf("/bin/"))+"/res/Edited/"+name+".png";
         File imagess = new File(path2.replaceAll("%20"," "));
         if (imagess.exists()){
             try {
@@ -514,7 +514,7 @@ public class Images {
         try
         {
             path = Objects.requireNonNull(getClass().getClassLoader().getResource(".")).getPath();
-            path2 = path.substring(0,path.indexOf("/out/"))+"/res/Edited/"+name+".png";
+            path2 = path.substring(0,path.indexOf("/bin/"))+"/res/Edited/"+name+".png";
             f = new File(path2.replaceAll("%20"," "));
             System.out.println("File saved in: "+path2);
             ImageIO.write(bufferedImage, "png", f);
@@ -540,7 +540,7 @@ public class Images {
         int width = image.getWidth();
         int height = image.getHeight();
         String path = Objects.requireNonNull(getClass().getClassLoader().getResource(".")).getPath();
-        String path2 = path.substring(0,path.indexOf("/out/"))+"/res/Edited/"+name+".png";
+        String path2 = path.substring(0,path.indexOf("/bin/"))+"/res/Edited/"+name+".png";
         File imagess = new File(path2.replaceAll("%20"," "));
         if (imagess.exists()){
             try {
@@ -576,7 +576,7 @@ public class Images {
         try
         {
             path = Objects.requireNonNull(getClass().getClassLoader().getResource(".")).getPath();
-            path2 = path.substring(0,path.indexOf("/out/"))+"/res/Edited/"+name+".png";
+            path2 = path.substring(0,path.indexOf("/bin/"))+"/res/Edited/"+name+".png";
             f = new File(path2.replaceAll("%20"," "));
             System.out.println("File saved in: "+path2);
             ImageIO.write(img, "png", f);
