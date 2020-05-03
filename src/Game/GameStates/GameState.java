@@ -110,6 +110,7 @@ public class GameState extends State {
                     handler.getMouseManager().setUimanager(null);
                     handler.getMusicHandler().stopMusic();
                     State.setState(handler.getZeldaIntroState());
+                    handler.getMusicHandler().startMusic("Zelda_Title_Screen_Introduction.wav");
                 }
             }
         }));

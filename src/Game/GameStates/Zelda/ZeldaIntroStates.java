@@ -14,7 +14,7 @@ import java.awt.event.KeyEvent;
 public class ZeldaIntroStates extends State {
     private Animation introAnimation;
     private int stage = 0;
-    private int stageCounter = 60 * 3; // 3 seconds
+    private int stageCounter = 60 * 11; // 3 seconds
     private int yStoryOffset = 0;
     public ZeldaIntroStates(Handler handler) {
         super(handler);
@@ -25,19 +25,23 @@ public class ZeldaIntroStates extends State {
     public void tick() {
         if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_ENTER)){
             handler.changeState(handler.getZeldaGameState());
+            handler.getMusicHandler().stopMusic();
+            handler.getMusicHandler().startMusic("zelda_.Overworld_theme.wav");
         }
         if(stage == 0) {
             introAnimation.tick();
         }else if(stage==1){
-            if (stageCounter< 60*42){
+            if (stageCounter< 60*32){
                 yStoryOffset +=3;
 
             }
         }else{
             handler.changeState(handler.getZeldaGameState());
+            handler.getMusicHandler().stopMusic();
+            handler.getMusicHandler().startMusic("zelda_.Overworld_theme.wav");
         }
         if(stageCounter==0){
-            stageCounter = 60 * 45;
+            stageCounter = 60 * 35;
             stage++;
         }else{
             stageCounter--;
