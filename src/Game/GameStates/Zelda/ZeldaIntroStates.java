@@ -14,7 +14,7 @@ import java.awt.event.KeyEvent;
 public class ZeldaIntroStates extends State {
     private Animation introAnimation;
     private int stage = 0;
-    private int stageCounter = 60 * 11; // 3 seconds
+    private int stageCounter = 60 * 11; // 11 seconds (originalmente 3)
     private int yStoryOffset = 0;
     public ZeldaIntroStates(Handler handler) {
         super(handler);
@@ -31,7 +31,7 @@ public class ZeldaIntroStates extends State {
         if(stage == 0) {
             introAnimation.tick();
         }else if(stage==1){
-            if (stageCounter< 60*32){
+            if (stageCounter< 60*35){
                 yStoryOffset +=3;
 
             }
@@ -41,7 +41,7 @@ public class ZeldaIntroStates extends State {
             handler.getMusicHandler().startMusic("zelda_.Overworld_theme.wav");
         }
         if(stageCounter==0){
-            stageCounter = 60 * 35;
+            stageCounter = 60 * 37;
             stage++;
         }else{
             stageCounter--;
