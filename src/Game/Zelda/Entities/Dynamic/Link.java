@@ -9,6 +9,7 @@ import Resources.Animation;
 import Resources.Images;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 
 import static Game.GameStates.Zelda.ZeldaGameState.worldScale;
@@ -25,6 +26,8 @@ public class Link extends BaseMovingEntity {
     int newMapX=0,newMapY=0,xExtraCounter=0,yExtraCounter=0;
     public boolean movingMap = false;
     Direction movingTo;
+    private int animationSpeed = 10;
+    public BufferedImage fullHeart, halfHeart, emptyHeart;
 
 
     public Link(int x, int y, BufferedImage[] sprite, Handler handler) {
@@ -36,6 +39,10 @@ public class Link extends BaseMovingEntity {
         animList[1] = sprite[5];
 
         animation = new Animation(animSpeed,animList);
+        
+        fullHeart = Images.zeldaLife[0];
+        halfHeart = Images.zeldaLife[1];
+        emptyHeart = Images.zeldaLife[2];
     }
 
     @Override
@@ -43,56 +50,57 @@ public class Link extends BaseMovingEntity {
         if (movingMap){
             switch (movingTo) {
                 case RIGHT:
-                    handler.getZeldaGameState().cameraOffsetX++;
-                    newMapX++;
+                    handler.getZeldaGameState().cameraOffsetX+=animationSpeed;
+                    newMapX-=animationSpeed;
                     if (xExtraCounter>0){
-                        x+=2;
-                        xExtraCounter--;
+                        x+=2*animationSpeed;
+                        xExtraCounter-=animationSpeed;
                         animation.tick();
 
                     }else{
-                        x--;
+                        x-=animationSpeed;
                     }
                     break;
                 case LEFT:
-                    handler.getZeldaGameState().cameraOffsetX--;
-                    newMapX--;
+                    handler.getZeldaGameState().cameraOffsetX-=animationSpeed;
+                    
+                    newMapX-=animationSpeed;
                     if (xExtraCounter>0){
-                        x-=2;
-                        xExtraCounter--;
+                        x-=2*animationSpeed;
+                        xExtraCounter-=animationSpeed;
                         animation.tick();
 
                     }else{
-                        x++;
+                        x+=animationSpeed;
                     }
                     break;
                 case UP:
-                    handler.getZeldaGameState().cameraOffsetY--;
-                    newMapY++;
+                    handler.getZeldaGameState().cameraOffsetY-=animationSpeed;
+                    newMapY+=animationSpeed;
                     if (yExtraCounter>0){
-                        y-=2;
-                        yExtraCounter--;
+                        y-=2*animationSpeed;
+                        yExtraCounter-=animationSpeed;
                         animation.tick();
 
                     }else{
-                        y++;
+                        y+=animationSpeed;
                     }
                     break;
                 case DOWN:
-                    handler.getZeldaGameState().cameraOffsetY++;
-                    newMapY--;
+                    handler.getZeldaGameState().cameraOffsetY+=animationSpeed;
+                    newMapY-=animationSpeed;
                     if (yExtraCounter>0){
-                        y+=2;
-                        yExtraCounter--;
+                        y+=2*animationSpeed;
+                        yExtraCounter-=animationSpeed;
                         animation.tick();
                     }else{
-                        y--;
+                        y-=animationSpeed;
                     }
                     break;
             }
             bounds = new Rectangle(x,y,width,height);
             changeIntersectingBounds();
-            if (newMapX == 0 && newMapY == 0){
+            if (newMapX - animationSpeed <= 0 && newMapY - animationSpeed <= 0){
                 movingMap = false;
                 movingTo = null;
                 newMapX = 0;
@@ -148,6 +156,19 @@ public class Link extends BaseMovingEntity {
                 moving = false;
             }
         }
+        
+        // gives Link one extra life
+        if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_H)) {
+        	if (handler.getZeldaGameState().link.health <= 8) {
+        		handler.getZeldaGameState().link.health++;
+        	}
+        }
+        // takes one life from Link
+        if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_M)) {
+        	if (handler.getZeldaGameState().link.health > 0) {
+        		handler.getZeldaGameState().link.health--;
+        	}
+        }
     }
 
     @Override
@@ -156,11 +177,43 @@ public class Link extends BaseMovingEntity {
             g.drawImage(animation.getCurrentFrame(),x , y, width , height  , null);
 
         } else {
-            if (movingMap){
-                g.drawImage(animation.getCurrentFrame(),x , y, width, height  , null);
-            }
-            g.drawImage(sprite, x , y, width , height , null);
+        	if (movingMap){
+        		g.drawImage(animation.getCurrentFrame(),x , y, width, height  , null);
+        	}
+        	g.drawImage(sprite, x , y, width , height , null);
         }
+
+        // control the images of hearts of the lives that Link has at the moment
+        if (handler.getZeldaGameState().link.health == 0) { // 0 lives
+        	g.drawImage(emptyHeart, handler.getWidth()/2 - handler.getWidth()/4, handler.getHeight()/2 + handler.getHeight()/5 + 20, 30, 30, null);	
+        	g.drawImage(emptyHeart, handler.getWidth()/2 - handler.getWidth()/4 + 30, handler.getHeight()/2 + handler.getHeight()/5 + 20, 30, 30, null);
+        	g.drawImage(emptyHeart, handler.getWidth()/2 - handler.getWidth()/4 + 60, handler.getHeight()/2 + handler.getHeight()/5 + 20, 30, 30, null);
+        } else if (handler.getZeldaGameState().link.health == 1) { // 1 lives
+        	g.drawImage(halfHeart, handler.getWidth()/2 - handler.getWidth()/4, handler.getHeight()/2 + handler.getHeight()/5 + 20, 30, 30, null);	
+        	g.drawImage(emptyHeart, handler.getWidth()/2 - handler.getWidth()/4 + 30, handler.getHeight()/2 + handler.getHeight()/5 + 20, 30, 30, null);
+        	g.drawImage(emptyHeart, handler.getWidth()/2 - handler.getWidth()/4 + 60, handler.getHeight()/2 + handler.getHeight()/5 + 20, 30, 30, null);
+        } else if (handler.getZeldaGameState().link.health == 2) { // 2 lives
+        	g.drawImage(fullHeart, handler.getWidth()/2 - handler.getWidth()/4, handler.getHeight()/2 + handler.getHeight()/5 + 20, 30, 30, null);	
+        	g.drawImage(emptyHeart, handler.getWidth()/2 - handler.getWidth()/4 + 30, handler.getHeight()/2 + handler.getHeight()/5 + 20, 30, 30, null);
+        	g.drawImage(emptyHeart, handler.getWidth()/2 - handler.getWidth()/4 + 60, handler.getHeight()/2 + handler.getHeight()/5 + 20, 30, 30, null);
+        } else if (handler.getZeldaGameState().link.health == 3) {// 3 lives
+        	g.drawImage(fullHeart, handler.getWidth()/2 - handler.getWidth()/4, handler.getHeight()/2 + handler.getHeight()/5 + 20, 30, 30, null);	
+        	g.drawImage(halfHeart, handler.getWidth()/2 - handler.getWidth()/4 + 30, handler.getHeight()/2 + handler.getHeight()/5 + 20, 30, 30, null);
+        	g.drawImage(emptyHeart, handler.getWidth()/2 - handler.getWidth()/4 + 60, handler.getHeight()/2 + handler.getHeight()/5 + 20, 30, 30, null);
+        } else if (handler.getZeldaGameState().link.health == 4) { // 4 lives
+        	g.drawImage(fullHeart, handler.getWidth()/2 - handler.getWidth()/4, handler.getHeight()/2 + handler.getHeight()/5 + 20, 30, 30, null);	
+        	g.drawImage(fullHeart, handler.getWidth()/2 - handler.getWidth()/4 + 30, handler.getHeight()/2 + handler.getHeight()/5 + 20, 30, 30, null);
+        	g.drawImage(emptyHeart, handler.getWidth()/2 - handler.getWidth()/4 + 60, handler.getHeight()/2 + handler.getHeight()/5 + 20, 30, 30, null);
+        } else if (handler.getZeldaGameState().link.health == 5) {// 5 lives
+        	g.drawImage(fullHeart, handler.getWidth()/2 - handler.getWidth()/4, handler.getHeight()/2 + handler.getHeight()/5 + 20, 30, 30, null);	
+        	g.drawImage(fullHeart, handler.getWidth()/2 - handler.getWidth()/4 + 30, handler.getHeight()/2 + handler.getHeight()/5 + 20, 30, 30, null);
+        	g.drawImage(halfHeart, handler.getWidth()/2 - handler.getWidth()/4 + 60, handler.getHeight()/2 + handler.getHeight()/5 + 20, 30, 30, null);
+        } else { // 6 lives
+        	g.drawImage(fullHeart, handler.getWidth()/2 - handler.getWidth()/4, handler.getHeight()/2 + handler.getHeight()/5 + 20, 30, 30, null);	
+        	g.drawImage(fullHeart, handler.getWidth()/2 - handler.getWidth()/4 + 30, handler.getHeight()/2 + handler.getHeight()/5 + 20, 30, 30, null);
+        	g.drawImage(fullHeart, handler.getWidth()/2 - handler.getWidth()/4 + 60, handler.getHeight()/2 + handler.getHeight()/5 + 20, 30, 30, null);        		
+        }
+
     }
 
     @Override
