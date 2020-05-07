@@ -164,7 +164,7 @@ public class Link extends BaseMovingEntity {
         	}
         }
         // takes one life from Link
-        if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_M)) {
+        if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_J)) {
         	if (handler.getZeldaGameState().link.health > 0) {
         		handler.getZeldaGameState().link.health--;
         	}
