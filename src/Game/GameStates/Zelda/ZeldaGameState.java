@@ -7,7 +7,9 @@ import Game.Zelda.Entities.Dynamic.Link;
 import Game.Zelda.Entities.Statics.DungeonDoor;
 import Game.Zelda.Entities.Statics.SectionDoor;
 import Game.Zelda.Entities.Statics.SolidStaticEntities;
+import Game.Zelda.Entities.Statics.Sword;
 import Main.Handler;
+import Resources.Animation;
 import Resources.Images;
 
 import java.awt.*;
@@ -17,7 +19,9 @@ import java.util.ArrayList;
  * Created by AlexVR on 3/14/2020
  */
 public class ZeldaGameState extends State {
-
+	private Animation caveFireAnim;
+	private Animation oldManAnim;
+	public Sword sword;
 
     public static int xOffset,yOffset,stageWidth,stageHeight,worldScale;
     public int cameraOffsetX,cameraOffsetY;
@@ -34,6 +38,7 @@ public class ZeldaGameState extends State {
 
     public ZeldaGameState(Handler handler) {
         super(handler);
+        caveFireAnim = new Animation(150,Images.caveFire);
         xOffset = handler.getWidth()/4;
         yOffset = handler.getHeight()/4;
         stageWidth = handler.getWidth()/3 + (handler.getWidth()/15);
@@ -70,7 +75,8 @@ public class ZeldaGameState extends State {
     public void tick() {
         link.tick();
         if (inCave){
-
+        	caveFireAnim.tick();
+        	handler.getMusicHandler().stopMusic();
         }else {
             if (!link.movingMap) {
                 for (SolidStaticEntities entity : objects.get(mapX).get(mapY)) {
@@ -89,6 +95,9 @@ public class ZeldaGameState extends State {
     @Override
     public void render(Graphics g) {
         if (inCave){
+            g.drawImage(caveFireAnim.getCurrentFrame(),xOffset+(stageWidth/4),yOffset + (stageHeight/3),32,32,null);
+            g.drawImage(caveFireAnim.getCurrentFrame(),xOffset+stageWidth-stageWidth/4-32,yOffset + (stageHeight/3),32,32,null);
+            g.drawImage(Images.oldMan,xOffset+(stageWidth/2)-20,yOffset + (stageHeight/3),32,32,null);
             for (SolidStaticEntities entity : caveObjects) {
                 entity.render(g);
             }
@@ -141,6 +150,7 @@ public class ZeldaGameState extends State {
             }
         }
         caveObjects.add(new DungeonDoor(7,9,16*worldScale*2,16*worldScale * 2,Direction.DOWN,"caveStartLeave",handler,(4 * (ZeldaGameState.stageWidth/16)) + ZeldaGameState.xOffset,(2 * (ZeldaGameState.stageHeight/11)) + ZeldaGameState.yOffset));
+        caveObjects.add(new Sword(xOffset+(stageWidth/2)-10,yOffset + (stageHeight/2), 10,16,handler));
 
         //7,7
         ArrayList<SolidStaticEntities> solids = new ArrayList<>();

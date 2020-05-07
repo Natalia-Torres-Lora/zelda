@@ -1,9 +1,11 @@
 package Game.Zelda.Entities.Dynamic;
 
 import Game.GameStates.Zelda.ZeldaGameState;
+import Game.PacMan.entities.Statics.BaseStatic;
 import Game.Zelda.Entities.Statics.DungeonDoor;
 import Game.Zelda.Entities.Statics.SectionDoor;
 import Game.Zelda.Entities.Statics.SolidStaticEntities;
+import Game.Zelda.Entities.Statics.Sword;
 import Main.Handler;
 import Resources.Animation;
 import Resources.Images;
@@ -11,6 +13,7 @@ import Resources.Images;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 import static Game.GameStates.Zelda.ZeldaGameState.worldScale;
 import static Game.Zelda.Entities.Dynamic.Direction.DOWN;
@@ -222,6 +225,7 @@ public class Link extends BaseMovingEntity {
         changeIntersectingBounds();
         //chack for collisions
         if (ZeldaGameState.inCave){
+        	ArrayList<SolidStaticEntities> toREmove = new ArrayList<>();
             for (SolidStaticEntities objects : handler.getZeldaGameState().caveObjects) {
                 if ((objects instanceof DungeonDoor) && objects.bounds.intersects(bounds) && direction == ((DungeonDoor) objects).direction) {
                     if (((DungeonDoor) objects).name.equals("caveStartLeave")) {
@@ -231,10 +235,18 @@ public class Link extends BaseMovingEntity {
                         direction = DOWN;
                     }
                 } else if (!(objects instanceof DungeonDoor) && objects.bounds.intersects(interactBounds)) {
-                    //dont move
-                    return;
+                	if(objects instanceof Sword) {
+                		toREmove.add(objects);
+                		handler.getMusicHandler().playEffect("zelda_Get_Item.wav");
+                	}else {
+                		//dont move
+                		return;	
+                	}
                 }
             }
+            for (SolidStaticEntities removing: toREmove){
+            	handler.getZeldaGameState().caveObjects.remove(removing);
+            }            
         }
         else {
             for (SolidStaticEntities objects : handler.getZeldaGameState().objects.get(handler.getZeldaGameState().mapX).get(handler.getZeldaGameState().mapY)) {
