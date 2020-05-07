@@ -76,6 +76,7 @@ public class ZeldaGameState extends State {
         link.tick();
         if (inCave){
         	caveFireAnim.tick();
+        	handler.getMusicHandler().stopMusic();
         }else {
             if (!link.movingMap) {
                 for (SolidStaticEntities entity : objects.get(mapX).get(mapY)) {

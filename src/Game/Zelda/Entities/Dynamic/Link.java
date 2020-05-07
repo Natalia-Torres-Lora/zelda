@@ -236,7 +236,8 @@ public class Link extends BaseMovingEntity {
                     }
                 } else if (!(objects instanceof DungeonDoor) && objects.bounds.intersects(interactBounds)) {
                 	if(objects instanceof Sword) {
-                		toREmove.add(objects);                    	
+                		toREmove.add(objects);
+                		handler.getMusicHandler().playEffect("zelda_Get_Item.wav");
                 	}else {
                 		//dont move
                 		return;	

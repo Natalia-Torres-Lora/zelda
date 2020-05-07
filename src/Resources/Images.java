@@ -81,6 +81,16 @@ public class Images {
     public static BufferedImage EnemyOverwoldImage;
     public SpriteSheet EnemyOverwoldSpriteSheet;
     public static BufferedImage[] bouncyEnemyFrames;
+    
+    public static BufferedImage zeldaEnemiesImage;
+    public SpriteSheet zeldaEnemiesSpriteSheet;
+    public static BufferedImage[] caveFire;
+    public static BufferedImage oldMan;
+    public static BufferedImage[] enemy1;
+    public static BufferedImage charactersImage;
+    public SpriteSheet charactersSpriteSheet;
+    public static BufferedImage linkGotSword;
+    public static BufferedImage sword;
 
     public Images() {
 
@@ -116,6 +126,8 @@ public class Images {
         zeldaLife = new BufferedImage[3];
 
         bouncyEnemyFrames = new BufferedImage[2];
+        caveFire = new BufferedImage[2];
+        enemy1 = new BufferedImage [5];
 
 
 
@@ -257,6 +269,9 @@ public class Images {
             zeldaLinkFrames[5] = zeldaLinkSpriteSheet.crop(86,11,16,16);
             zeldaLinkFrames[6] = zeldaLinkSpriteSheet.crop(213,11,16,16);
             zeldaLinkFrames[7] = zeldaLinkSpriteSheet.crop(230,11,16,16);
+            //con la espada
+            sword = zeldaLinkSpriteSheet.crop(1,154,7,16);
+            linkGotSword = zeldaLinkSpriteSheet.crop(21,11,13,16);
             
             zeldaItemsImage = ImageIO.read(getClass().getResourceAsStream("/UI/Backgrounds/Zelda/items.png"));
             zeldaItemsSpriteSheet = new SpriteSheet(createImageTransparent(zeldaItemsImage,"items_116,116,116_gray",new Color(116,116,116).getRGB()));
@@ -278,6 +293,16 @@ public class Images {
 
             bouncyEnemyFrames[0] = EnemyOverwoldSpriteSheet.crop(162,90,16,16);
             bouncyEnemyFrames[1] = EnemyOverwoldSpriteSheet.crop(179,90,16,16);
+            //cave
+            zeldaEnemiesImage = ImageIO.read(getClass().getResourceAsStream("/UI/Backgrounds/Zelda/more_enemies.png"));
+            zeldaEnemiesSpriteSheet = new SpriteSheet(zeldaEnemiesImage);
+            charactersImage = ImageIO.read(getClass().getResourceAsStream("/UI/Backgrounds/Zelda/npc.png"));
+            charactersImage = createImageTransparent(charactersImage,"npc_0,128,0_green",new Color(0,128,0).getRGB());
+            charactersSpriteSheet = new SpriteSheet(createImageTransparent(charactersImage,"npc_116,116,116_gray",new Color(116,116,116).getRGB()));
+            oldMan = charactersSpriteSheet.crop(1, 11, 16, 16);
+            //oldMan[1] = charactersSpriteSheet.crop(18, 11, 16, 16);
+            caveFire[0] = zeldaEnemiesSpriteSheet.crop(300, 0, 16,16);
+            caveFire[1] = zeldaEnemiesSpriteSheet.crop(300, 30, 16,16);                       
 
             //dungeon one tiles
             zeldaTiles.add(zeldaSpriteSheet.crop(815,11,32,32));
