@@ -54,7 +54,7 @@ public class Link extends BaseMovingEntity {
             switch (movingTo) {
                 case RIGHT:
                     handler.getZeldaGameState().cameraOffsetX+=animationSpeed;
-                    newMapX-=animationSpeed;
+                    newMapX+=animationSpeed;
                     if (xExtraCounter>0){
                         x+=2*animationSpeed;
                         xExtraCounter-=animationSpeed;
@@ -103,7 +103,7 @@ public class Link extends BaseMovingEntity {
             }
             bounds = new Rectangle(x,y,width,height);
             changeIntersectingBounds();
-            if (newMapX - animationSpeed <= 0 && newMapY - animationSpeed <= 0){
+            if (newMapX >=0 && newMapX <= animationSpeed && newMapY >= 0 && newMapY <= animationSpeed){
                 movingMap = false;
                 movingTo = null;
                 newMapX = 0;
