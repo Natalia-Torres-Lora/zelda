@@ -11,6 +11,7 @@ import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.Random;
 
 /**
  * Created by AlexVR on 3/14/2020
@@ -72,6 +73,25 @@ public class ZeldaMapMakerState extends State {
                             "Hold Shift and Click LMB to place down Link. Exactly one Link per map is needed, \nhe will always be placed on the tile 0 from tileSet 2.");
         }
 
+        if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_R)) {
+        	if (linking){
+                handler.getDisplayScreen().confirm("Please click where the last tile will teleport too.");
+            }else {
+            	int newCounter;
+            	switch (selector) {
+            	case 0: 
+            		newCounter = new Random().nextInt(29);
+            		while (newCounter == counter) newCounter = new Random().nextInt(29);
+            		counter = newCounter;
+            		break;
+            	default:
+            		newCounter = new Random().nextInt(41);
+            		while (newCounter == counter) newCounter = new Random().nextInt(29);
+            		counter = newCounter;
+            		break;
+            	}
+            }
+        }
 
         if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_T)){
             if (linking){
