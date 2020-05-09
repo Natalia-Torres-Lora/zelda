@@ -72,6 +72,16 @@ public class ZeldaMapMakerState extends State {
                             "The block time in the last 4 tile sets are teleport pads, once placed\nyou'll be required to place another one to be linked with before you can do anything else.\n\nPressing U will cancel out of this and erase the teleport pad.\n\n" +
                             "Hold Shift and Click LMB to place down Link. Exactly one Link per map is needed, \nhe will always be placed on the tile 0 from tileSet 2.");
         }
+        
+        if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_B)) {
+        	if (linking){
+                handler.getDisplayScreen().confirm("Please click where the last tile will teleport too.");
+            }else {
+            	int newCounter = 17;
+        		if (newCounter == counter) newCounter = 17;
+        		counter = newCounter;
+            }
+        }
 
         if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_R)) {
         	if (linking){

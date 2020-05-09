@@ -129,8 +129,6 @@ public class Images {
         caveFire = new BufferedImage[2];
         enemy1 = new BufferedImage [5];
 
-
-
         try {
 
             startGameButton[0]= ImageIO.read(getClass().getResourceAsStream("/UI/Buttons/Start/NormalStartButton.png"));
@@ -269,7 +267,8 @@ public class Images {
             zeldaLinkFrames[5] = zeldaLinkSpriteSheet.crop(86,11,16,16);
             zeldaLinkFrames[6] = zeldaLinkSpriteSheet.crop(213,11,16,16);
             zeldaLinkFrames[7] = zeldaLinkSpriteSheet.crop(230,11,16,16);
-            //con la espada
+            
+            //with the sword
             sword = zeldaLinkSpriteSheet.crop(1,154,7,16);
             linkGotSword = zeldaLinkSpriteSheet.crop(21,11,13,16);
             
@@ -286,13 +285,13 @@ public class Images {
             zeldaWorldLayoutTiles.add(createImage(zeldaWorldLayoutTiles.get(0),"cave_brown4greeen",brown.getRGB(),new Color(124,8,0).getRGB()));
             zeldaWorldLayoutTiles.add(createImage(zeldaWorldLayoutTiles.get(0),"grave_brown4greeen",brown.getRGB(),new Color(252,252,252).getRGB()));
 
-
             EnemyOverwoldImage = ImageIO.read(getClass().getResourceAsStream("/UI/Backgrounds/Zelda/enemy3.png"));
             EnemyOverwoldImage = createImageTransparent(EnemyOverwoldImage,"enemies_overworld_116,116,116_green",new Color(116,116,116).getRGB());
             EnemyOverwoldSpriteSheet = new SpriteSheet( createImageTransparent(EnemyOverwoldImage,"enemies_overworld_0,128,0_green",new Color(0,128,0).getRGB()));
 
             bouncyEnemyFrames[0] = EnemyOverwoldSpriteSheet.crop(162,90,16,16);
             bouncyEnemyFrames[1] = EnemyOverwoldSpriteSheet.crop(179,90,16,16);
+            
             //cave
             zeldaEnemiesImage = ImageIO.read(getClass().getResourceAsStream("/UI/Backgrounds/Zelda/more_enemies.png"));
             zeldaEnemiesSpriteSheet = new SpriteSheet(zeldaEnemiesImage);
