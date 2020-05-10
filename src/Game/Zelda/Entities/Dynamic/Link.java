@@ -31,6 +31,9 @@ public class Link extends BaseMovingEntity {
     Direction movingTo;
     private int animationSpeed = 10;
     public BufferedImage fullHeart, halfHeart, emptyHeart;
+    private int gotSwordCounter= 60*4;//4 seconds
+    public boolean attacking=true;
+    public Animation leftAnim,rightAnim,upAnim,downAnim;
 
 
     public Link(int x, int y, BufferedImage[] sprite, Handler handler) {
@@ -46,6 +49,10 @@ public class Link extends BaseMovingEntity {
         fullHeart = Images.zeldaLife[0];
         halfHeart = Images.zeldaLife[1];
         emptyHeart = Images.zeldaLife[2];
+ 
+        rightAnim = new Animation(128,Images.linkAttackingRight);
+        upAnim = new Animation(128,Images.linkAttackingUp);
+        downAnim = new Animation(128,Images.linkAttackingDown);
     }
 
     @Override
@@ -159,7 +166,6 @@ public class Link extends BaseMovingEntity {
                 moving = false;
             }
         }
-        
         // gives Link one extra life
         if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_H)) {
         	if (handler.getZeldaGameState().link.health <= 8) {
@@ -171,7 +177,21 @@ public class Link extends BaseMovingEntity {
         	if (handler.getZeldaGameState().link.health > 0) {
         		handler.getZeldaGameState().link.health--;
         	}
+        }       
+        ArrayList<SolidStaticEntities> toREmove = new ArrayList<>();
+        for (SolidStaticEntities objects : handler.getZeldaGameState().caveObjects) {
+        	if(objects instanceof Sword) {
+        		if(objects.bounds.intersects(interactBounds)) {
+        			toREmove.add(objects);
+        			handler.getMusicHandler().playEffect("zelda_Get_Item.wav");
+        		}
+        	}        	
         }
+        for (SolidStaticEntities removing: toREmove){
+        	handler.getZeldaGameState().caveObjects.remove(removing);
+        }   
+
+
     }
 
     @Override
