@@ -86,11 +86,19 @@ public class Images {
     public SpriteSheet zeldaEnemiesSpriteSheet;
     public static BufferedImage[] caveFire;
     public static BufferedImage oldMan;
-    public static BufferedImage[] enemy1;
+    public static BufferedImage[] enemy1up;
+    public static BufferedImage[] enemy1down;
+    public static BufferedImage[] enemy1left;
+    public static BufferedImage[] enemy1right;
+    
     public static BufferedImage charactersImage;
     public SpriteSheet charactersSpriteSheet;
     public static BufferedImage linkGotSword;
     public static BufferedImage sword;
+    public static BufferedImage[] linkAttackingUp;
+    public static BufferedImage[] linkAttackingDown;
+    public static BufferedImage[] linkAttackingRight;
+    public static BufferedImage[] linkAttackingLeft;
 
     public Images() {
 
@@ -127,7 +135,16 @@ public class Images {
 
         bouncyEnemyFrames = new BufferedImage[2];
         caveFire = new BufferedImage[2];
-        enemy1 = new BufferedImage [5];
+        
+        enemy1up = new BufferedImage [2];
+        enemy1down = new BufferedImage [2];
+        enemy1left = new BufferedImage [2];
+        enemy1right = new BufferedImage [2];
+        
+        linkAttackingUp = new BufferedImage [4];
+        linkAttackingDown = new BufferedImage [4];
+        linkAttackingRight = new BufferedImage [4];
+        linkAttackingLeft = new BufferedImage [4];
 
 
 
@@ -269,9 +286,29 @@ public class Images {
             zeldaLinkFrames[5] = zeldaLinkSpriteSheet.crop(86,11,16,16);
             zeldaLinkFrames[6] = zeldaLinkSpriteSheet.crop(213,11,16,16);
             zeldaLinkFrames[7] = zeldaLinkSpriteSheet.crop(230,11,16,16);
-            //con la espada
+            //With sword
             sword = zeldaLinkSpriteSheet.crop(1,154,7,16);
             linkGotSword = zeldaLinkSpriteSheet.crop(21,11,13,16);
+            //Attacking Down
+            linkAttackingDown[0] = zeldaLinkSpriteSheet.crop(1,47,16,15);
+            linkAttackingDown[1] = zeldaLinkSpriteSheet.crop(18,47,16,27);
+            linkAttackingDown[2] = zeldaLinkSpriteSheet.crop(35,47,15,23);
+            linkAttackingDown[3] = zeldaLinkSpriteSheet.crop(53,47,13,19);
+            //right
+            linkAttackingRight[0] = zeldaLinkSpriteSheet.crop(1,78,15,15);
+            linkAttackingRight[1] = zeldaLinkSpriteSheet.crop(18,78,27,15);
+            linkAttackingRight[2] = zeldaLinkSpriteSheet.crop(46,78,23,15);
+            linkAttackingRight[3] = zeldaLinkSpriteSheet.crop(70,77,19,16);
+            //Up
+            linkAttackingUp[0] = zeldaLinkSpriteSheet.crop(1,109,16,16);
+            linkAttackingUp[1] = zeldaLinkSpriteSheet.crop(18,97,16,28);
+            linkAttackingUp[2] = zeldaLinkSpriteSheet.crop(37,98,12,27);
+            linkAttackingUp[3] = zeldaLinkSpriteSheet.crop(54,106,12,19);
+//            //left
+//            linkAttackingUp[0] = flipHorizontal(linkAttackingRight);
+//            linkAttackingUp[1] = zeldaLinkSpriteSheet.crop(18,97,16,28);
+//            linkAttackingUp[2] = zeldaLinkSpriteSheet.crop(37,98,12,27);
+//            linkAttackingUp[3] = zeldaLinkSpriteSheet.crop(54,106,12,19);
             
             zeldaItemsImage = ImageIO.read(getClass().getResourceAsStream("/UI/Backgrounds/Zelda/items.png"));
             zeldaItemsSpriteSheet = new SpriteSheet(createImageTransparent(zeldaItemsImage,"items_116,116,116_gray",new Color(116,116,116).getRGB()));
@@ -300,9 +337,21 @@ public class Images {
             charactersImage = createImageTransparent(charactersImage,"npc_0,128,0_green",new Color(0,128,0).getRGB());
             charactersSpriteSheet = new SpriteSheet(createImageTransparent(charactersImage,"npc_116,116,116_gray",new Color(116,116,116).getRGB()));
             oldMan = charactersSpriteSheet.crop(1, 11, 16, 16);
-            //oldMan[1] = charactersSpriteSheet.crop(18, 11, 16, 16);
+            
             caveFire[0] = zeldaEnemiesSpriteSheet.crop(300, 0, 16,16);
-            caveFire[1] = zeldaEnemiesSpriteSheet.crop(300, 30, 16,16);                       
+            caveFire[1] = zeldaEnemiesSpriteSheet.crop(300, 30, 16,16); 
+            
+            enemy1up[0] = zeldaEnemiesSpriteSheet.crop(60, 61, 16,14);
+            enemy1up[0] = zeldaEnemiesSpriteSheet.crop(60, 61, 16,14);
+            
+            enemy1down[0] = zeldaEnemiesSpriteSheet.crop(0, 1, 16,14);
+            enemy1down[0] = zeldaEnemiesSpriteSheet.crop(0, 30, 16,16);
+            
+            enemy1left[0] = zeldaEnemiesSpriteSheet.crop(31, 0, 14,16);
+            enemy1left[0] = zeldaEnemiesSpriteSheet.crop(30, 30, 16,16);
+            
+            enemy1right[0] = zeldaEnemiesSpriteSheet.crop(91, 0, 14,16);
+            enemy1right[0] = zeldaEnemiesSpriteSheet.crop(90, 30, 16,16);
 
             //dungeon one tiles
             zeldaTiles.add(zeldaSpriteSheet.crop(815,11,32,32));

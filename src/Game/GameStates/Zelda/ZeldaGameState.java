@@ -102,7 +102,7 @@ public class ZeldaGameState extends State {
                 entity.render(g);
             }
             g.setColor(Color.WHITE);
-            g.setFont(new Font("TimesRoman", Font.BOLD, 32));
+            g.setFont(new Font("TimesRoman", Font.BOLD, 28));
             g.drawString("  IT ' S  DANGEROUS  TO  GO",(3 * (ZeldaGameState.stageWidth/16)) + ZeldaGameState.xOffset,(2 * (ZeldaGameState.stageHeight/11)) + ZeldaGameState.yOffset+ ((16*worldScale)));
             g.drawString("  ALONE !   TAKE  THIS",(4 * (ZeldaGameState.stageWidth/16)) + ZeldaGameState.xOffset,(4 * (ZeldaGameState.stageHeight/11)) + ZeldaGameState.yOffset- ((16*worldScale)/2));
             link.render(g);
