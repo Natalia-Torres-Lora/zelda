@@ -286,9 +286,11 @@ public class Images {
             zeldaLinkFrames[5] = zeldaLinkSpriteSheet.crop(86,11,16,16);
             zeldaLinkFrames[6] = zeldaLinkSpriteSheet.crop(213,11,16,16);
             zeldaLinkFrames[7] = zeldaLinkSpriteSheet.crop(230,11,16,16);
+           
             //With sword
             sword = zeldaLinkSpriteSheet.crop(1,154,7,16);
             linkGotSword = zeldaLinkSpriteSheet.crop(21,11,13,16);
+            
             //Attacking Down
             linkAttackingDown[0] = zeldaLinkSpriteSheet.crop(1,47,16,15);
             linkAttackingDown[1] = zeldaLinkSpriteSheet.crop(18,47,16,27);

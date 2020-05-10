@@ -11,6 +11,7 @@ import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.Random;
 
 /**
  * Created by AlexVR on 3/14/2020
@@ -63,6 +64,9 @@ public class ZeldaMapMakerState extends State {
                             "U ==> Undo last placed tile (will store in a stack all tiles drawn).\n" +
                             "T ==> Changes the tile set.\n" +
                             "S ==> Shows the list of tiles available and the one selected from the current tileSet.\n" +
+                            "B ==> Moves the selected tile to be the tile at the halfway point of the tileset.\n" +
+                            "R ==> Selects a random tile from the list to be the one selected.\n" +
+							"Shift + R ==> Selects a random tile set and tile from the tilesets available to be selected.\n" +
                             "+ ==> Move to the next tile.\n" +
                             "- ==> Moves to the previous tile.\n" +
                             "ENTER ==> Finished the map and saves it to the the 'Edited' folder.\n" +
@@ -71,7 +75,79 @@ public class ZeldaMapMakerState extends State {
                             "The block time in the last 4 tile sets are teleport pads, once placed\nyou'll be required to place another one to be linked with before you can do anything else.\n\nPressing U will cancel out of this and erase the teleport pad.\n\n" +
                             "Hold Shift and Click LMB to place down Link. Exactly one Link per map is needed, \nhe will always be placed on the tile 0 from tileSet 2.");
         }
+        
+        //select the middle tile
+        if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_B)) {
+        	if (linking){
+                handler.getDisplayScreen().confirm("Please click where the last tile will teleport too.");
+            }else {
+            	counter = 17;
+            }
+        }
+        //select a random tile from the list to be the one selected
+        if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_R)) {
+        	if (linking){
+                handler.getDisplayScreen().confirm("Please click where the last tile will teleport too.");
+            }else {
+            	int newCounter;
+            	switch (selector) {
+            	case 0: 
+            		newCounter = new Random().nextInt(29);
+            		while (newCounter == counter) newCounter = new Random().nextInt(29);
+            		counter = newCounter;
+            		break;
+            	default:
+            		newCounter = new Random().nextInt(41);
+            		while (newCounter == counter) newCounter = new Random().nextInt(29);
+            		counter = newCounter;
+            		break;
+            	}
+            }
+        }
+        
+        //select a random tile set and tile from the tile sets available to be selected
+        if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_R)
+				&& handler.getKeyManager().shift) {
+			if (linking) {
+				handler.getDisplayScreen().confirm("Please click where the last tile will teleport too.");
+			} else {
+				int newCounter;
+				int newSelector = new Random().nextInt(5);
+				while (newSelector == selector)
+					newSelector = new Random().nextInt(5);
+				System.out.println("TEST");
+				selector = newSelector;
 
+				if (selector != 0) {
+					newCounter = new Random().nextInt(41);
+					while (newCounter == counter)
+						newCounter = new Random().nextInt(29);
+					counter = newCounter;
+				}
+				switch (selector) {
+				case 0:
+					newCounter = new Random().nextInt(29);
+					while (newCounter == counter)
+						newCounter = new Random().nextInt(29);
+					counter = newCounter;
+					selectedList = Images.zeldaTiles;
+					break;
+				case 1:
+					selectedList = Images.forestTiles;
+					break;
+				case 2:
+					selectedList = Images.caveTiles;
+					break;
+				case 3:
+					selectedList = Images.mountainTiles;
+					break;
+				case 4:
+					selectedList = Images.graveTiles;
+					break;
+				}
+
+			}
+		}
 
         if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_T)){
             if (linking){
@@ -102,6 +178,7 @@ public class ZeldaMapMakerState extends State {
                 }
             }
         }
+        
         if (linking && !handler.getMouseManager().isLeftPressed()){
             linkingStarted = true;
         }
