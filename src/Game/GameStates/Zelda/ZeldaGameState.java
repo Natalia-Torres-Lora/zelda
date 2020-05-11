@@ -153,7 +153,7 @@ public class ZeldaGameState extends State {
             }
         }
         caveObjects.add(new DungeonDoor(7,9,16*worldScale*2,16*worldScale * 2,Direction.DOWN,"caveStartLeave",handler,(4 * (ZeldaGameState.stageWidth/16)) + ZeldaGameState.xOffset,(2 * (ZeldaGameState.stageHeight/11)) + ZeldaGameState.yOffset));
-        caveObjects.add(new Sword(xOffset+(stageWidth/2)-10,yOffset + (stageHeight/2), 10,16,handler));
+        caveObjects.add(new Sword(xOffset+(stageWidth/2)-15,yOffset + (stageHeight/2), 15,30,handler));
         
         //enemies.add(new Enemy(xOffset+(stageWidth/2),yOffset + (stageHeight/2),Images.enemy1,handler);
 

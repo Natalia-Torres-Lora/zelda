@@ -13,21 +13,25 @@ import java.awt.image.BufferedImage;
  * Created by AlexVR on 3/15/2020
  */
 public class Sword extends SolidStaticEntities {
-    public Sword(int x, int y,int widht, int height, Handler handler) {
-        super(x, y, Images.sword, handler);
-       
-        bounds = new Rectangle(x,y,width,height);
-    }
+	public Sword(int x, int y,int widht, int height, Handler handler) {
+		super(x, y, Images.sword, handler);
+		this.width = widht;
+		this.height = height;
 
-    @Override
-    public void tick() {
-        super.tick();
+		bounds = new Rectangle(x,y,width,height);
+	}
 
-    }
+	@Override
+	public void tick() {
+		if(ZeldaGameState.inCave) {
+			super.tick();
+		}
 
-    @Override
-    public void render(Graphics g) {
-    	 g.drawImage(Images.sword, x,y,width, height, null);
+	}
 
-    }
+	@Override
+	public void render(Graphics g) {
+		g.drawImage(Images.sword, x,y,width, height, null);
+
+	}
 }

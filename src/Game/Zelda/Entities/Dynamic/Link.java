@@ -179,10 +179,12 @@ public class Link extends BaseMovingEntity {
         }       
         ArrayList<SolidStaticEntities> toREmove = new ArrayList<>();
         for (SolidStaticEntities objects : handler.getZeldaGameState().caveObjects) {
-        	if(objects instanceof Sword) {
-        		if(objects.bounds.intersects(interactBounds)) {
-        			toREmove.add(objects);
-        			handler.getMusicHandler().playEffect("zelda_Get_Item.wav");
+        	if(ZeldaGameState.inCave) {
+        		if(objects instanceof Sword) {
+        			if(objects.bounds.intersects(interactBounds)) {
+        				toREmove.add(objects);
+        				handler.getMusicHandler().playEffect("zelda_Get_Item.wav");
+        			}
         		}
         	}        	
         }

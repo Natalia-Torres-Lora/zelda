@@ -13,9 +13,9 @@ import java.awt.image.BufferedImage;
  */
 public class SectionDoor extends SolidStaticEntities {
     public Direction direction;
-    public SectionDoor(int x, int y,int widht, int height, Direction direction, Handler handler) {
+    public SectionDoor(int x, int y,int width, int height, Direction direction, Handler handler) {
         super(x, y, null, handler);
-        this.width = widht;
+        this.width = width;
         this.height = height;
         bounds = new Rectangle((x * (ZeldaGameState.stageWidth/16)) + ZeldaGameState.xOffset,(y * (ZeldaGameState.stageHeight/11)) + ZeldaGameState.yOffset,width,height);
         this.direction = direction;
