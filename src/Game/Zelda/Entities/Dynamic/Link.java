@@ -242,36 +242,27 @@ public class Link extends BaseMovingEntity {
     public void move(Direction direction) {
         moving = true;
         changeIntersectingBounds();
-        //chack for collisions
+        //check for collisions
         if (ZeldaGameState.inCave){
-        	ArrayList<SolidStaticEntities> toREmove = new ArrayList<>();
-            for (SolidStaticEntities objects : handler.getZeldaGameState().caveObjects) {
-                if ((objects instanceof DungeonDoor) && objects.bounds.intersects(bounds) && direction == ((DungeonDoor) objects).direction) {
-                    if (((DungeonDoor) objects).name.equals("caveStartLeave")) {
-                        ZeldaGameState.inCave = false;
-                        x = ((DungeonDoor) objects).nLX;
-                        y = ((DungeonDoor) objects).nLY;
-                        direction = DOWN;
-                    }
-                } else if (!(objects instanceof DungeonDoor) && objects.bounds.intersects(interactBounds)) {
-                	if(objects instanceof Sword) {
-                		toREmove.add(objects);
-                		handler.getMusicHandler().playEffect("zelda_Get_Item.wav");
-                	}else {
-                		//dont move
-                		return;	
-                	}
-                }
-            }
-            for (SolidStaticEntities removing: toREmove){
-            	handler.getZeldaGameState().caveObjects.remove(removing);
-            }            
+        	for (SolidStaticEntities objects : handler.getZeldaGameState().caveObjects) {
+        		if ((objects instanceof DungeonDoor) && objects.bounds.intersects(bounds) && direction == ((DungeonDoor) objects).direction) {
+        			if (((DungeonDoor) objects).name.equals("caveStartLeave")) {
+        				ZeldaGameState.inCave = false;
+        				x = ((DungeonDoor) objects).nLX;
+        				y = ((DungeonDoor) objects).nLY;
+        				direction = DOWN;
+        			}
+        		} else if (!(objects instanceof DungeonDoor) && objects.bounds.intersects(interactBounds)) {
+        			//dont move
+        			return;	
+        		}
+        	}
         }
         else {
-            for (SolidStaticEntities objects : handler.getZeldaGameState().objects.get(handler.getZeldaGameState().mapX).get(handler.getZeldaGameState().mapY)) {
-                if ((objects instanceof SectionDoor) && objects.bounds.intersects(bounds) && direction == ((SectionDoor) objects).direction) {
-                    if (!(objects instanceof DungeonDoor)) {
-                        movingMap = true;
+        	for (SolidStaticEntities objects : handler.getZeldaGameState().objects.get(handler.getZeldaGameState().mapX).get(handler.getZeldaGameState().mapY)) {
+        		if ((objects instanceof SectionDoor) && objects.bounds.intersects(bounds) && direction == ((SectionDoor) objects).direction) {
+        			if (!(objects instanceof DungeonDoor)) {
+        				movingMap = true;
                         movingTo = ((SectionDoor) objects).direction;
                         switch (((SectionDoor) objects).direction) {
                             case RIGHT:

@@ -3,6 +3,7 @@ package Game.GameStates.Zelda;
 import Game.GameStates.State;
 import Game.Zelda.Entities.Dynamic.BaseMovingEntity;
 import Game.Zelda.Entities.Dynamic.Direction;
+import Game.Zelda.Entities.Dynamic.Enemy;
 import Game.Zelda.Entities.Dynamic.Link;
 import Game.Zelda.Entities.Statics.DungeonDoor;
 import Game.Zelda.Entities.Statics.SectionDoor;
@@ -20,8 +21,6 @@ import java.util.ArrayList;
  */
 public class ZeldaGameState extends State {
 	private Animation caveFireAnim;
-	private Animation oldManAnim;
-	public Sword sword;
 
     public static int xOffset,yOffset,stageWidth,stageHeight,worldScale;
     public int cameraOffsetX,cameraOffsetY;
@@ -31,6 +30,8 @@ public class ZeldaGameState extends State {
     public ArrayList<ArrayList<ArrayList<SolidStaticEntities>>> objects;
     public ArrayList<ArrayList<ArrayList<BaseMovingEntity>>> enemies;
     public Link link;
+    public Enemy enemy;
+  
     public static boolean inCave = false;
     public ArrayList<SolidStaticEntities> caveObjects;
 
@@ -65,8 +66,8 @@ public class ZeldaGameState extends State {
         addWorldObjects();
 
         link = new Link(xOffset+(stageWidth/2),yOffset + (stageHeight/2),Images.zeldaLinkFrames,handler);
-
-
+        enemy = new Enemy(xOffset+(stageWidth/4),yOffset + (stageHeight/2),Images.enemy1,handler);
+        
     }
 
 
@@ -74,6 +75,7 @@ public class ZeldaGameState extends State {
     @Override
     public void tick() {
         link.tick();
+        enemy.tick();
         if (inCave){
         	caveFireAnim.tick();
         	handler.getMusicHandler().stopMusic();
@@ -116,7 +118,8 @@ public class ZeldaGameState extends State {
                     entity.render(g);
                 }
             }
-            link.render(g);
+            enemy.render(g);
+            link.render(g);           
             g.setColor(Color.BLACK);
             g.fillRect(0, 0, xOffset, handler.getHeight());
             g.fillRect(xOffset + stageWidth, 0, handler.getWidth(), handler.getHeight());
@@ -150,7 +153,9 @@ public class ZeldaGameState extends State {
             }
         }
         caveObjects.add(new DungeonDoor(7,9,16*worldScale*2,16*worldScale * 2,Direction.DOWN,"caveStartLeave",handler,(4 * (ZeldaGameState.stageWidth/16)) + ZeldaGameState.xOffset,(2 * (ZeldaGameState.stageHeight/11)) + ZeldaGameState.yOffset));
-        caveObjects.add(new Sword(xOffset+(stageWidth/2)-10,yOffset + (stageHeight/2), 10,16,handler));
+        caveObjects.add(new Sword(xOffset+(stageWidth/3)-10,yOffset + (stageHeight/2), 10,16,handler));
+        
+        //enemies.add(new Enemy(xOffset+(stageWidth/2),yOffset + (stageHeight/2),Images.enemy1,handler);
 
         //7,7
         ArrayList<SolidStaticEntities> solids = new ArrayList<>();
@@ -193,6 +198,9 @@ public class ZeldaGameState extends State {
         solids.add(new SolidStaticEntities(9,2,Images.forestTiles.get(5),handler));
         solids.add(new SolidStaticEntities(9,1,Images.forestTiles.get(5),handler));
         solids.add(new SolidStaticEntities(9,0,Images.forestTiles.get(5),handler));
+//        monster.add(new Enemy(xOffset+(stageWidth/2),yOffset + (stageHeight/2),Images.enemy1,handler));
+        
+        
         objects.get(7).set(7,solids);
 
         //6,7
