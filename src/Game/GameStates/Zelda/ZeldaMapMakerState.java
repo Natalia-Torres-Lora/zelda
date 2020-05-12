@@ -58,8 +58,8 @@ public class ZeldaMapMakerState extends State {
     public void tick() {
         if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_H)){
             handler.getDisplayScreen().confirm(
-                    "Note: Some keys will require you to press them multiple times, not just why tbh.\n" +
-                            "Also teleport pad works by pressing shift while one the teleport pad or near it while in facing it" +
+                    "Note: Some keys will require you to press them multiple times.\n" +
+                            "-teleport pad works by pressing shift while one the teleport pad or near it while in facing it\n" +
                             "H ==> Help Menu.\n" +
                             "U ==> Undo last placed tile (will store in a stack all tiles drawn).\n" +
                             "T ==> Changes the tile set.\n" +

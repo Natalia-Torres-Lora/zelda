@@ -28,7 +28,7 @@ public class MapBuilder {
 		}
 		name+=".txt";
 		String path = Objects.requireNonNull(MapBuilder.class.getClassLoader().getResource(".")).getPath();
-		String path2 = path.substring(0,path.indexOf("/out/"))+"/res/Edited/"+name;
+		String path2 = path.substring(0,path.indexOf("/bin/"))+"/res/Edited/"+name;
 		ArrayList<ArrayList<int[]>> linkedTeli = new ArrayList<>();
 		try {
 			BufferedReader br = new BufferedReader(new FileReader( new File(path2)));
@@ -683,7 +683,7 @@ public class MapBuilder {
 	public static BufferedImage arrayToRGBImage(ArrayList<ArrayList<BufferedImage>> info,String name,ArrayList<ArrayList<int[]>> teleportList){
 
 		String path = Objects.requireNonNull(MapBuilder.class.getClassLoader().getResource(".")).getPath();
-		String path2 = path.substring(0,path.indexOf("/out/"))+"/res/Edited/"+name+".png";
+		String path2 = path.substring(0,path.indexOf("/bin/"))+"/res/Edited/"+name+".png";
 		File imagess = new File(path2.replaceAll("%20"," "));
 		if (imagess.exists()){
 			try {
@@ -1101,8 +1101,8 @@ public class MapBuilder {
 
 		try {
 			path = Objects.requireNonNull(MapBuilder.class.getClassLoader().getResource(".")).getPath();
-			path2 = path.substring(0, path.indexOf("/out/")) + "/res/Edited/" + name + ".png";
-			String path3 = path.substring(0, path.indexOf("/out/")) + "/res/Edited/" + name + ".txt";
+			path2 = path.substring(0, path.indexOf("/bin/")) + "/res/Edited/" + name + ".png";
+			String path3 = path.substring(0, path.indexOf("/bin/")) + "/res/Edited/" + name + ".txt";
 			f = new File(path2.replaceAll("%20", " "));
 			System.out.println("File saved in: " + path2);
 			ImageIO.write(image, "png", f);
