@@ -346,7 +346,24 @@ public class Link extends BaseMovingEntity {
                     return;
                 }
             }
+        	ArrayList<BaseMovingEntity> toREmove = new ArrayList<>();
+        	for (BaseMovingEntity enemy : handler.getZeldaGameState().enemies.get(handler.getZeldaGameState().mapX).get(handler.getZeldaGameState().mapY)) {
+        		if(enemy instanceof Enemy1) {
+        			if(enemy.interactBounds.intersects(interactBounds)){
+        				if(attacking) {
+        					toREmove.add(enemy);
+        				}else {
+        					//handler.get
+        		        	
+        				}
+        			}        			
+        		}
+        		for (BaseMovingEntity removing: toREmove){
+                	handler.getZeldaGameState().enemies.remove(removing);
+                }
+        	}
         }
+
         switch (direction) {
             case RIGHT:
                 x += speed;
