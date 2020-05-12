@@ -31,7 +31,7 @@ public class BaseMovingEntity extends BaseEntity {
         animation = new Animation(256,sprite);
         bounds = new Rectangle((x * (ZeldaGameState.stageWidth/16)) + ZeldaGameState.xOffset,(y * (ZeldaGameState.stageHeight/11)) + ZeldaGameState.yOffset,width,height);
         speed=2;
-        direction = UP;
+        direction = Direction.DOWN;
         sprites = sprite;
         interactBounds = (Rectangle) bounds.clone();
         interactBounds.y+=(height/2);

@@ -30,8 +30,8 @@ public class Link extends BaseMovingEntity {
     Direction movingTo;
     private int animationSpeed = 10;
     public BufferedImage fullHeart, halfHeart, emptyHeart;
-    private int gotSwordCounter= 60*4;//4 seconds
-    public boolean attacking=true;
+    public boolean linkGotSword =false;
+    public boolean attacking=false;
     public Animation leftAnim,rightAnim,upAnim,downAnim;
 
 
@@ -49,9 +49,10 @@ public class Link extends BaseMovingEntity {
         halfHeart = Images.zeldaLife[1];
         emptyHeart = Images.zeldaLife[2];
  
-        rightAnim = new Animation(128,Images.linkAttackingRight);
-        upAnim = new Animation(128,Images.linkAttackingUp);
-        downAnim = new Animation(128,Images.linkAttackingDown);
+        rightAnim = new Animation(50,Images.linkAttackingRight);
+        upAnim = new Animation(50,Images.linkAttackingUp);
+        downAnim = new Animation(50,Images.linkAttackingDown);
+        leftAnim = new Animation(50, Images.linkAttackingLeft);
     }
 
     @Override
@@ -163,8 +164,35 @@ public class Link extends BaseMovingEntity {
                 move(direction);
             } else {
                 moving = false;
-            }
-        }
+            }                        
+        }         
+        if(attacking) {
+        	if(direction.equals(UP)) {
+        		upAnim.tick();
+        		if(upAnim.end) {
+        			attacking=false;
+        			upAnim.reset();
+        		}
+        	}else if(direction.equals(Direction.LEFT)) {
+        		leftAnim.tick();
+        		if(leftAnim.end) {
+        			attacking=false;
+        			leftAnim.reset();
+        		}
+        	}else if(direction.equals(DOWN)) {
+        		downAnim.tick();
+        		if(downAnim.end) {
+        			attacking=false;
+        			downAnim.reset();
+        		}
+        	}else if(direction.equals(Direction.RIGHT)) {
+        		rightAnim.tick();
+        		if(rightAnim.end) {
+        			attacking=false;
+        			rightAnim.reset();
+        		}
+        	}
+        }       
         // gives Link one extra life
         if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_H)) {
         	if (handler.getZeldaGameState().link.health <= 8) {
@@ -176,36 +204,35 @@ public class Link extends BaseMovingEntity {
         	if (handler.getZeldaGameState().link.health > 0) {
         		handler.getZeldaGameState().link.health--;
         	}
+        } 
+        if(linkGotSword) {
+        	if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_ENTER)&& !attacking){
+        		attacking = true;
+        		moving=false;
+        	}
         }       
-        ArrayList<SolidStaticEntities> toREmove = new ArrayList<>();
-        for (SolidStaticEntities objects : handler.getZeldaGameState().caveObjects) {
-        	if(ZeldaGameState.inCave) {
-        		if(objects instanceof Sword) {
-        			if(objects.bounds.intersects(interactBounds)) {
-        				toREmove.add(objects);
-        				handler.getMusicHandler().playEffect("zelda_Get_Item.wav");
-        			}
-        		}
-        	}        	
-        }
-        for (SolidStaticEntities removing: toREmove){
-        	handler.getZeldaGameState().caveObjects.remove(removing);
-        }   
-
-
     }
 
     @Override
     public void render(Graphics g) {
-        if (moving) {
-            g.drawImage(animation.getCurrentFrame(),x , y, width , height  , null);
-
-        } else {
-        	if (movingMap){
-        		g.drawImage(animation.getCurrentFrame(),x , y, width, height  , null);
-        	}
-        	g.drawImage(sprite, x , y, width , height , null);
-        }
+    	if (moving) {
+    		g.drawImage(animation.getCurrentFrame(),x , y, width , height  , null);    		
+    	}else if (attacking) {
+    		if(direction.equals(UP)) {
+    			g.drawImage(upAnim.getCurrentFrame(),x , y, width , height  , null);
+    		}else if(direction.equals(DOWN)) {
+    			g.drawImage(downAnim.getCurrentFrame(),x , y, width , height  , null);
+    		}else if(direction.equals(Direction.LEFT)) {
+    			g.drawImage(leftAnim.getCurrentFrame(),x , y, width , height  , null);
+    		}else if(direction.equals(Direction.RIGHT)) {
+    			g.drawImage(rightAnim.getCurrentFrame(),x , y, width , height  , null);
+    		}
+    	}else {
+    		if (movingMap){
+    			g.drawImage(animation.getCurrentFrame(),x , y, width, height  , null);
+    		}
+    		g.drawImage(sprite, x , y, width , height , null);
+    	}
 
         // control the images of hearts of the lives that Link has at the moment
         if (handler.getZeldaGameState().link.health == 0) { // 0 lives
@@ -246,7 +273,18 @@ public class Link extends BaseMovingEntity {
         changeIntersectingBounds();
         //check for collisions
         if (ZeldaGameState.inCave){
+        	ArrayList<SolidStaticEntities> toREmove = new ArrayList<>();
         	for (SolidStaticEntities objects : handler.getZeldaGameState().caveObjects) {
+        		if(objects instanceof Sword) {
+        			if(objects.bounds.intersects(interactBounds)) {
+        				toREmove.add(objects);
+        				handler.getMusicHandler().playEffect("zelda_Get_Item.wav");
+        				linkGotSword=true;
+        			}
+        			for (SolidStaticEntities removing: toREmove){
+                    	handler.getZeldaGameState().caveObjects.remove(removing);
+                    } 
+        		}
         		if ((objects instanceof DungeonDoor) && objects.bounds.intersects(bounds) && direction == ((DungeonDoor) objects).direction) {
         			if (((DungeonDoor) objects).name.equals("caveStartLeave")) {
         				ZeldaGameState.inCave = false;

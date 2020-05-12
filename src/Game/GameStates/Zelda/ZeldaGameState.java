@@ -65,11 +65,10 @@ public class ZeldaGameState extends State {
 
         addWorldObjects();
 
-        link = new Link(xOffset+(stageWidth/2),yOffset + (stageHeight/2),Images.zeldaLinkFrames,handler);
+        link = new Link(xOffset+(stageWidth/2),yOffset + (stageHeight/2),Images.zeldaLinkFrames,handler);       
         enemy = new Enemy(xOffset+(stageWidth/4),yOffset + (stageHeight/2),Images.enemy1,handler);
         
     }
-
 
 
     @Override

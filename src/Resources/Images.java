@@ -307,11 +307,11 @@ public class Images {
             linkAttackingUp[1] = zeldaLinkSpriteSheet.crop(18,97,16,28);
             linkAttackingUp[2] = zeldaLinkSpriteSheet.crop(37,98,12,27);
             linkAttackingUp[3] = zeldaLinkSpriteSheet.crop(54,106,12,19);
-//            //left
-//            linkAttackingUp[0] = flipHorizontal(linkAttackingRight);
-//            linkAttackingUp[1] = zeldaLinkSpriteSheet.crop(18,97,16,28);
-//            linkAttackingUp[2] = zeldaLinkSpriteSheet.crop(37,98,12,27);
-//            linkAttackingUp[3] = zeldaLinkSpriteSheet.crop(54,106,12,19);
+            //left
+            linkAttackingLeft[0] = flipHorizontal(linkAttackingRight[0]);
+            linkAttackingLeft[1] = flipHorizontal(linkAttackingRight[1]);
+            linkAttackingLeft[2] = flipHorizontal(linkAttackingRight[2]);
+            linkAttackingLeft[3] = flipHorizontal(linkAttackingRight[3]);
             
             zeldaItemsImage = ImageIO.read(getClass().getResourceAsStream("/UI/Backgrounds/Zelda/items.png"));
             zeldaItemsSpriteSheet = new SpriteSheet(createImageTransparent(zeldaItemsImage,"items_116,116,116_gray",new Color(116,116,116).getRGB()));
