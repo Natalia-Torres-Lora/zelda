@@ -211,16 +211,7 @@ public class Link extends BaseMovingEntity {
 				attacking = true;
 				moving=false;
 			}
-		}
-		for (BaseMovingEntity objects : handler.getZeldaGameState().enemies.get(handler.getZeldaGameState().mapX).get(handler.getZeldaGameState().mapY)) {
-			if(objects.bounds.intersects(interactBounds)) {
-				if(objects instanceof Enemy1) {
-					speed =0;
-				}
-			}
-		}
-		
-		
+		}		
 	}
 
 	@Override
