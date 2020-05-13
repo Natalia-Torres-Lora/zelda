@@ -293,20 +293,20 @@ public class Images {
             linkGotSword = zeldaLinkSpriteSheet.crop(21,11,13,16);
             
             //Attacking Down
-            linkAttackingDown[0] = zeldaLinkSpriteSheet.crop(1,47,16,15);
-            linkAttackingDown[1] = zeldaLinkSpriteSheet.crop(18,47,16,27);
-            linkAttackingDown[2] = zeldaLinkSpriteSheet.crop(35,47,15,23);
-            linkAttackingDown[3] = zeldaLinkSpriteSheet.crop(53,47,13,19);
+            linkAttackingDown[0] = zeldaLinkSpriteSheet.crop(1,47,16,16);
+            linkAttackingDown[1] = zeldaLinkSpriteSheet.crop(18,44,16,30);
+            linkAttackingDown[2] = zeldaLinkSpriteSheet.crop(35,45,16,25);
+            linkAttackingDown[3] = zeldaLinkSpriteSheet.crop(53,47,16,22);
             //right
-            linkAttackingRight[0] = zeldaLinkSpriteSheet.crop(1,78,15,15);
+            linkAttackingRight[0] = zeldaLinkSpriteSheet.crop(1,78,17,15);
             linkAttackingRight[1] = zeldaLinkSpriteSheet.crop(18,78,27,15);
             linkAttackingRight[2] = zeldaLinkSpriteSheet.crop(46,78,23,15);
-            linkAttackingRight[3] = zeldaLinkSpriteSheet.crop(70,77,19,16);
+            linkAttackingRight[3] = zeldaLinkSpriteSheet.crop(70,77,23,16);
             //Up
             linkAttackingUp[0] = zeldaLinkSpriteSheet.crop(1,109,16,16);
             linkAttackingUp[1] = zeldaLinkSpriteSheet.crop(18,97,16,28);
-            linkAttackingUp[2] = zeldaLinkSpriteSheet.crop(37,98,12,27);
-            linkAttackingUp[3] = zeldaLinkSpriteSheet.crop(54,106,12,19);
+            linkAttackingUp[2] = zeldaLinkSpriteSheet.crop(35,98,16,27);
+            linkAttackingUp[3] = zeldaLinkSpriteSheet.crop(52,102,16,22);
             //left
             linkAttackingLeft[0] = flipHorizontal(linkAttackingRight[0]);
             linkAttackingLeft[1] = flipHorizontal(linkAttackingRight[1]);

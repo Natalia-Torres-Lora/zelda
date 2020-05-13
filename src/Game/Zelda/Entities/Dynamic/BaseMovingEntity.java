@@ -24,13 +24,13 @@ public class BaseMovingEntity extends BaseEntity {
 
 
     Rectangle interactBounds;
-    public int health = 1;
+    public int health = 6;
 
     public BaseMovingEntity(int x, int y, BufferedImage[] sprite, Handler handler) {
         super(x, y, sprite[0], handler);
         animation = new Animation(256,sprite);
         bounds = new Rectangle((x * (ZeldaGameState.stageWidth/16)) + ZeldaGameState.xOffset,(y * (ZeldaGameState.stageHeight/11)) + ZeldaGameState.yOffset,width,height);
-        speed=2;
+        speed=1;
         direction = Direction.DOWN;
         sprites = sprite;
         interactBounds = (Rectangle) bounds.clone();

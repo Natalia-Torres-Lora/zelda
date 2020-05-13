@@ -37,8 +37,8 @@ public class GameState extends State {
 
         if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_M)){
             handler.getDisplayScreen().confirm("You can press 'H' for help once in the map maker. Continue will take you there.\n" +
-                                                        "Note: Some keys will require you to press them multiple times, not just why tbh.\n" +
-                                                        "Also, if sharing the map made, and if it has teleport pads, make sure to share the '.txt' file crated alongside the '.png' or they wont work");
+                                                        "Note: Some keys will require you to press them multiple times.\n" +
+                                                        "If sharing the map made, and if it has teleport pads, make sure to share the '.txt' file crated alongside the '.png' or they wont work ");
                 handler.getMouseManager().setUimanager(null);
                 State.setState(handler.getZeldaMMState());
         }
@@ -48,7 +48,7 @@ public class GameState extends State {
                                                         "This file is named exactly like the map but its '.txt' instead of '.png' ");
             handler.getMouseManager().setUimanager(null);
             String path = Objects.requireNonNull(getClass().getClassLoader().getResource(".")).getPath();
-            String path2 = path.substring(0,path.indexOf("/out/"))+"/res/Edited";
+            String path2 = path.substring(0,path.indexOf("/bin/"))+"/res/Edited";
             JFileChooser chooser = new JFileChooser(path2.replaceAll("%20"," "));
             FileNameExtensionFilter filter = new FileNameExtensionFilter(
                     "JPG, & PNG Images", "jpg", "png");
