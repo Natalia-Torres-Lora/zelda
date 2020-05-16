@@ -27,19 +27,24 @@ public class Enemy1 extends BaseMovingEntity {
 	Random rand = new Random();
 	public int newDirectionTimer=60;
 	public int move=2;
+	public boolean hit = false;
+	public int hitCooldown= 60*2;
+	Link link;
+	public boolean collision  = false;
+	public int cooldown = 60*3;
+	
 
 	public Enemy1(int x, int y, BufferedImage[] sprite, Handler handler) {
 		super(x, y, sprite, handler);
-		speed=1;
+		speed=0;
 		moving=true;
+		direction = Direction.LEFT;
 
 		BufferedImage[] animList = new BufferedImage[2];
 		animList[0] = sprite[4];
 		animList[1] = sprite[5];
-
-		animation = new Animation(animSpeed,animList);
+		animation = new Animation(animSpeed,animList);		
 		
-		direction = Direction.LEFT;
 
 	}
 	public void tick() {
@@ -67,39 +72,42 @@ public class Enemy1 extends BaseMovingEntity {
 		}
 
 		if(newDirection) {
+			
 			move = rand.nextInt(4);
 			if(!(changeDirection==move)) {
 				changeDirection=move;
 			}
-
 			if (changeDirection == 0 && direction != UP) {
 				BufferedImage[] animList = new BufferedImage[2];
 				animList[0] = sprites[0];
 				animList[1] = sprites[1];
-				animation = new Animation(animSpeed, animList);
-				direction = UP;
+				animation = new Animation(animSpeed, animList);					
+				direction = UP;				
 
 			}else if (changeDirection == 1 && direction != DOWN) {
 				BufferedImage[] animList = new BufferedImage[2];
 				animList[0] = sprites[2];
 				animList[1] = sprites[3];
-				animation = new Animation(animSpeed, animList);
-				direction = DOWN;
-				sprite = sprites[2];
+				animation = new Animation(animSpeed, animList);					
+				direction = UP;
+				
+				
 			}else if (changeDirection == 2 && direction != Direction.LEFT) {
 				BufferedImage[] animList = new BufferedImage[2];
 				animList[0] = sprites[4];
 				animList[1] = sprites[5];
-				animation = new Animation(animSpeed, animList);
+				animation = new Animation(animSpeed, animList);									
 				direction = Direction.LEFT;
+
 			}else if (changeDirection == 3 && direction != Direction.RIGHT) {
 				BufferedImage[] animList = new BufferedImage[2];
 				animList[0] = sprites[6];
 				animList[1] = sprites[7];
-				animation = new Animation(animSpeed, animList);
+				animation = new Animation(animSpeed, animList);				
 				direction = Direction.RIGHT;
+			}else {
+				newDirection=false;
 			}
-			newDirection=false;
 		}
 
 		if(newDirectionTimer<=0) {
@@ -110,7 +118,6 @@ public class Enemy1 extends BaseMovingEntity {
 			newDirection =false;
 			newDirectionTimer--;
 		}
-
 	}
 
 	public void render(Graphics g) {
@@ -127,12 +134,11 @@ public class Enemy1 extends BaseMovingEntity {
 		changeIntersectingBounds();
 
 		for (SolidStaticEntities objects : handler.getZeldaGameState().objects.get(handler.getZeldaGameState().mapX).get(handler.getZeldaGameState().mapY)) {
-			if(objects.bounds.intersects(interactBounds)) {
-				newDirection=true;
-				newDirectionTimer=60;
-					//return;				
+			if(objects.bounds.intersects(interactBounds)) {				
 			}				
 		}
+		
+		
 		switch (direction) {
 		case RIGHT:
 			x += speed;

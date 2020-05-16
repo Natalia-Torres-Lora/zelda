@@ -24,7 +24,7 @@ public class BaseMovingEntity extends BaseEntity {
 
 
     Rectangle interactBounds;
-    public int health = 6;
+    public int health = 1;
 
     public BaseMovingEntity(int x, int y, BufferedImage[] sprite, Handler handler) {
         super(x, y, sprite[0], handler);

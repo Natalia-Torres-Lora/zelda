@@ -34,6 +34,9 @@ public class Link extends BaseMovingEntity {
 	public boolean linkGotSword =false;
 	public boolean attacking=false;
 	public Animation leftAnim,rightAnim,upAnim,downAnim;
+	public boolean hit=false;
+	public int hitTimer = 60;
+	
 
 
 	public Link(int x, int y, BufferedImage[] sprite, Handler handler) {
@@ -118,6 +121,7 @@ public class Link extends BaseMovingEntity {
 				newMapY = 0;
 			}
 		}else {
+			if(!hit) {
 			if (handler.getKeyManager().up) {
 				if (direction != UP) {
 					BufferedImage[] animList = new BufferedImage[2];
@@ -165,7 +169,8 @@ public class Link extends BaseMovingEntity {
 				move(direction);
 			} else {
 				moving = false;
-			}                        
+			}
+			}
 		}         
 		if(attacking) {
 			if(direction.equals(UP)) {
@@ -193,7 +198,24 @@ public class Link extends BaseMovingEntity {
 					rightAnim.reset();
 				}
 			}
-		}       
+		}		
+		if(hit) {
+			speed=1;
+			if(hitTimer<=0) {
+				hit=false;
+				hitTimer=60;
+				speed=4;
+			}else {
+				hitTimer--;		
+			}if(direction.equals(UP)){
+				direction = DOWN;
+			}
+			move(direction);						
+		}else {
+			hit =false;
+		}
+
+		
 		// gives Link one extra life
 		if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_H)) {
 			if (handler.getZeldaGameState().link.health <= 8) {
@@ -346,8 +368,12 @@ public class Link extends BaseMovingEntity {
 					//dont move
 					return;
 				}
+			}for (BaseMovingEntity enemy : handler.getZeldaGameState().enemies.get(handler.getZeldaGameState().mapX).get(handler.getZeldaGameState().mapY)) {
+				if(enemy.bounds.intersects(interactBounds)) {
+					hit=true;
+				}
+				
 			}
-
 		}
 
 		switch (direction) {
