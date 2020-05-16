@@ -2,6 +2,7 @@ package Main;
 
 import Display.DisplayScreen;
 import Game.GameStates.*;
+import Game.GameStates.Zelda.ZeldaGameOverState;
 import Game.GameStates.Zelda.ZeldaGameState;
 import Game.GameStates.Zelda.ZeldaIntroStates;
 import Game.GameStates.Zelda.ZeldaMapMakerState;
@@ -33,6 +34,7 @@ public class Handler {
     public static boolean DEBUG = true;
     private Map map;
     private PacMan pacman;
+	
 
     public Handler(GameSetUp game){
         this.game = game;
@@ -97,6 +99,9 @@ public class Handler {
 
     public ZeldaMapMakerState getZeldaMMState (){
         return (ZeldaMapMakerState)getGameProperties().zeldaMapMakerState;
+    }
+    public ZeldaGameOverState getZeldaGameOverState (){
+        return (ZeldaGameOverState)getGameProperties().zeldaGameOverState;
     }
 
     public void changeState(State state){
