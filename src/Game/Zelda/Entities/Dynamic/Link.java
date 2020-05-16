@@ -35,7 +35,7 @@ public class Link extends BaseMovingEntity {
 	public boolean attacking=false;
 	public Animation leftAnim,rightAnim,upAnim,downAnim;
 	public boolean hit=false;
-	public int hitTimer = 60;
+	public int hitTimer = 15;
 	
 
 
@@ -200,21 +200,16 @@ public class Link extends BaseMovingEntity {
 			}
 		}		
 		if(hit) {
-			speed=1;
+			speed= -3;
 			if(hitTimer<=0) {
 				hit=false;
-				hitTimer=60;
+				hitTimer=15;
 				speed=4;
 			}else {
-				hitTimer--;		
-			}if(direction.equals(UP)){
-				direction = DOWN;
+				hitTimer--;	
+				move(direction);
 			}
-			move(direction);						
-		}else {
-			hit =false;
 		}
-
 		
 		// gives Link one extra life
 		if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_H)) {
