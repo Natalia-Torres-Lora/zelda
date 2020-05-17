@@ -119,12 +119,13 @@ public class ZeldaGameState extends State {
                     entity.render(g);
                 }
             }
-            link.render(g);           
+                    
             g.setColor(Color.BLACK);
             g.fillRect(0, 0, xOffset, handler.getHeight());
             g.fillRect(xOffset + stageWidth, 0, handler.getWidth(), handler.getHeight());
             g.fillRect(0, 0, handler.getWidth(), yOffset);
             g.fillRect(0, yOffset + stageHeight, handler.getWidth(), handler.getHeight());
+            link.render(g);  
         }
 
     }
