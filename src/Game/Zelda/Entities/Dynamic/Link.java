@@ -30,12 +30,13 @@ public class Link extends BaseMovingEntity {
 	public boolean movingMap = false;
 	Direction movingTo;
 	private int animationSpeed = 10;
-	public BufferedImage fullHeart, halfHeart, emptyHeart;
 	public boolean linkGotSword =false;
 	public boolean attacking=false;
 	public Animation leftAnim,rightAnim,upAnim,downAnim;
 	public boolean hit=false;
 	public int hitTimer = 15;
+	private int pLX; //Previous link X before dungeon
+	private int pLY; //Previous link Y before dungeon
 	
 
 
@@ -49,14 +50,13 @@ public class Link extends BaseMovingEntity {
 
 		animation = new Animation(animSpeed,animList);
 
-		fullHeart = Images.zeldaLife[0];
-		halfHeart = Images.zeldaLife[1];
-		emptyHeart = Images.zeldaLife[2];
-
 		rightAnim = new Animation(atackAnimSpeed,Images.linkAttackingRight);
 		upAnim = new Animation(atackAnimSpeed,Images.linkAttackingUp);
 		downAnim = new Animation(atackAnimSpeed,Images.linkAttackingDown);
 		leftAnim = new Animation(atackAnimSpeed, Images.linkAttackingLeft);
+		
+		pLX = x;
+		pLY = y;
 	}
 
 	@Override
@@ -213,7 +213,7 @@ public class Link extends BaseMovingEntity {
 		
 		// gives Link one extra life
 		if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_H)) {
-			if (handler.getZeldaGameState().link.health <= 8) {
+			if (handler.getZeldaGameState().link.health < 6) {
 				handler.getZeldaGameState().link.health++;
 			}
 		}
@@ -252,58 +252,6 @@ public class Link extends BaseMovingEntity {
 			g.drawImage(sprite, x , y, width , height , null);
 		}
 
-		// control the images of hearts of the lives that Link has at the moment
-		if (handler.getZeldaGameState().link.health == 0) { // 0 lives
-			g.drawImage(emptyHeart, handler.getWidth() / 2 + 130,
-					handler.getHeight() / 8 + 80, 30, 30, null);
-			g.drawImage(emptyHeart, handler.getWidth() / 2 + 160,
-					handler.getHeight() / 8 + 80, 30, 30, null);
-			g.drawImage(emptyHeart, handler.getWidth() / 2 + 190,
-					handler.getHeight() / 8 + 80, 30, 30, null);
-		} else if (handler.getZeldaGameState().link.health == 1) { // 1 lives
-			g.drawImage(halfHeart, handler.getWidth() / 2 + 130,
-					handler.getHeight() / 8 + 80, 30, 30, null);
-			g.drawImage(emptyHeart, handler.getWidth() / 2 + 160,
-					handler.getHeight() / 8 + 80, 30, 30, null);
-			g.drawImage(emptyHeart, handler.getWidth() / 2 + 190,
-					handler.getHeight() / 8 + 80, 30, 30, null);
-		} else if (handler.getZeldaGameState().link.health == 2) { // 2 lives
-			g.drawImage(fullHeart, handler.getWidth() / 2 + 130,
-					handler.getHeight() / 8 + 80, 30, 30, null);
-			g.drawImage(emptyHeart, handler.getWidth() / 2 + 160,
-					handler.getHeight() / 8 + 80, 30, 30, null);
-			g.drawImage(emptyHeart, handler.getWidth() / 2 + 190,
-					handler.getHeight() / 8 + 80, 30, 30, null);
-		} else if (handler.getZeldaGameState().link.health == 3) {// 3 lives
-			g.drawImage(fullHeart, handler.getWidth() / 2 + 130,
-					handler.getHeight() / 8 + 80, 30, 30, null);
-			g.drawImage(halfHeart, handler.getWidth() / 2 + 160,
-					handler.getHeight() / 8 + 80, 30, 30, null);
-			g.drawImage(emptyHeart, handler.getWidth() / 2 + 190,
-					handler.getHeight() / 8 + 80, 30, 30, null);
-		} else if (handler.getZeldaGameState().link.health == 4) { // 4 lives
-			g.drawImage(fullHeart, handler.getWidth() / 2 + 130,
-					handler.getHeight() / 8 + 80, 30, 30, null);
-			g.drawImage(fullHeart, handler.getWidth() / 2 + 160,
-					handler.getHeight() / 8 + 80, 30, 30, null);
-			g.drawImage(emptyHeart, handler.getWidth() / 2 + 190,
-					handler.getHeight() / 8 + 80, 30, 30, null);
-		} else if (handler.getZeldaGameState().link.health == 5) {// 5 lives
-			g.drawImage(fullHeart, handler.getWidth() / 2 + 130,
-					handler.getHeight() / 8 + 80, 30, 30, null);
-			g.drawImage(fullHeart, handler.getWidth() / 2 + 160,
-					handler.getHeight() / 8 + 80, 30, 30, null);
-			g.drawImage(halfHeart, handler.getWidth() / 2 + 190,
-					handler.getHeight() / 8 + 80, 30, 30, null);
-		} else { // 6 lives
-			g.drawImage(fullHeart, handler.getWidth() / 2 + 130,
-					handler.getHeight() / 8 + 80, 30, 30, null);
-			g.drawImage(fullHeart, handler.getWidth() / 2 + 160,
-					handler.getHeight() / 8 + 80, 30, 30, null);
-			g.drawImage(fullHeart, handler.getWidth() / 2 + 190,
-					handler.getHeight() / 8 + 80, 30, 30, null);
-		}
-
 	}
 
 	@Override
@@ -327,8 +275,8 @@ public class Link extends BaseMovingEntity {
 				if ((objects instanceof DungeonDoor) && objects.bounds.intersects(bounds) && direction == ((DungeonDoor) objects).direction) {
 					if (((DungeonDoor) objects).name.equals("caveStartLeave")) {
 						ZeldaGameState.inCave = false;
-						x = ((DungeonDoor) objects).nLX;
-						y = ((DungeonDoor) objects).nLY;
+						x = pLX;
+						y = pLY;
 						direction = DOWN;
 					}
 				} else if (!(objects instanceof DungeonDoor) && objects.bounds.intersects(interactBounds)) {
@@ -374,6 +322,8 @@ public class Link extends BaseMovingEntity {
 					else {
 						if (((DungeonDoor) objects).name.equals("caveStartEnter")) {
 							ZeldaGameState.inCave = true;
+							pLX = x;
+							pLY = y;
 							x = ((DungeonDoor) objects).nLX;
 							y = ((DungeonDoor) objects).nLY;
 							direction = UP;
