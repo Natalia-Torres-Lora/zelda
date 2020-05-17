@@ -77,12 +77,20 @@ public class ZeldaGameState extends State {
                 for (SolidStaticEntities entity : objects.get(mapX).get(mapY)) {
                     entity.tick();
                 }
+                ArrayList<BaseMovingEntity> enemiesToRemove = new ArrayList<BaseMovingEntity>();
                 for (BaseMovingEntity entity : enemies.get(mapX).get(mapY)) {
                     entity.tick();
                     if (entity.getInteractBounds().intersects(link.getInteractBounds())){
-                        link.damage(1);
+                        if (link.attacking)
+                        	enemiesToRemove.add(entity);
+                        else
+                        	link.damage(1);
                     }
                 }
+                for (BaseMovingEntity enemy : enemiesToRemove) {
+					handler.getZeldaGameState().enemies.get(handler.getZeldaGameState().mapX)
+							.get(handler.getZeldaGameState().mapY).remove(enemy);
+				}
             }
         }
     }
