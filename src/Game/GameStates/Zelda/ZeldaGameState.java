@@ -29,9 +29,10 @@ public class ZeldaGameState extends State {
 	public int cameraOffsetX, cameraOffsetY;
 	public BufferedImage fullHeart, halfHeart, emptyHeart;
 	public int enemyX, enemyY, selector;
+	public int enemyKill = new Random().nextInt(5);
 	public Items items;
 	public int amountHeart = 0, amountDiamond = 0, amountBottle = 0, 
-			amountRing = 0, amountKey1 = 0, amountKey2 = 0, count = 60;
+			amountRing = 0, amountKey1 = 0, amountKey2 = 0, count = 70;
 	public boolean itemRemoved = false, linkGotItem = false; // check if Link took the item
 	// map is 16 by 7 squares, you start at x=7,y=7 starts counting at 0
 	public int mapX, mapY, mapWidth, mapHeight;
@@ -97,7 +98,9 @@ public class ZeldaGameState extends State {
 					if (entity.getInteractBounds().intersects(link.getInteractBounds())) {
 						if (link.attacking) {
 							enemiesToRemove.add(entity);
-							objects.get(mapX).get(mapY).add(new Items(entity.x + 80, entity.y + 80, 25, 40, handler));
+							if (enemyKill == selector) {
+								objects.get(mapX).get(mapY).add(new Items(entity.x + 80, entity.y + 80, 25, 40, handler));
+							}
 						} else {
 							link.damage(1);
 						}
@@ -115,8 +118,6 @@ public class ZeldaGameState extends State {
 							itemsToRemove.add(items); //when Link touches the item, it is removed
 							itemRemoved = true;
 							linkGotItem = true;
-//							if (handler.getZeldaGameState().items.selector == 0)
-//								link.health++;
 						}
 					}
 				}
@@ -129,12 +130,10 @@ public class ZeldaGameState extends State {
 					case 0:
 						link.health++;
 						itemRemoved = false;
-						selector = new Random().nextInt(6);
 						break;
 					case 1:
 						amountDiamond++;
 						itemRemoved = false;
-						selector = new Random().nextInt(6);
 						break;
 					case 2:
 						amountBottle++;
@@ -158,7 +157,7 @@ public class ZeldaGameState extends State {
 					count--;
 					if (count <= 0) {
 						linkGotItem = false;
-						selector = new Random().nextInt(6);
+//						selector = new Random().nextInt(6);
 					}
 				}
 			}
@@ -205,7 +204,7 @@ public class ZeldaGameState extends State {
 			g.setColor(Color.WHITE);
 			g.setFont(new Font("TimesRoman", Font.BOLD, 28));
 			//Diamond item
-			g.drawImage(Images.items[1], 55, handler.getHeight()/2 -140, 30, 45, null);
+			g.drawImage(Images.items[1], 52, handler.getHeight()/2 -140, 30, 45, null);
 			g.drawString("x" + amountDiamond, 90, handler.getHeight()/2 -100);
 			//Bottle item
 			g.drawImage(Images.items[2], 55, handler.getHeight()/2 -70, 25, 45, null);

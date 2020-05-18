@@ -5,6 +5,7 @@ import Game.Zelda.Entities.BaseEntity;
 import Game.Zelda.Entities.Dynamic.BaseMovingEntity;
 import Game.Zelda.Entities.Dynamic.MMBaseMovingEntity;
 import Game.Zelda.Entities.Dynamic.MMLink;
+import Game.Zelda.Entities.Statics.MMmovingLink;
 import Game.Zelda.Entities.MMBaseEntity;
 import Main.Handler;
 
@@ -17,6 +18,7 @@ public class Map {
     ArrayList<MMBaseMovingEntity> enemiesOnMap;
     Handler handler;
     public MMLink link;
+    public MMmovingLink movingLink;
     public int xOffset =0,yOffset = 0;
 
     public Map(Handler handler) {
@@ -35,7 +37,11 @@ public class Map {
 
     public void drawMap(Graphics2D g2) {
         for (MMBaseEntity block:blocksOnMap) {
+        	if(block instanceof MMmovingLink) {
+        		block.render(g2);
+        	}else {
             g2.drawImage(block.sprite, block.x , block.y , block.width, block.height , null);
+        	}
         }
         for (MMBaseMovingEntity entity:enemiesOnMap) {
             if (entity instanceof MMLink){

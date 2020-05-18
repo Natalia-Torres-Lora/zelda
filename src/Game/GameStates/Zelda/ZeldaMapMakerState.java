@@ -34,8 +34,9 @@ public class ZeldaMapMakerState extends State {
     boolean linkingStarted = false;
     boolean rightClicked = false;
     boolean leftClicked = false;
-    boolean linkPlaced = false;
-
+    boolean linkPlaced = false;   
+    boolean movingTilePlaced =false;
+   
     public ZeldaMapMakerState(Handler handler) {
         super(handler);
         grid = new ArrayList<>();
@@ -198,14 +199,31 @@ public class ZeldaMapMakerState extends State {
                         l[1] = yCoords;
                         drawStack.add(l);
                         linkPlaced = true;
-                    } else {
+                    } else if(handler.getKeyManager().q /*&& ! movingTilePlaced*/){
+                    	grid.get(xCoords).set(yCoords, Images.zeldaTornado[0]);
+                        int[] l = new int[2];
+                        l[0] = xCoords;
+                        l[1] = yCoords;
+                        drawStack.add(l);
+                        movingTilePlaced = true;
+//                        grid.get(xCoords +1).set(yCoords, unChange);
+//                        grid.get(xCoords + 2).set(yCoords, unChange);
+//                        grid.get(xCoords + 2).set(yCoords - 1, unChange);
+//                        grid.get(xCoords + 2).set(yCoords - 2, unChange);
+//                        grid.get(xCoords + 3).set(yCoords - 2, unChange);                   
+                    }
+                    else {
                         if (linkPlaced && handler.getKeyManager().shift){
-                            handler.getDisplayScreen().confirm("You cant place more than one Link per map, I mean, why would you?");
+                            handler.getDisplayScreen().confirm("You cant place more than one Link per map.  ");
                             return;
                         }
                         if (grid.get(xCoords).get(yCoords) != null && grid.get(xCoords).get(yCoords).equals(Images.zeldaLinkFrames[0])){
                             linkPlaced = false;
                         }
+                        if (grid.get(xCoords).get(yCoords) != null && grid.get(xCoords).get(yCoords).equals(Images.zeldaTornado[0])){
+                        	movingTilePlaced = false;
+                        }
+
                         grid.get(xCoords).set(yCoords, selectedList.get(counter));
                         int[] l = new int[2];
                         l[0] = xCoords;
@@ -231,6 +249,9 @@ public class ZeldaMapMakerState extends State {
                 if (grid.get(xCoords).get(yCoords) == null || !grid.get(xCoords).get(yCoords).equals(unChange)) {
                     if (grid.get(xCoords).get(yCoords) != null && grid.get(xCoords).get(yCoords).equals(Images.zeldaLinkFrames[0])) {
                         linkPlaced = false;
+                    }
+                    if (grid.get(xCoords).get(yCoords) != null && grid.get(xCoords).get(yCoords).equals(Images.zeldaTornado[0])) {
+                    	movingTilePlaced = false;
                     }
                     grid.get(xCoords).set(yCoords, selectedList.get(counter));
                     int[] l = new int[2];
@@ -266,6 +287,9 @@ public class ZeldaMapMakerState extends State {
                     if ( grid.get(xCoords).get(yCoords).equals(Images.zeldaLinkFrames[0])){
                         linkPlaced = false;
                     }
+                    if (grid.get(xCoords).get(yCoords).equals(Images.zeldaTornado[0])){
+                    	movingTilePlaced = false;
+                    }
                     grid.get(xCoords).set(yCoords, null);
                     int[] toRemove = new int[2];
                     for (int[] list : drawStack) {
@@ -286,6 +310,9 @@ public class ZeldaMapMakerState extends State {
             }
             if (grid.get(drawStack.get(drawStack.size()-1)[0]).get(drawStack.get(drawStack.size()-1)[1]).equals(Images.zeldaLinkFrames[0])){
                 linkPlaced = false;
+            }
+            if (grid.get(drawStack.get(drawStack.size()-1)[0]).get(drawStack.get(drawStack.size()-1)[1]).equals(Images.zeldaTornado[0])){
+            	movingTilePlaced = false;
             }
             grid.get(drawStack.get(drawStack.size()-1)[0]).set(drawStack.get(drawStack.size()-1)[1],null);
             drawStack.remove(drawStack.size()-1);
@@ -356,7 +383,7 @@ public class ZeldaMapMakerState extends State {
                 String name = handler.getDisplayScreen().stringInputPopUp("Enter File Name", "testName1");
                 Map map = MapBuilder.createMap(Objects.requireNonNull(MapBuilder.arrayToRGBImage(grid, name,linkedTeleports)), handler, name);
                 if (map.link == null) {
-                    handler.getDisplayScreen().confirm("Must have a Link, hold shift and click where you wiah to add him");
+                    handler.getDisplayScreen().confirm("Must have a Link, hold shift and click where you want to add him");
                 } else {
                     handler.changeState(new ZeldaMMGameState(handler, map));
                 }
@@ -401,6 +428,9 @@ public class ZeldaMapMakerState extends State {
 
         if (handler.getKeyManager().shift){
             g.drawImage(Images.zeldaLinkFrames[0],handler.getMouseManager().getMouseX(),handler.getMouseManager().getMouseY(),selectedList.get(counter).getWidth()*scale,selectedList.get(counter).getHeight()*scale,null);
+
+        }else if (handler.getKeyManager().q){
+            g.drawImage(Images.zeldaTornado[0],handler.getMouseManager().getMouseX(),handler.getMouseManager().getMouseY(),selectedList.get(counter).getWidth()*scale,selectedList.get(counter).getHeight()*scale,null);
 
         }else{
             g.drawImage(selectedList.get(counter),handler.getMouseManager().getMouseX(),handler.getMouseManager().getMouseY(),selectedList.get(counter).getWidth()*scale,selectedList.get(counter).getHeight()*scale,null);

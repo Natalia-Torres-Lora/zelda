@@ -13,6 +13,7 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.Random;
 
 import static Game.GameStates.Zelda.ZeldaGameState.worldScale;
 import static Game.Zelda.Entities.Dynamic.Direction.DOWN;
@@ -180,32 +181,40 @@ public class Link extends BaseMovingEntity {
 			}
 		}         
 		if(attacking) {
+			changeIntersectingBounds();
 			if(direction.equals(UP)) {
 				upAnim.tick();
+				bounds = new Rectangle(x,y-30,width,height);
 				if(upAnim.end) {
 					attacking=false;
 					upAnim.reset();
 				}
 			}else if(direction.equals(Direction.LEFT)) {
 				leftAnim.tick();
+				bounds = new Rectangle(x-30,y,width,height);
 				if(leftAnim.end) {
 					attacking=false;
 					leftAnim.reset();
 				}
 			}else if(direction.equals(DOWN)) {
 				downAnim.tick();
+				bounds = new Rectangle(x,y+30,width,height);
 				if(downAnim.end) {
 					attacking=false;
 					downAnim.reset();
 				}
 			}else if(direction.equals(Direction.RIGHT)) {
 				rightAnim.tick();
+				bounds = new Rectangle(x+30,y,width,height);
 				if(rightAnim.end) {
 					attacking=false;
 					rightAnim.reset();
 				}
 			}
-		}		
+		}else {
+			bounds = new Rectangle(x,y,width,height);
+			changeIntersectingBounds();
+		}
 		if(hit) {
 			speed= -3;
 			if(hitTimer<=0) {
@@ -287,7 +296,7 @@ public class Link extends BaseMovingEntity {
 			}
 		}else if (handler.getZeldaGameState().linkGotItem){
 			g.drawImage(Images.zeldaLinkFrames[7], x, y, width, height, null);
-			g.drawImage(Images.items[handler.getZeldaGameState().selector], this.x+ 10, this.y -25, 20, 35, null);
+			g.drawImage(Images.items[handler.getZeldaGameState().selector], this.x+ 10, this.y -30, 30, 45, null);
 		}else {
 			if (movingMap){
 				g.drawImage(animation.getCurrentFrame(),x , y, width, height  , null);

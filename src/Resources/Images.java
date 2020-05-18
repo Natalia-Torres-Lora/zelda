@@ -98,9 +98,7 @@ public class Images {
     public static BufferedImage oldMan;
     
     public static BufferedImage[] enemy1;
-//    public static BufferedImage[] enemy1down;
-//    public static BufferedImage[] enemy1left;
-//    public static BufferedImage[] enemy1right;
+    public static BufferedImage[] startEnemy;
     
     public static BufferedImage charactersImage;
     public SpriteSheet charactersSpriteSheet;
@@ -112,6 +110,7 @@ public class Images {
     public static BufferedImage[] linkAttackingLeft;
     
     public static BufferedImage[] items;
+    public static BufferedImage[] zeldaTornado;
 
     public Images() {
 
@@ -160,6 +159,9 @@ public class Images {
         linkAttackingDown = new BufferedImage [4];
         linkAttackingRight = new BufferedImage [4];
         linkAttackingLeft = new BufferedImage [4];
+        
+        zeldaTornado = new BufferedImage [2];
+        startEnemy = new BufferedImage [3];
 
         items = new BufferedImage[6];
 
@@ -302,7 +304,6 @@ public class Images {
             zeldaLinkFrames[6] = zeldaLinkSpriteSheet.crop(213,11,16,16); //front 1 hand up
             zeldaLinkFrames[7] = zeldaLinkSpriteSheet.crop(230,11,16,16); //front 2 hands up
             
-            //Link hurt down
             hurtDown[0] = zeldaLinkSpriteSheet.crop(280,250,16,16);
             hurtDown[1] = zeldaLinkSpriteSheet.crop(1,11,16,16);
             hurtDown[2] = zeldaLinkSpriteSheet.crop(280,250,16,16);
@@ -323,6 +324,22 @@ public class Images {
             hurtUp[2] = zeldaLinkSpriteSheet.crop(280,250,16,16);
             hurtUp[3] = zeldaLinkSpriteSheet.crop(69,11,16,16);
             
+            zeldaLinkFrames[0] = zeldaLinkSpriteSheet.crop(1,11,16,16);
+            zeldaLinkFrames[1] = zeldaLinkSpriteSheet.crop(18,11,16,16);
+            zeldaLinkFrames[2] = zeldaLinkSpriteSheet.crop(35,11,16,16);
+            zeldaLinkFrames[3] = zeldaLinkSpriteSheet.crop(52,11,16,16);
+            zeldaLinkFrames[4] = zeldaLinkSpriteSheet.crop(69,11,16,16);
+            zeldaLinkFrames[5] = zeldaLinkSpriteSheet.crop(86,11,16,16);
+            zeldaLinkFrames[6] = zeldaLinkSpriteSheet.crop(213,11,16,16);
+            zeldaLinkFrames[7] = zeldaLinkSpriteSheet.crop(230,11,16,16);
+            
+            zeldaTornado[0] = zeldaLinkSpriteSheet.crop(227,185,16,16);
+            zeldaTornado[1] = flipHorizontal(zeldaTornado[0]);
+            
+            startEnemy[0] = zeldaLinkSpriteSheet.crop(138,185,16,16);
+            startEnemy[1] = zeldaLinkSpriteSheet.crop(155,185,16,16);
+            startEnemy[2] = zeldaLinkSpriteSheet.crop(174,185,12,16);           
+           
             //With sword
             sword = zeldaLinkSpriteSheet.crop(1,154,7,16);
             linkGotSword = zeldaLinkSpriteSheet.crop(21,11,13,16);

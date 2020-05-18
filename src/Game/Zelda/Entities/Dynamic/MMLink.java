@@ -5,6 +5,7 @@ import Game.GameStates.Zelda.ZeldaMapMakerState;
 import Game.Zelda.Entities.BaseEntity;
 import Game.Zelda.Entities.MMBaseEntity;
 import Game.Zelda.Entities.Statics.MMSolidStaticEntities;
+import Game.Zelda.Entities.Statics.MMmovingLink;
 import Game.Zelda.Entities.Statics.SolidStaticEntities;
 import Game.Zelda.World.Map;
 import Main.Handler;
@@ -110,6 +111,10 @@ public class MMLink extends MMBaseMovingEntity {
             if (solidStaticEntities instanceof MMSolidStaticEntities && solidStaticEntities.bounds.intersects(interactBounds)){
                 return;
             }
+        }for (MMBaseEntity solidWalkingEntities:map.getBlocksOnMap()){
+            if (solidWalkingEntities instanceof MMmovingLink && solidWalkingEntities.bounds.intersects(bounds)){
+            	newXYPos(solidWalkingEntities.x, solidWalkingEntities.y);
+            }
         }
         switch (direction) {
             case RIGHT:
@@ -136,5 +141,9 @@ public class MMLink extends MMBaseMovingEntity {
         bounds.y = y;
         changeIntersectingBounds();
 
+    }   
+    public void newXYPos(int x, int y) {
+    	this.x = x + (3*width);
+        this.y = y - (2*height);       
     }
 }
