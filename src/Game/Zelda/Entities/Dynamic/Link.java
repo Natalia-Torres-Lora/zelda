@@ -175,37 +175,30 @@ public class Link extends BaseMovingEntity {
 		if(attacking) {
 			if(direction.equals(UP)) {
 				upAnim.tick();
-				bounds = new Rectangle(x,y-30,width,height);
 				if(upAnim.end) {
 					attacking=false;
 					upAnim.reset();
 				}
 			}else if(direction.equals(Direction.LEFT)) {
 				leftAnim.tick();
-				bounds = new Rectangle(x-30,y,width,height);
 				if(leftAnim.end) {
 					attacking=false;
 					leftAnim.reset();
 				}
 			}else if(direction.equals(DOWN)) {
 				downAnim.tick();
-				bounds = new Rectangle(x,y+30,width,height);
 				if(downAnim.end) {
 					attacking=false;
 					downAnim.reset();
 				}
 			}else if(direction.equals(Direction.RIGHT)) {
 				rightAnim.tick();
-				bounds = new Rectangle(x+30,y,width,height);
 				if(rightAnim.end) {
 					attacking=false;
 					rightAnim.reset();
 				}
 			}
-		}else {
-			bounds = new Rectangle(x,y,width,height);
-			changeIntersectingBounds();
-		}
+		}		
 		if(hit) {
 			speed= -3;
 			if(hitTimer<=0) {
