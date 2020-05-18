@@ -257,6 +257,7 @@ public class ZeldaGameState extends State {
         solids.add(new SolidStaticEntities(9,1,Images.forestTiles.get(5),handler));
         solids.add(new SolidStaticEntities(9,0,Images.forestTiles.get(5),handler));
         monster.add( new Enemy1(xOffset+(stageWidth/4),yOffset + (stageHeight/2),Images.enemy1,handler));
+        monster.add( new Enemy1(xOffset+(stageWidth/4),yOffset + (stageHeight/3),Images.enemy1,handler));
         objects.get(7).set(7,solids);
         enemies.get(7).set(7,monster);
 

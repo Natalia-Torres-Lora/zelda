@@ -74,7 +74,8 @@ public class ZeldaMapMakerState extends State {
                             "LMB ==> Place the currently selected tile\n" +
                             "RMB ==> Will Erase the selected tile and remove it from undo stack.\n\n" +
                             "The block time in the last 4 tile sets are teleport pads, once placed\nyou'll be required to place another one to be linked with before you can do anything else.\n\nPressing U will cancel out of this and erase the teleport pad.\n\n" +
-                            "Hold Shift and Click LMB to place down Link. Exactly one Link per map is needed, \nhe will always be placed on the tile 0 from tileSet 2.");
+                            "Hold Shift and Click LMB to place down Link. Exactly one Link per map is needed, \nhe will always be placed on the tile 0 from tileSet 2.\n" +
+                            "Hold Q and Click LMB to placed down the new Transport Tile");
         }
         
         //select the middle tile
@@ -456,10 +457,8 @@ public class ZeldaMapMakerState extends State {
                 counterSelector++;
 
                 x++;
-
             }
         }
-
     }
 
     @Override
