@@ -68,6 +68,16 @@ public class Images {
     public static BufferedImage zeldaLinkImage;
     public SpriteSheet zeldaLinkSpriteSheet;
     public static BufferedImage[] zeldaLinkFrames;
+    public static BufferedImage zeldaLinkImageBlue;
+    public static BufferedImage zeldaLinkImageRed;
+    public static BufferedImage zeldaLinkImageYellow;
+    public SpriteSheet zeldaLinkSpriteSheetBlue;
+    public SpriteSheet zeldaLinkSpriteSheetRed;
+    public SpriteSheet zeldaLinkSpriteSheetYellow;
+    public static BufferedImage[] hurtUp;
+    public static BufferedImage[] hurtRight;
+    public static BufferedImage[] hurtLeft;
+    public static BufferedImage[] hurtDown;
     
     public static BufferedImage zeldaLife[];
     public static BufferedImage zeldaItemsImage;
@@ -100,6 +110,8 @@ public class Images {
     public static BufferedImage[] linkAttackingDown;
     public static BufferedImage[] linkAttackingRight;
     public static BufferedImage[] linkAttackingLeft;
+    
+    public static BufferedImage[] items;
 
     public Images() {
 
@@ -131,6 +143,11 @@ public class Images {
         mountainTiles = new ArrayList<>();
 
         zeldaLinkFrames = new BufferedImage[8];
+
+        hurtDown = new BufferedImage[6];
+        hurtRight = new BufferedImage[6];
+        hurtLeft = new BufferedImage[6];
+        hurtUp = new BufferedImage[6];
         
         zeldaLife = new BufferedImage[3];
 
@@ -138,16 +155,13 @@ public class Images {
         caveFire = new BufferedImage[2];
         
         enemy1 = new BufferedImage [8];
-//        enemy1down = new BufferedImage [2];
-//        enemy1left = new BufferedImage [2];
-//        enemy1right = new BufferedImage [2];
         
         linkAttackingUp = new BufferedImage [4];
         linkAttackingDown = new BufferedImage [4];
         linkAttackingRight = new BufferedImage [4];
         linkAttackingLeft = new BufferedImage [4];
 
-
+        items = new BufferedImage[6];
 
         try {
 
@@ -279,15 +293,36 @@ public class Images {
             zeldaLinkImage = ImageIO.read(getClass().getResourceAsStream("/UI/Backgrounds/Zelda/link.png"));
             zeldaLinkImage = createImageTransparent(zeldaLinkImage,"link_0,128,0_green",new Color(0,128,0).getRGB());
             zeldaLinkSpriteSheet = new SpriteSheet(createImageTransparent(zeldaLinkImage,"link_116,116,116_gray",new Color(116,116,116).getRGB()));
-            zeldaLinkFrames[0] = zeldaLinkSpriteSheet.crop(1,11,16,16);
-            zeldaLinkFrames[1] = zeldaLinkSpriteSheet.crop(18,11,16,16);
-            zeldaLinkFrames[2] = zeldaLinkSpriteSheet.crop(35,11,16,16);
-            zeldaLinkFrames[3] = zeldaLinkSpriteSheet.crop(52,11,16,16);
-            zeldaLinkFrames[4] = zeldaLinkSpriteSheet.crop(69,11,16,16);
-            zeldaLinkFrames[5] = zeldaLinkSpriteSheet.crop(86,11,16,16);
-            zeldaLinkFrames[6] = zeldaLinkSpriteSheet.crop(213,11,16,16);
-            zeldaLinkFrames[7] = zeldaLinkSpriteSheet.crop(230,11,16,16);
-           
+            zeldaLinkFrames[0] = zeldaLinkSpriteSheet.crop(1,11,16,16); //front
+            zeldaLinkFrames[1] = zeldaLinkSpriteSheet.crop(18,11,16,16); //front
+            zeldaLinkFrames[2] = zeldaLinkSpriteSheet.crop(35,11,16,16); //right
+            zeldaLinkFrames[3] = zeldaLinkSpriteSheet.crop(52,11,16,16); //right
+            zeldaLinkFrames[4] = zeldaLinkSpriteSheet.crop(69,11,16,16); //back
+            zeldaLinkFrames[5] = zeldaLinkSpriteSheet.crop(86,11,16,16); // back
+            zeldaLinkFrames[6] = zeldaLinkSpriteSheet.crop(213,11,16,16); //front 1 hand up
+            zeldaLinkFrames[7] = zeldaLinkSpriteSheet.crop(230,11,16,16); //front 2 hands up
+            
+            //Link hurt down
+            hurtDown[0] = zeldaLinkSpriteSheet.crop(280,250,16,16);
+            hurtDown[1] = zeldaLinkSpriteSheet.crop(1,11,16,16);
+            hurtDown[2] = zeldaLinkSpriteSheet.crop(280,250,16,16);
+            hurtDown[3] = zeldaLinkSpriteSheet.crop(18,11,16,16);
+            // Link hurt right
+            hurtRight[0] = zeldaLinkSpriteSheet.crop(280,250,16,16);
+            hurtRight[1] = zeldaLinkSpriteSheet.crop(52,11,16,16);
+            hurtRight[2] = zeldaLinkSpriteSheet.crop(280,250,16,16);
+            hurtRight[3] = zeldaLinkSpriteSheet.crop(35,11,16,16);
+            // Left
+            hurtLeft[0] = flipHorizontal(hurtRight[0]);
+            hurtLeft[1] = flipHorizontal(hurtRight[1]);
+            hurtLeft[2] = flipHorizontal(hurtRight[2]);
+            hurtLeft[3] = flipHorizontal(hurtRight[3]);
+            // Up
+            hurtUp[0] = zeldaLinkSpriteSheet.crop(280,250,16,16);
+            hurtUp[1] = zeldaLinkSpriteSheet.crop(86,11,16,16);
+            hurtUp[2] = zeldaLinkSpriteSheet.crop(280,250,16,16);
+            hurtUp[3] = zeldaLinkSpriteSheet.crop(69,11,16,16);
+            
             //With sword
             sword = zeldaLinkSpriteSheet.crop(1,154,7,16);
             linkGotSword = zeldaLinkSpriteSheet.crop(21,11,13,16);
@@ -318,6 +353,13 @@ public class Images {
             zeldaLife[0] = zeldaItemsSpriteSheet.crop(0,0,8,8);
             zeldaLife[1] = zeldaItemsSpriteSheet.crop(8,0,8,8);
             zeldaLife[2] = zeldaItemsSpriteSheet.crop(15,0,8,8);
+            
+            items[0] = zeldaItemsSpriteSheet.crop(0,8,8,8); //heart
+            items[1] = zeldaItemsSpriteSheet.crop(69, 0, 11, 16); //diamond
+            items[2] = zeldaItemsSpriteSheet.crop(80, 0, 8, 16); // bottle
+            items[3] = zeldaItemsSpriteSheet.crop(169, 0, 7, 12); //ring
+            items[4] = zeldaItemsSpriteSheet.crop(240, 0, 8, 17); // key1
+            items[5] = zeldaItemsSpriteSheet.crop(249, 0, 8, 17); // key2
 
             zeldaWorldLayoutTileImage = ImageIO.read(getClass().getResourceAsStream("/UI/Backgrounds/Zelda/layout.png"));
             zeldaWorldLayoutTileSpriteSheet = new SpriteSheet( createImageTransparent(zeldaWorldLayoutTileImage,"layout_0,128,0_green",new Color(0,128,0).getRGB()));
