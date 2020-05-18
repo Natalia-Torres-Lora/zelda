@@ -88,9 +88,7 @@ public class Images {
     public static BufferedImage oldMan;
     
     public static BufferedImage[] enemy1;
-//    public static BufferedImage[] enemy1down;
-//    public static BufferedImage[] enemy1left;
-//    public static BufferedImage[] enemy1right;
+    public static BufferedImage[] startEnemy;
     
     public static BufferedImage charactersImage;
     public SpriteSheet charactersSpriteSheet;
@@ -147,6 +145,7 @@ public class Images {
         linkAttackingLeft = new BufferedImage [4];
         
         zeldaTornado = new BufferedImage [2];
+        startEnemy = new BufferedImage [3];
 
 
 
@@ -292,6 +291,9 @@ public class Images {
             zeldaTornado[0] = zeldaLinkSpriteSheet.crop(227,185,16,16);
             zeldaTornado[1] = flipHorizontal(zeldaTornado[0]);
             
+            startEnemy[0] = zeldaLinkSpriteSheet.crop(138,185,16,16);
+            startEnemy[1] = zeldaLinkSpriteSheet.crop(155,185,16,16);
+            startEnemy[2] = zeldaLinkSpriteSheet.crop(174,185,12,16);           
            
             //With sword
             sword = zeldaLinkSpriteSheet.crop(1,154,7,16);

@@ -32,22 +32,28 @@ public class Enemy1 extends BaseMovingEntity {
 	Link link;
 	public boolean collision  = false;
 	public int cooldown = 60*3;
+	Animation startAnim;
 	
 
 	public Enemy1(int x, int y, BufferedImage[] sprite, Handler handler) {
 		super(x, y, sprite, handler);
 		speed=0;
-		moving=true;
+		moving=false;
 		direction = Direction.LEFT;
 
 		BufferedImage[] animList = new BufferedImage[2];
 		animList[0] = sprite[4];
 		animList[1] = sprite[5];
-		animation = new Animation(animSpeed,animList);		
+		animation = new Animation(animSpeed,animList);
 		
+		startAnim = new Animation(300, Images.startEnemy);
 
 	}
 	public void tick() {
+		startAnim.tick();
+		if(startAnim.end) {
+		moving=true;
+		
 		switch(direction) {
 		case UP:
 			y-=speed;
@@ -118,6 +124,7 @@ public class Enemy1 extends BaseMovingEntity {
 			newDirection =false;
 			newDirectionTimer--;
 		}
+		}
 	}
 
 	public void render(Graphics g) {
@@ -125,8 +132,11 @@ public class Enemy1 extends BaseMovingEntity {
 			g.drawImage(animation.getCurrentFrame(),x , y, width , height  , null);
 
 		}else {
-			g.drawImage(sprite, x , y, width , height , null);
-		}
+			g.drawImage(startAnim.getCurrentFrame(),x , y, width , height  , null);
+//			g.drawImage(sprite, x , y, width , height , null);
+			
+		}			
+		
 	}
 
 	public void move(Direction direction) {
