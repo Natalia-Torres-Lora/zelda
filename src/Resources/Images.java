@@ -100,6 +100,8 @@ public class Images {
     public static BufferedImage[] linkAttackingDown;
     public static BufferedImage[] linkAttackingRight;
     public static BufferedImage[] linkAttackingLeft;
+    
+    public static BufferedImage[] zeldaTornado;
 
     public Images() {
 
@@ -138,14 +140,13 @@ public class Images {
         caveFire = new BufferedImage[2];
         
         enemy1 = new BufferedImage [8];
-//        enemy1down = new BufferedImage [2];
-//        enemy1left = new BufferedImage [2];
-//        enemy1right = new BufferedImage [2];
         
         linkAttackingUp = new BufferedImage [4];
         linkAttackingDown = new BufferedImage [4];
         linkAttackingRight = new BufferedImage [4];
         linkAttackingLeft = new BufferedImage [4];
+        
+        zeldaTornado = new BufferedImage [2];
 
 
 
@@ -287,6 +288,10 @@ public class Images {
             zeldaLinkFrames[5] = zeldaLinkSpriteSheet.crop(86,11,16,16);
             zeldaLinkFrames[6] = zeldaLinkSpriteSheet.crop(213,11,16,16);
             zeldaLinkFrames[7] = zeldaLinkSpriteSheet.crop(230,11,16,16);
+            
+            zeldaTornado[0] = zeldaLinkSpriteSheet.crop(227,185,16,16);
+            zeldaTornado[1] = flipHorizontal(zeldaTornado[0]);
+            
            
             //With sword
             sword = zeldaLinkSpriteSheet.crop(1,154,7,16);
