@@ -13,9 +13,9 @@ import java.awt.image.BufferedImage;
  * Created by AlexVR on 3/15/2020
  */
 public class Sword extends SolidStaticEntities {
-	public Sword(int x, int y,int widht, int height, Handler handler) {
+	public Sword(int x, int y,int width, int height, Handler handler) {
 		super(x, y, Images.sword, handler);
-		this.width = widht;
+		this.width = width;
 		this.height = height;
 
 		bounds = new Rectangle(x,y,width,height);

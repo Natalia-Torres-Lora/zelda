@@ -5,6 +5,7 @@ import Game.Zelda.Entities.Dynamic.MMLink;
 import Game.Zelda.Entities.Statics.MMSolidStaticEntities;
 import Game.Zelda.Entities.Statics.MMTeleport;
 import Game.Zelda.Entities.Statics.MMWalkingSolidEntities;
+import Game.Zelda.Entities.Statics.MMmovingLink;
 import Main.Handler;
 import Resources.Images;
 
@@ -669,9 +670,11 @@ public class MapBuilder {
 					mapInCreation.link = ghost;
 					MMWalkingSolidEntities ghost1 = new MMWalkingSolidEntities(xPos, yPos, Images.forestTiles.get(0), handler);
 					mapInCreation.addBlock(ghost1);
+				}else if(currentPixel == newTile) {
+					MMmovingLink ghost = new MMmovingLink(xPos, yPos, Images.zeldaTornado[0], handler);
+					mapInCreation.addBlock(ghost);
+					mapInCreation.movingLink = ghost;
 				}
-
-
 			}
 		}
 		if (mapInCreation.link != null) {
@@ -1093,6 +1096,9 @@ public class MapBuilder {
 					image.setRGB(x,y,grave41);
 				}else if (Images.zeldaLinkFrames[0].equals(info.get(x).get(y))){
 					image.setRGB(x,y,Link);
+					
+				}else if (Images.zeldaTornado[0].equals(info.get(x).get(y))){
+					image.setRGB(x,y,newTile);
 				}
 
 
@@ -1161,6 +1167,7 @@ public class MapBuilder {
 	public static int pixelMultiplier = ZeldaMapMakerState.pixelsPerSquare;//change this for size of blocks
 
 	public static int Link = new Color(0, 255, 0).getRGB();
+	public static int newTile = new Color(8,20,97).getRGB();
 
 
 	//dungeons
