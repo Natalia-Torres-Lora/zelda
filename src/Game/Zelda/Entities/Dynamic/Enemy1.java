@@ -1,20 +1,14 @@
 package Game.Zelda.Entities.Dynamic;
 
-import Game.GameStates.Zelda.ZeldaGameState;
-import Game.Zelda.Entities.Statics.DungeonDoor;
-import Game.Zelda.Entities.Statics.SectionDoor;
 import Game.Zelda.Entities.Statics.SolidStaticEntities;
 import Main.Handler;
 import Resources.Animation;
 import Resources.Images;
 
 import java.awt.*;
-import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 import java.util.Random;
 
-import static Game.GameStates.Zelda.ZeldaGameState.worldScale;
 import static Game.Zelda.Entities.Dynamic.Direction.DOWN;
 import static Game.Zelda.Entities.Dynamic.Direction.UP;
 

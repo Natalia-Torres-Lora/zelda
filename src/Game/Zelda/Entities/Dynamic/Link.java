@@ -13,6 +13,7 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.Random;
 
 import static Game.GameStates.Zelda.ZeldaGameState.worldScale;
 import static Game.Zelda.Entities.Dynamic.Direction.DOWN;
@@ -33,6 +34,7 @@ public class Link extends BaseMovingEntity {
 	public boolean linkGotSword =false;
 	public boolean attacking=false;
 	public Animation leftAnim,rightAnim,upAnim,downAnim;
+	public Animation hurtRight, hurtLeft, hurtUp, hurtDown;
 	public boolean hit=false;
 	public int hitTimer = 15;
 	private int pLX; //Previous link X before dungeon
@@ -54,6 +56,12 @@ public class Link extends BaseMovingEntity {
 		upAnim = new Animation(atackAnimSpeed,Images.linkAttackingUp);
 		downAnim = new Animation(atackAnimSpeed,Images.linkAttackingDown);
 		leftAnim = new Animation(atackAnimSpeed, Images.linkAttackingLeft);
+		
+		//animation when link is hurt
+		hurtUp = new Animation(30, Images.hurtUp);
+		hurtDown = new Animation(30, Images.hurtDown);
+		hurtRight = new Animation(30, Images.hurtRight);
+		hurtLeft = new Animation(30, Images.hurtLeft);
 		
 		pLX = x;
 		pLY = y;
@@ -210,10 +218,31 @@ public class Link extends BaseMovingEntity {
 		if(hit) {
 			speed= -3;
 			if(hitTimer<=0) {
-				hit=false;
 				hitTimer=15;
 				speed=4;
+				hit = false;
 			}else {
+				if(direction.equals(UP)) {
+					hurtUp.tick();
+					if(hurtUp.end) {
+						hurtUp.reset();
+					}
+				}else if(direction.equals(Direction.LEFT)) {
+					hurtLeft.tick();
+					if(hurtLeft.end) {
+						hurtLeft.reset();
+					}
+				}else if(direction.equals(DOWN)) {
+					hurtDown.tick();
+					if(hurtDown.end) {
+						hurtDown.reset();
+					}
+				}else if(direction.equals(Direction.RIGHT)) {
+					hurtRight.tick();
+					if(hurtRight.end) {
+						hurtRight.reset();
+					}
+				}
 				hitTimer--;	
 				move(direction);
 			}
@@ -241,18 +270,33 @@ public class Link extends BaseMovingEntity {
 
 	@Override
 	public void render(Graphics g) {
-		if (moving) {
+		if (moving && !hit) {
 			g.drawImage(animation.getCurrentFrame(),x ,y, width , height  , null);    		
-		}else if (attacking) {
+		}
+		else if (attacking && !hit) {
 			if(direction.equals(UP)) {
-				g.drawImage(upAnim.getCurrentFrame(),     x, (y-15) , width ,   (height +13) , null);
+				g.drawImage(upAnim.getCurrentFrame(), x, (y-15), width, (height +13), null);
 			}else if(direction.equals(DOWN)) {
-				g.drawImage(downAnim.getCurrentFrame(),   x,      y,  width ,    (height +13) , null);
+				g.drawImage(downAnim.getCurrentFrame(), x, y, width, (height +13), null);
 			}else if(direction.equals(Direction.LEFT)) {
-				g.drawImage(leftAnim.getCurrentFrame(),  (x-15) , y, (width +13), height, null);
+				g.drawImage(leftAnim.getCurrentFrame(), (x-15), y, (width +13), height, null);
 			}else if(direction.equals(Direction.RIGHT)) {
-				g.drawImage(rightAnim.getCurrentFrame(),  x ,     y, (width+13) ,  (height)  , null);
+				g.drawImage(rightAnim.getCurrentFrame(), x , y, (width+13), (height), null);
 			}
+		}
+		else if (hit) {
+			if(direction.equals(UP)) {
+				g.drawImage(hurtUp.getCurrentFrame(), x, y, width, height, null);
+			}else if(direction.equals(DOWN)) {
+				g.drawImage(hurtDown.getCurrentFrame(), x, y, width, height, null);
+			}else if(direction.equals(Direction.LEFT)) {
+				g.drawImage(hurtLeft.getCurrentFrame(), x, y, width, height, null);
+			}else if(direction.equals(Direction.RIGHT)) {
+				g.drawImage(hurtRight.getCurrentFrame(), x , y, width, height, null);
+			}
+		}else if (handler.getZeldaGameState().linkGotItem){
+			g.drawImage(Images.zeldaLinkFrames[7], x, y, width, height, null);
+			g.drawImage(Images.items[handler.getZeldaGameState().selector], this.x+ 10, this.y -30, 30, 45, null);
 		}else {
 			if (movingMap){
 				g.drawImage(animation.getCurrentFrame(),x , y, width, height  , null);
@@ -346,7 +390,6 @@ public class Link extends BaseMovingEntity {
 				if(enemy.bounds.intersects(interactBounds)) {
 					hit=true;
 				}
-				
 			}
 		}
 
