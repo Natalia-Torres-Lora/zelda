@@ -24,7 +24,6 @@ public class ZeldaGameOverState extends State {
 		if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_ENTER)) {
 			handler.changeState(new ZeldaGameState(handler));
 			handler.getMusicHandler().changeMusic("zelda_.Overworld_theme.wav");
-			handler.getZeldaGameState().link.health=6;
 		}
 
 	}

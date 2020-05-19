@@ -93,7 +93,7 @@ public class BaseMovingEntity extends BaseEntity {
     	handler.changeState(handler.getZeldaGameOverState());
     	handler.getMusicHandler().stopMusic();
     	handler.getMusicHandler().startMusic("Great Fairy's Fountain.wav");
-    	
+    	health=6;
         dead=true;
     }
 
