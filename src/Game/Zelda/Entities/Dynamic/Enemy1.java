@@ -66,7 +66,7 @@ public class Enemy1 extends BaseMovingEntity {
 				break;
 			}
 			if(newDirection) {
-				move = rand.nextInt(6);
+				move = rand.nextInt(5);
 				if(!(changeDirection==move)) {
 					changeDirection=move;
 				}

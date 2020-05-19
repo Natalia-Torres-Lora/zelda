@@ -217,7 +217,7 @@ public class Link extends BaseMovingEntity {
 			changeIntersectingBounds();
 		}
 		if(hit) {
-			speed= -3;
+			speed= -4;
 			if(hitTimer<=0) {
 				hitTimer=15;
 				speed=4;
@@ -272,7 +272,7 @@ public class Link extends BaseMovingEntity {
 
 	@Override
 	public void render(Graphics g) {
-		if (moving) {
+		if (moving && !hit) {
 			g.drawImage(animation.getCurrentFrame(),x ,y, width , height  , null);    		
 		}
 		else if (attacking && !hit) {

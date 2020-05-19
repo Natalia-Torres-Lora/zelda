@@ -325,7 +325,7 @@ public class ZeldaGameState extends State {
 		solids.add(new SolidStaticEntities(9, 1, Images.forestTiles.get(5), handler));
 		solids.add(new SolidStaticEntities(9, 0, Images.forestTiles.get(5), handler));
 		monster.add(new Enemy1(xOffset + (stageWidth / 4), yOffset + (stageHeight / 2), Images.enemy1, handler));
-		monster.add(new Enemy1(xOffset + (stageWidth / 4), yOffset + (stageHeight / 3), Images.enemy1, handler));
+		monster.add(new Enemy1(xOffset + (stageWidth / 2), yOffset + (stageHeight / 3), Images.enemy1, handler));
 		objects.get(7).set(7, solids);
 		enemies.get(7).set(7, monster);
 		
@@ -357,7 +357,11 @@ public class ZeldaGameState extends State {
         solids.add(new SolidStaticEntities(15,10,Images.forestTiles.get(5),handler));
         solids.add(new SolidStaticEntities(15,9,Images.forestTiles.get(5),handler));
         solids.add(new SolidStaticEntities(15,8,Images.forestTiles.get(5),handler));
+        monster.add(new Enemy1(xOffset + (stageWidth / 4), yOffset + (stageHeight / 2), Images.enemy1, handler));
+		monster.add(new Enemy1(xOffset + (stageWidth / 2), yOffset + (stageHeight / 3), Images.enemy1, handler));
+		monster.add(new Enemy1(xOffset + (stageWidth / 2), yOffset + (stageHeight / 2), Images.enemy1, handler));
         objects.get(6).set(7,solids);
+        enemies.get(6).set(7, monster);
         
         //7,6
         monster = new ArrayList<>();
@@ -395,7 +399,11 @@ public class ZeldaGameState extends State {
         solids.add(new SolidStaticEntities(12,10,Images.forestTiles.get(5),handler));
         solids.add(new SolidStaticEntities(14,10,Images.forestTiles.get(5),handler));
         solids.add(new SolidStaticEntities(15,9,Images.forestTiles.get(5),handler));
+        monster.add(new Enemy1(xOffset + (stageWidth / 4), yOffset + (stageHeight / 2), Images.enemy1, handler));
+		monster.add(new Enemy1(xOffset + (stageWidth / 2), yOffset + (stageHeight / 3), Images.enemy1, handler));
+		monster.add(new Enemy1(xOffset + (stageWidth / 2), yOffset + (stageHeight / 2), Images.enemy1, handler));
         objects.get(7).set(6,solids);
+        enemies.get(7).set(6, monster);
 
 		// 8,7
 		monster = new ArrayList<>();
