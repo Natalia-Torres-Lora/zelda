@@ -39,7 +39,6 @@ public class Link extends BaseMovingEntity {
 	public int hitTimer = 15;
 	private int pLX; //Previous link X before dungeon
 	private int pLY; //Previous link Y before dungeon
-	
 
 
 	public Link(int x, int y, BufferedImage[] sprite, Handler handler) {
@@ -130,82 +129,84 @@ public class Link extends BaseMovingEntity {
 			}
 		}else {
 			if(!hit) {
-			if (handler.getKeyManager().up) {
-				if (direction != UP) {
-					BufferedImage[] animList = new BufferedImage[2];
-					animList[0] = sprites[4];
-					animList[1] = sprites[5];
-					animation = new Animation(animSpeed, animList);
-					direction = UP;
-					sprite = sprites[4];
-				}
-				animation.tick();
-				move(direction);
+				if (handler.getKeyManager().up) {
+					if (direction != UP) {
+						BufferedImage[] animList = new BufferedImage[2];
+						animList[0] = sprites[4];
+						animList[1] = sprites[5];
+						animation = new Animation(animSpeed, animList);
+						direction = UP;
+						sprite = sprites[4];
+					}
+					animation.tick();
+					move(direction);
 
-			} else if (handler.getKeyManager().down) {
-				if (direction != DOWN) {
-					BufferedImage[] animList = new BufferedImage[2];
-					animList[0] = sprites[0];
-					animList[1] = sprites[1];
-					animation = new Animation(animSpeed, animList);
-					direction = DOWN;
-					sprite = sprites[0];
+				} else if (handler.getKeyManager().down) {
+					if (direction != DOWN) {
+						BufferedImage[] animList = new BufferedImage[2];
+						animList[0] = sprites[0];
+						animList[1] = sprites[1];
+						animation = new Animation(animSpeed, animList);
+						direction = DOWN;
+						sprite = sprites[0];
+					}
+					animation.tick();
+					move(direction);
+				} else if (handler.getKeyManager().left) {
+					if (direction != Direction.LEFT) {
+						BufferedImage[] animList = new BufferedImage[2];
+						animList[0] = Images.flipHorizontal(sprites[2]);
+						animList[1] = Images.flipHorizontal(sprites[3]);
+						animation = new Animation(animSpeed, animList);
+						direction = Direction.LEFT;
+						sprite = Images.flipHorizontal(sprites[2]);
+					}
+					animation.tick();
+					move(direction);
+				} else if (handler.getKeyManager().right) {
+					if (direction != Direction.RIGHT) {
+						BufferedImage[] animList = new BufferedImage[2];
+						animList[0] = (sprites[2]);
+						animList[1] = (sprites[3]);
+						animation = new Animation(animSpeed, animList);
+						direction = Direction.RIGHT;
+						sprite = (sprites[2]);
+					}
+					animation.tick();
+					move(direction);
+				} else {
+					moving = false;
+
 				}
-				animation.tick();
-				move(direction);
-			} else if (handler.getKeyManager().left) {
-				if (direction != Direction.LEFT) {
-					BufferedImage[] animList = new BufferedImage[2];
-					animList[0] = Images.flipHorizontal(sprites[2]);
-					animList[1] = Images.flipHorizontal(sprites[3]);
-					animation = new Animation(animSpeed, animList);
-					direction = Direction.LEFT;
-					sprite = Images.flipHorizontal(sprites[2]);
-				}
-				animation.tick();
-				move(direction);
-			} else if (handler.getKeyManager().right) {
-				if (direction != Direction.RIGHT) {
-					BufferedImage[] animList = new BufferedImage[2];
-					animList[0] = (sprites[2]);
-					animList[1] = (sprites[3]);
-					animation = new Animation(animSpeed, animList);
-					direction = Direction.RIGHT;
-					sprite = (sprites[2]);
-				}
-				animation.tick();
-				move(direction);
-			} else {
-				moving = false;
-			}
-			}
+			}		
+
 		}         
 		if(attacking) {
 			changeIntersectingBounds();
 			if(direction.equals(UP)) {
 				upAnim.tick();
-				bounds = new Rectangle(x,y-30,width,height);
+				bounds = new Rectangle(x,y-40,width,height);
 				if(upAnim.end) {
 					attacking=false;
 					upAnim.reset();
 				}
 			}else if(direction.equals(Direction.LEFT)) {
 				leftAnim.tick();
-				bounds = new Rectangle(x-30,y,width,height);
+				bounds = new Rectangle(x-40,y,width,height);
 				if(leftAnim.end) {
 					attacking=false;
 					leftAnim.reset();
 				}
 			}else if(direction.equals(DOWN)) {
 				downAnim.tick();
-				bounds = new Rectangle(x,y+30,width,height);
+				bounds = new Rectangle(x,y+40,width,height);
 				if(downAnim.end) {
 					attacking=false;
 					downAnim.reset();
 				}
 			}else if(direction.equals(Direction.RIGHT)) {
 				rightAnim.tick();
-				bounds = new Rectangle(x+30,y,width,height);
+				bounds = new Rectangle(x+40,y,width,height);
 				if(rightAnim.end) {
 					attacking=false;
 					rightAnim.reset();
@@ -248,6 +249,7 @@ public class Link extends BaseMovingEntity {
 			}
 		}
 		
+	
 		// gives Link one extra life
 		if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_H)) {
 			if (handler.getZeldaGameState().link.health < 6) {
@@ -263,14 +265,14 @@ public class Link extends BaseMovingEntity {
 		if(linkGotSword) {
 			if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_ENTER)&& !attacking){
 				attacking = true;
-				moving=false;
+				//moving=false;
 			}
-		}		
+		}
 	}
 
 	@Override
 	public void render(Graphics g) {
-		if (moving && !hit) {
+		if (moving) {
 			g.drawImage(animation.getCurrentFrame(),x ,y, width , height  , null);    		
 		}
 		else if (attacking && !hit) {
@@ -387,7 +389,7 @@ public class Link extends BaseMovingEntity {
 					return;
 				}
 			}for (BaseMovingEntity enemy : handler.getZeldaGameState().enemies.get(handler.getZeldaGameState().mapX).get(handler.getZeldaGameState().mapY)) {
-				if(enemy.bounds.intersects(interactBounds)) {
+				if(enemy.interactBounds.intersects(interactBounds)) {
 					hit=true;
 				}
 			}

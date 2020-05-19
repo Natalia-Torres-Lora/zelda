@@ -6,6 +6,7 @@ import Resources.Animation;
 import Resources.Images;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
@@ -65,7 +66,7 @@ public class Enemy1 extends BaseMovingEntity {
 				break;
 			}
 			if(newDirection) {
-				move = rand.nextInt(4);
+				move = rand.nextInt(6);
 				if(!(changeDirection==move)) {
 					changeDirection=move;
 				}
@@ -94,11 +95,12 @@ public class Enemy1 extends BaseMovingEntity {
 					animList[1] = sprites[7];
 					animation = new Animation(animSpeed, animList);				
 					direction = Direction.RIGHT;
-				}else {					
-					newDirection=false;
+				}else if(changeDirection > 3) {
+					speed=0;
+				}else {
+					speed=1;
 				}
 			}
-
 			if(newDirectionTimer<=0) {
 				newDirection=true;
 				newDirectionTimer=60;
@@ -129,7 +131,6 @@ public class Enemy1 extends BaseMovingEntity {
 		}else {
 			g.drawImage(startAnim.getCurrentFrame(),x , y, width , height  , null);
 			//			g.drawImage(sprite, x , y, width , height , null);
-
 		}			
 		
 	}
