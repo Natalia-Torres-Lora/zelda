@@ -1,6 +1,7 @@
 package Game.GameStates.Zelda;
 
-import Game.GameStates.PacManState;
+
+import Game.GameStates.GameState;
 import Game.GameStates.State;
 import Main.Handler;
 import Resources.Animation;
@@ -20,17 +21,16 @@ public class ZeldaGameOverState extends State {
 	}
 	public void tick() {
 		
-		if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_ENTER)){
-			zeldaGameState= new ZeldaGameState(handler);
-			handler.changeState(handler.getZeldaGameState());
-			
+		if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_ENTER)) {
+			handler.changeState(new ZeldaGameState(handler));
+			handler.getMusicHandler().changeMusic("zelda_.Overworld_theme.wav");
+			handler.getZeldaGameState().link.health=6;
 		}
 
 	}
 
 	public void render(Graphics g) {
-		
-
+		g.drawImage(Images.zeldaGameOverBackground,0,0,handler.getWidth(),handler.getHeight(),null);
 	}
 
 	public void refresh() {

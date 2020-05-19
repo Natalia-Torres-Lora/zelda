@@ -111,6 +111,7 @@ public class Images {
     
     public static BufferedImage[] items;
     public static BufferedImage[] zeldaTornado;
+    public static BufferedImage zeldaGameOverBackground;
 
     public Images() {
 
@@ -266,6 +267,9 @@ public class Images {
 
             intro = ImageIO.read(getClass().getResourceAsStream("/UI/SpriteSheets/PacMan/intro.png"));
             start = ImageIO.read(getClass().getResourceAsStream("/UI/Backgrounds/startScreen.png"));
+            
+            zeldaGameOverBackground = ImageIO.read(getClass().getResourceAsStream("/UI/Backgrounds/Zelda/Zelda_GameOver.png"));
+
 
             zeldaImageSheet = ImageIO.read(getClass().getResourceAsStream("/UI/Backgrounds/Zelda/tileSet.png"));
             zeldaTriforceLogo = ImageIO.read(getClass().getResourceAsStream("/UI/Backgrounds/Zelda/triforceLogo.png"));
@@ -676,6 +680,7 @@ public class Images {
 
     public static Color transparant = new Color(255, 255, 255, 0);
     public static Color brown = new Color(200,76,12);
+	
 
     public BufferedImage createImageTransparent(BufferedImage image, String name, int RGBToReplace){
 
