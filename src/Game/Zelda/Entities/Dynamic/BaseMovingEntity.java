@@ -1,5 +1,6 @@
 package Game.Zelda.Entities.Dynamic;
 
+import Game.GameStates.Zelda.ZeldaGameOverState;
 import Game.GameStates.Zelda.ZeldaGameState;
 import Game.Zelda.Entities.BaseEntity;
 import Main.Handler;
@@ -90,7 +91,7 @@ public class BaseMovingEntity extends BaseEntity {
     }
 
     public void kill(){
-    	handler.changeState(handler.getZeldaGameOverState());
+    	handler.changeState(new ZeldaGameOverState(handler));
     	handler.getMusicHandler().stopMusic();
     	handler.getMusicHandler().startMusic("Great Fairy's Fountain.wav");
     	health=6;

@@ -3,6 +3,7 @@ package Game.GameStates.Zelda;
 
 import Game.GameStates.GameState;
 import Game.GameStates.State;
+import Main.GameSetUp;
 import Main.Handler;
 import Resources.Animation;
 import Resources.Images;

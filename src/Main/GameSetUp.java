@@ -100,7 +100,7 @@ public class GameSetUp implements Runnable {
         gameState = new GameState(handler);
         menuState = new MenuState(handler);
         pauseState = new PauseState(handler);
-        zeldaGameState = new ZeldaGameOverState(handler);
+        zeldaGameOverState = new ZeldaGameOverState(handler);
         if (clearScore){
             handler.setScoreManager(new ScoreManager(handler));
         }
